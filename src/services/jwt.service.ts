@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken"
-import { jwtConfig } from "../configs"
-import { Payload } from "../models"
-
+import { jwtConfig } from "@configs/index"
+import { Payload } from "@models/index"
 
 const { secret, expiresIn } = jwtConfig
 

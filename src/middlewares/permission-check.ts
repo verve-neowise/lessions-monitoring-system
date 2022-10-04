@@ -1,7 +1,7 @@
 import { Permission } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
 
-import { verify } from './../services/jwt.service';
+import { verify } from '@services/jwt.service';
 
 export default (...permissions: Permission[]) => {
 

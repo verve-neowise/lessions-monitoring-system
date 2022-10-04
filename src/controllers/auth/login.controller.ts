@@ -1,9 +1,10 @@
-import { findUser } from './../../services/user.service';
-import bcrypt from 'bcrypt'
-
 import { Request, Response, NextFunction } from 'express';
-import { Payload } from '../../models';
-import { sign } from '../../services/jwt.service';
+import bcrypt from "bcrypt";
+
+import { Payload } from '@models/index';
+
+import { findUser } from '@services/user.service';
+import { sign } from '@services/jwt.service';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
 

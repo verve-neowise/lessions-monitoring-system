@@ -1,7 +1,10 @@
-import { sign } from './../../services/jwt.service';
-import { findUser, createUser } from './../../services/user.service';
-import { NextFunction, Request,  Response } from 'express';
-import { Payload } from '../../models';
+import { Request, Response, NextFunction } from 'express';
+import bcrypt from "bcrypt";
+
+import { Payload } from '@models/index';
+
+import { findUser, createUser } from '@services/user.service';
+import { sign } from '@services/jwt.service';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -14,7 +17,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         return res.status(403).send(`username ${username} already taken`)
     }
 
-    let newUser = await createUser(username, password, [])
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt)
+
+    let newUser = await createUser(username, hashedPassword, [])
 
     const payload: Payload = {
         userId: newUser.id,

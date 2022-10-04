@@ -1,8 +1,8 @@
 import express from 'express'
 import cors from 'cors'
-import v1 from './routes/v1'
 
-import { serverConfig } from './configs'
+import v1 from '@routes/index'
+import { serverConfig } from '@configs/index'
 
 const app = express()
 
