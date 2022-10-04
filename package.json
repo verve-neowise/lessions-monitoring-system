@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "tsc --rootDir src --outDir lib"
+    "build": "tsc --rootDir src --outDir lib",
+    "start": "node lib/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
     "@types/express": "^4.17.14",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.8.1",
-    "prisma": "^4.4.0"
+    "prisma": "^4.4.0",
+    "tsconfig-paths": "^4.1.0"
   },
   "dependencies": {
     "@prisma/client": "^4.4.0",
@@ -34,6 +36,16 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2"
+  },
+  "_moduleAliases": {
+      "@configs" : "lib/configs",
+      "@controllers" : "lib/controllers",
+      "@middlewares": "lib/middlewares",
+      "@models": "lib/models",
+      "@routes": "lib/routes",
+      "@schemas": "lib/schemas",
+      "@services": "lib/services"
   }
 }
