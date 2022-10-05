@@ -6,6 +6,8 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+
     steps:
       - name: Connect VPS and deploy changes
         uses: appleboy/ssh-action@master
