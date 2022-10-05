@@ -9,7 +9,9 @@ export default (...permissions: Permission[]) => {
         let token = req.header('authorization')
 
         if (!token) {
-            return res.status(401).send('Token not provided')
+            return res.status(401).send({
+                message: 'Token not provided'
+            })
         }
 
         try {
@@ -23,11 +25,15 @@ export default (...permissions: Permission[]) => {
                 next()
             }
             else {
-                res.status(403).send('Access denied. Required permissions ' + missing)
+                res.status(403).send({
+                     message: 'Access denied. Required permissions ' + missing
+                })
             }
         }
         catch(err) {
-            return res.status(401).send('invalid token')
+            return res.status(401).send({ 
+                message: 'invalid token'
+            })
         }
     }
 }

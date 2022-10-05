@@ -14,7 +14,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     let user = await findUser(username)
 
     if (user) {
-        return res.status(403).send(`username ${username} already taken`)
+        return res.status(403).send({ message: `username ${username} already taken` })
     }
 
     const salt = bcrypt.genSaltSync(10);

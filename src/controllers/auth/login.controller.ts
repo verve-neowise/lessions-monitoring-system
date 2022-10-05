@@ -14,7 +14,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const user = await findUser(username)
     
         if (!user) {
-            return res.status(401).send('Username or password wrong')
+            return res.status(401).send({ message: 'Username or password wrong'} )
         }
 
         if (bcrypt.compareSync(password, user.password)) {
@@ -33,7 +33,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
         else {
-            res.status(401).send('Username or password wrong')
+            res.status(401).send({ message: 'Username or password wrong'})
         }
     }
     catch(err) {
