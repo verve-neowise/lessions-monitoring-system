@@ -15,5 +15,5 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-          cd ~
-          echo "I am Neowise" > actions.txt
+            cd ~
+            echo "I am Neowise" > actions.txt
