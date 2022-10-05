@@ -59,4 +59,6 @@ enum Permission {
   teachers
   groups
   users
+  admins
+  directions
 }
