@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "build": "tsc --rootDir src --outDir lib",
-    "start": "node lib/index.js"
+    "start": "node lib/index.js",
+    "test": "No tests available"
   },
   "repository": {
     "type": "git",
