@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "nodemon src/index.ts",
         "build": "tsc --rootDir src --outDir lib",
-        "start": "node lib/index.js",
+        "start": "ts-node src/index.ts",
         "test": "echo \"No tests available\""
     },
     "repository": {
