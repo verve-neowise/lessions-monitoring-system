@@ -17,5 +17,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd ~
-            echo "I am Neowise" > actions.txt
+            cd /home/apps/lessions-monitoring-system
+            git pull
+            npm install
+            npx prisma generate dev
+            pm2 restart lms 
