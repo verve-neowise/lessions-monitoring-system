@@ -13,5 +13,5 @@ app.use(cors())
 app.use('/api/v1', v1)
 
 app.listen(serverConfig.port, () => {
-    console.log('Server running on http://localhost:8080/');
+    console.log(`Server running on http://localhost:${serverConfig.port}`);
 })
