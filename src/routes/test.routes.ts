@@ -1,8 +1,15 @@
 import { Router } from 'express';
 const router = Router()
 
-router.get('/test', (req, res) => {
-    res.send('api v1')
+let message = "Hello I`m message from LMS test route"
+
+router.get('/', (req, res) => {
+    res.send(message)
+})
+
+router.post('/', (req, res) => {
+    message = req.body.message
+    res.send("Message successfuly updated")
 })
 
 export default router
