@@ -9,3 +9,7 @@ http://62.113.108.69:1530/api/v1
 ## Routes
 
 [/auth](./auth.md)
+
+[/users](./users.md)
+
+[/directions](./directions.md)

@@ -1,3 +1,3 @@
-export { default as login } from './login.controller'
-export { default as register } from './register.controller'
-export { default as verify } from './verify.controller'
+export { default as login } from './login'
+export { default as register } from './register'
+export { default as verify } from './verify'

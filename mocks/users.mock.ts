@@ -1,5 +1,7 @@
 import { Permission } from "@prisma/client"
-import { createUser } from "@services/user.service"
+
+import { createUser } from '@services/user.service'
+
 import bcrypt from 'bcrypt'
 
 export const mockUsers = async () => {

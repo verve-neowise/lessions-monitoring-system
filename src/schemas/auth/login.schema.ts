@@ -6,12 +6,12 @@ export default schema(
         entries: {
             username: string({
                 required: true,
-                min: 5,
+                min: 3,
                 max: 16
             }),
             password: string({
                 required: true,
-                min: 8,
+                min: 3,
                 max: 32
             })
         }

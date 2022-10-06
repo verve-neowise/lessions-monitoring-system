@@ -16,6 +16,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         if (!user) {
             return res.status(401).send({ message: 'Username or password wrong'} )
         }
+        
+        console.log(username, password);
+        console.log(user.password);
+        console.log(bcrypt.compareSync(password, user.password));
 
         if (bcrypt.compareSync(password, user.password)) {
             const payload: Payload = {
