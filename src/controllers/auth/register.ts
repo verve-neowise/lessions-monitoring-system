@@ -17,10 +17,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         return res.status(403).send({ message: `username ${username} already taken` })
     }
 
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(password, salt)
-
-    let newUser = await createUser(username, hashedPassword, [])
+    let newUser = await createUser(username, password, [])
 
     const payload: Payload = {
         userId: newUser.id,

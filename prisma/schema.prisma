@@ -24,7 +24,7 @@ model Student {
   birthday DateTime
   phone    String
 
-  userId  Int    @unique
+  userId Int @unique
 
   group   Group? @relation(fields: [groupId], references: [id])
   groupId Int?
@@ -38,9 +38,9 @@ model Teacher {
   birthday DateTime
   phone    String
 
-  userId Int     @unique
+  userId Int @unique
 
-  groups  Group[]
+  groups Group[]
 }
 
 model Group {
@@ -48,10 +48,20 @@ model Group {
 
   name String
 
-  students Student[]
-  teacher  Teacher   @relation(fields: [teacherId], references: [id])
+  direction Direction @relation(fields: [directionId], references: [id])
+  directionId Int
 
-  teacherId Int
+  students Student[]
+
+  teacher  Teacher   @relation(fields: [teacherId], references: [id])
+  teacherId   Int
+}
+
+model Direction {
+  id    Int     @id @default(autoincrement())
+  name  String
+  
+  groups Group[]
 }
 
 enum Permission {
