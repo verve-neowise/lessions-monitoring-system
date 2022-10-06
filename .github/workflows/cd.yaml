@@ -23,4 +23,4 @@ jobs:
             source ~/.nvm/nvm.sh
             npm install
             npx prisma generate dev
-            pm2 restart lms
+            npm deploy
