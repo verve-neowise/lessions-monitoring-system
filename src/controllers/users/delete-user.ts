@@ -18,8 +18,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         res.json({
             message: `User ${id} was deleted.`,
-            username,
-            permissions
+            user: {
+                username,
+                permissions
+            }
         })
     }
     catch(err) {

@@ -17,8 +17,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         res.json({
             message: "User successfuly created.",
-            username,
-            permissions
+            user: {
+                username,
+                permissions
+            }
         })
      }
     catch(err) {

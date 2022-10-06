@@ -10,7 +10,11 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         res.json({
             message: `user ${update.username} credentials updated.`,
-            username
+            user: {
+                id,
+                username,
+                permissions: update.permissions
+            }
         })
     }
     catch(err) {
