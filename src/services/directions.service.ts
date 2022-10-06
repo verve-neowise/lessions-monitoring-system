@@ -2,14 +2,46 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const findAll = async () => {
+export const allDirections = async () => {
+    return prisma.direction.findMany()
 }
 
-export const create = async (name: string) => {
+export const findDirectionById = async (id: number) => {
+    return prisma.direction.findUnique({
+        where: {
+            id
+        }
+    })
 }
 
-export const update = async (id: number, name: string) => {
+export const isDirectionExists = async (id: number) => {
+    const direction = await findDirectionById(id)
+    return direction !== null
 }
 
-export const remove = async (id: number) => {
+export const createDirection = async (name: string) => {
+    return prisma.direction.create({
+        data: {
+            name
+        }
+    })
+}
+
+export const updateDirection = async (id: number, name: string) => {
+    return prisma.direction.update({
+        where: {
+            id
+        },
+        data: {
+            name
+        }
+    })
+}
+
+export const deleteDirection = async (id: number) => {
+    return prisma.direction.delete({
+        where: {
+            id
+        }
+    })
 }
