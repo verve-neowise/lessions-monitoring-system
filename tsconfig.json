@@ -3,7 +3,7 @@
         // Do not forget to `npm i -D tsconfig-paths`
         "require": ["tsconfig-paths/register"]
     },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "mocks"],
   "exclude": ["node_modules", "__test__", "lib"],
   "compilerOptions": {
     "baseUrl": "./src",
@@ -17,7 +17,7 @@
       "@schemas/*": ["./schemas/*"],
       "@services/*": ["./services/*"],
     },
-    "rootDir": "src",
+    "rootDirs": ["src", "mocks"],
     "outDir": "lib",
     "target": "ESNext",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "module": "commonjs",                                /* Specify what module code is generated. */
