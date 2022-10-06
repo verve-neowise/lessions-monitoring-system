@@ -17,8 +17,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/apps/lessions-monitoring-system
+            cd /home/node/lessions-monitoring-system
             git pull
             npm install
             npx prisma generate dev
-            pm2 restart lms 
+            pm2 restart lms
