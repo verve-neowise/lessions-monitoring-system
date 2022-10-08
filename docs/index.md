@@ -3,7 +3,6 @@
 ### Base Url
 
 ```yaml
-http://neowise.uz:1530/api/v1
 ``` 
 
 ## Routes
