@@ -1,6 +1,6 @@
 import { object, schema, string } from "@verve-neowise/validius";
 
-export default schema(object({
+export const directionSchema = schema(object({
     required: true,
     entries: {
         name: string({
