@@ -3,8 +3,7 @@ import { permissions } from '@middlewares/index'
 
 import { allUsers, createUser, deleteUser, updatePermissions, updateUser } from '@controllers/users/index'
 import { body } from '@verve-neowise/express-validius';
-import { createUserSchema, updateUserSchema } from '@schemas/index';
-import permissionsSchema from '@schemas/users/permissions.schema';
+import { createUserSchema, permissionsSchema, updateUserSchema } from '@schemas/index';
 
 const router = Router()
 
