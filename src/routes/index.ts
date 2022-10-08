@@ -1,14 +1,25 @@
 import { Router } from 'express'
-import errorHandler from '@middlewares/error-handler'
+import { errorHandler } from '@middlewares/index'
+import { requestLogger } from '@middlewares/index'
 import authRoutes from './auth.routes'
-import usersRoutes from './users.routes'
-import directionsRoutes from './direction.routes'
+import userRoutes from './users.routes'
+import permissionRoutes from './permission.routes'
+import directionRoutes from './direction.routes'
+import groupRoutes from './group.routes'
+import teacherRoutes from './teacher.routes'
+import studentRoutes from './student.routes'
 
 const router = Router()
 
+router.use(requestLogger)
+
 router.use('/auth', authRoutes)
-router.use('/users', usersRoutes)
-router.use('/directions', directionsRoutes)
+router.use('/users', userRoutes)
+router.use('/permissions', permissionRoutes)
+router.use('/directions', directionRoutes)
+router.use('/groups', groupRoutes)
+router.use('/teachers', teacherRoutes)
+router.use('/students', studentRoutes)
 
 router.use(errorHandler)
 
