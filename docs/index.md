@@ -3,7 +3,7 @@
 ### Base Url
 
 ```yaml
-http://62.113.108.69:1530/api/v1
+http://neowise.uz:1530/api/v1
 ``` 
 
 ## Routes
@@ -13,3 +13,9 @@ http://62.113.108.69:1530/api/v1
 [/users](./users.md)
 
 [/directions](./directions.md)
+
+[/groups](./groups.md)
+
+[/teachers](./teachers.md)
+
+[/students](./students.md)
