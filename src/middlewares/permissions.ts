@@ -37,3 +37,4 @@ export default (...permissions: Permission[]) => {
         }
     }
 }
+

@@ -12,6 +12,8 @@ model User {
 
   username String @unique
   password String
+  
+  role Role
 
   permissions Permission[]
 }
@@ -19,12 +21,12 @@ model User {
 model Student {
   id Int @id @default(autoincrement())
 
+  userId Int  @unique
+
   name     String
   surname  String
   birthday DateTime
   phone    String
-
-  userId Int @unique
 
   group   Group? @relation(fields: [groupId], references: [id])
   groupId Int?
@@ -33,12 +35,12 @@ model Student {
 model Teacher {
   id Int @id @default(autoincrement())
 
+  userId Int  @unique
+
   name     String
   surname  String
   birthday DateTime
   phone    String
-
-  userId Int @unique
 
   groups Group[]
 }
@@ -48,19 +50,19 @@ model Group {
 
   name String
 
-  direction Direction @relation(fields: [directionId], references: [id])
+  direction   Direction @relation(fields: [directionId], references: [id])
   directionId Int
 
   students Student[]
 
-  teacher  Teacher   @relation(fields: [teacherId], references: [id])
-  teacherId   Int
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+  teacherId Int
 }
 
 model Direction {
-  id    Int     @id @default(autoincrement())
-  name  String
-  
+  id   Int    @id @default(autoincrement())
+  name String
+
   groups Group[]
 }
 
@@ -71,4 +73,11 @@ enum Permission {
   users
   admins
   directions
+}
+
+enum Role {
+  none
+  student
+  teacher
+  admin
 }
