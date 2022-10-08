@@ -43,12 +43,20 @@ export const createTeacher = async (data: TeacherDto) => {
     })
 }
 
-export const updateTeacher = async (id: number, data: any) => {
+export const updateTeacher = async (id: number, data: TeacherDto) => {
+    
+    const { name, surname, birthday, phone } = data
+
     return prisma.teacher.update({
         where: {
             id
         },
-        data: data
+        data: {
+            name,
+            surname,
+            birthday,
+            phone
+        }
     })
 }
 

@@ -1,4 +1,4 @@
-import { deleteDirection, isDirectionExists } from '@services/directions.service';
+import { deleteDirection, isDirectionExists } from '@services/direction.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {

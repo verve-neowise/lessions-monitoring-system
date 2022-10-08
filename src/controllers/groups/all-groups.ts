@@ -1,13 +1,13 @@
-import { allDirections } from '@services/direction.service';
+import { allGroups } from '@services/group.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
-    try { 
-        const directions = await allDirections()
-
+    try {
+        const groups = await allGroups()
+        
         res.json({
-            message: "All directions",
-            directions
+            message: "All groups",
+            groups
         })
     }
     catch(err) {

@@ -24,7 +24,7 @@
 			"",
 			"import { all$1s, create$1, delete$1, update$1 } from '@controllers/$2s/index';",
 			"import { permissions } from '@middlewares/index';",
-			"`",
+			"",
 			"const router = Router()",
 			"",
 			"router.use(permissions('$2s'))",
@@ -34,7 +34,7 @@
 			"router.put('/:id', update$1)",
 			"router.delete('/:id', delete$1)",
 			"",
-			"export default route",
+			"export default router",
 			]
 	},
 

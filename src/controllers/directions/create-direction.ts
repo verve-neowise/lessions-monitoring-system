@@ -1,4 +1,4 @@
-import { createDirection } from '@services/directions.service';
+import { createDirection } from '@services/direction.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {

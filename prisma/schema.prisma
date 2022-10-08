@@ -55,8 +55,8 @@ model Group {
 
   students Student[]
 
-  teacher   Teacher @relation(fields: [teacherId], references: [id])
-  teacherId Int
+  teacher   Teacher? @relation(fields: [teacherId], references: [id])
+  teacherId Int?
 }
 
 model Direction {
