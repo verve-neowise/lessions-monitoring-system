@@ -1,0 +1,1 @@
+export { default as getStatistics } from './get-statistics'

@@ -28,8 +28,7 @@ model Student {
   birthday DateTime
   phone    String
 
-  group   Group? @relation(fields: [groupId], references: [id])
-  groupId Int?
+  groups   Group[]
 }
 
 model Teacher {
@@ -72,7 +71,9 @@ enum Permission {
   groups
   users
   admins
+  profile
   directions
+  statistics
 }
 
 enum Role {

@@ -45,3 +45,21 @@ export const deleteDirection = async (id: number) => {
         }
     })
 }
+
+export const allDirectionsDetails = async () => {
+    return prisma.direction.findMany({
+        include: {
+            groups: {
+                include: {
+                    _count: true
+                }
+            }
+        }
+    })
+}
+
+export const allDirectionsCount = async () => {
+    return prisma.direction.aggregate({
+       _count: { }
+    })
+}

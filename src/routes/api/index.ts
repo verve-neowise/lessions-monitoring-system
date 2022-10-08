@@ -8,6 +8,7 @@ import directionRoutes from './direction.routes'
 import groupRoutes from './group.routes'
 import teacherRoutes from './teacher.routes'
 import studentRoutes from './student.routes'
+import profileRoutes from './profile.routes'
 
 const router = Router()
 
@@ -20,6 +21,7 @@ router.use('/directions', directionRoutes)
 router.use('/groups', groupRoutes)
 router.use('/teachers', teacherRoutes)
 router.use('/students', studentRoutes)
+router.use('/profile', profileRoutes)
 
 router.use(errorHandler)
 

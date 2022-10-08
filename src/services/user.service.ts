@@ -70,6 +70,12 @@ export const changeUserRole = async (id: number, role: Role) => {
     })
 } 
 
+export const allUsersCount = async () => {
+    return prisma.user.aggregate({
+       _count: { }
+    })
+}
+
 export const createUser = async (data: UserDto) => {
     const hashedPassword = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10))
     
