@@ -16,36 +16,88 @@
 	// 	"description": "Log output to console"
 	// }
 
-	"Empty Router": {
-		"scope": "javascript, typescript",
-		"prefix": "router",
+	"Router": {
+		"scope": "typescript, javascript",
+		"prefix": "rest:r",
 		"body": [
-			"import { Router } from 'express';\n",
-			"const router = Router()\n",
-			"$0\n",
-			"export default router"
-		]
+			"import { Router } from 'express';",
+			"",
+			"import { all$1s, create$1, delete$1, update$1 } from '@controllers/$2s/index';",
+			"import { permissions } from '@middlewares/index';",
+			"",
+			"const router = Router()",
+			"",
+			"router.use(permissions('$2s'))",
+			"",
+			"router.get('/', all$1s)",
+			"router.post('/', create$1)",
+			"router.put('/:id', update$1)",
+			"router.delete('/:id', delete$1)",
+			"",
+			"export default router",
+			]
 	},
 
-	"Service": {
-		"scope": "javascript, typescript",
-		"prefix": "service",
+	"Rest Service": {
+		"scope": "typescript, javascript",
+		"prefix": "rest:s",
 		"body": [
-			"import { PrismaClient } from '@prisma/client'\n",
-			"const prisma = new PrismaClient()\n",
-			"export const $0fn = async () => {\n",
-			"\t$1",
-			"}"
-		]
+			"import { PrismaClient } from '@prisma/client'",
+			"",
+			"const prisma = new PrismaClient()",
+			"",
+			"export const all$2s = async () => {",
+			"    return prisma.${1}.findMany()",
+			"}",
+			"",
+			"export const find$2ById = async (id: number) => {",
+			"    return prisma.${1}.findUnique({",
+			"        where: {",
+			"            id",
+			"        }",
+			"    })",
+			"}",
+			"",
+			"export const is$2Exists = async (id: number) => {",
+			"    const ${1} = await find$2ById(id)",
+			"    return ${1} !== null",
+			"}",
+			"",
+			"export const create$2= async (data: any) => {",
+			"    return prisma.${1}.create({",
+			"        data: data",
+			"    })",
+			"}",
+			"",
+			"export const update$2= async (id: number, data: any) => {",
+			"    return prisma.${1}.update({",
+			"        where: {",
+			"            id",
+			"        },",
+			"        data: data",
+			"    })",
+			"}",
+			"",
+			"export const delete$2 = async (id: number) => {",
+			"    return prisma.${1}.delete({",
+			"        where: {",
+			"            id",
+			"        }",
+			"    })",
+			"}",
+			]
+			
 	},
 
 	"Controller": {
 		"scope": "typescript",
-		"prefix": "controller",
+		"prefix": "rest:c",
 		"body": [
 			"import { Request, Response, NextFunction } from 'express';\n",
 			"export default async (req: Request, res: Response, next: NextFunction) => {",
-			"\ttry { $0 }",
+			"\ttry {", 
+			"\t\t$0",
+			"\t}",
 			"\tcatch(err) {",
 			"\t\tnext(err)",
 			"\t}",

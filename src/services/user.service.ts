@@ -1,4 +1,5 @@
-import { Permission, User, PrismaClient } from '@prisma/client'
+import { UserDto } from '@models/user.dto'
+import { Permission, User, PrismaClient, Role } from '@prisma/client'
 import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
@@ -58,13 +59,26 @@ export const updatePermissions = async (id: number, permissions: Permission[]) =
     })
 }
 
-export const createUser = async (username: string, password: string, permissions: Permission[]) => {
-    const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+export const changeUserRole = async (id: number, role: Role) => {
+    return prisma.user.update({
+        where: {
+            id
+        },
+        data: {
+            role
+        }
+    })
+} 
+
+export const createUser = async (data: UserDto) => {
+    const hashedPassword = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10))
+    
     return prisma.user.create({
         data: {
-            username,
+            username: data.username,
             password: hashedPassword,
-            permissions
+            role: data.role,
+            permissions: data.permissions
         }
     })
 }

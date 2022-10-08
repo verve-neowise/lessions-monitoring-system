@@ -1,13 +1,14 @@
-import { allDirections } from '@services/direction.service';
+import { Permission } from '@prisma/client';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
-    try { 
-        const directions = await allDirections()
+    try {
+
+        let permissions = Object.values(Permission)
 
         res.json({
-            message: "All directions",
-            directions
+            message: "All permissions",
+            permissions
         })
     }
     catch(err) {

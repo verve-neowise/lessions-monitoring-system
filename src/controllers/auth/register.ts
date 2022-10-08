@@ -5,6 +5,7 @@ import { Payload } from '@models/index';
 
 import { findUser, createUser } from '@services/user.service';
 import { sign } from '@services/jwt.service';
+import { Role } from '@prisma/client';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -17,7 +18,12 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         return res.status(403).send({ message: `username ${username} already taken` })
     }
 
-    let newUser = await createUser(username, password, [])
+    let newUser = await createUser({
+        username, 
+        password,
+        role: Role.none, 
+        permissions: []
+    })
 
     const payload: Payload = {
         userId: newUser.id,

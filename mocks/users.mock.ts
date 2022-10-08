@@ -2,22 +2,19 @@ import { Permission } from "@prisma/client"
 
 import { createUser } from '@services/user.service'
 
-import bcrypt from 'bcrypt'
-
 export const mockUsers = async () => {
 
-    const salt = bcrypt.genSaltSync(10)
-    const hashPassword = bcrypt.hashSync('1234', salt)
+    const password = "1234"
 
-    await createUser("root", hashPassword, [
-        Permission.groups, Permission.students, Permission.teachers, Permission.users
-    ])
-
-    await createUser("teacher", hashPassword, [
+    await createUser("teacher", password, [
         Permission.students
     ])
 
-    await createUser("student", hashPassword, [
+    await createUser("teacher", password, [
+        Permission.students
+    ])
+
+    await createUser("student", password, [
         Permission.groups
     ])
 
