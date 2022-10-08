@@ -1,0 +1,1 @@
+export { default as allPermissions } from './all-permissions'
