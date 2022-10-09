@@ -73,7 +73,7 @@ export const updateDirection = async (id: number, name: string) => {
 }
 
 export const deleteDirection = async (id: number) => {
-    return prisma.teacher.update({
+    return prisma.direction.update({
         where: {
             id
         },

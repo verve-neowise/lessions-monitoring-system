@@ -17,7 +17,7 @@ Get all directions
 Create direction
 ```json
 {
-    "name": "Node.js 140",
+    "name": "Node.js",
 }
 ```
 
@@ -26,7 +26,7 @@ Create direction
 Update direction
 ```json
 {
-    "name": "Node.js 140",
+    "name": "Node.js",
 }
 ```
 

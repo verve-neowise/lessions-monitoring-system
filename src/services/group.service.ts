@@ -7,6 +7,19 @@ export const allGroups = async () => {
     return prisma.group.findMany({
         where: {
             status: 'active'
+        },
+        select: {
+            id: true,
+            name: true,
+            months: true,
+            direction: {
+                select: {
+                    id: true,
+                    name: true
+                }
+            },
+            teacher: true,
+            status: true
         }
     })
 }
@@ -138,7 +151,7 @@ export const updateGroup = async (id: number, data: GroupDto) => {
 }
 
 export const deleteGroup = async (id: number) => {
-    return prisma.teacher.update({
+    return prisma.group.update({
         where: {
             id
         },

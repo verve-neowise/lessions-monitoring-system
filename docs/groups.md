@@ -24,6 +24,7 @@ Create group
 ```json
 {
     "name": "Node.js 146",
+    "months": 6,
     "directionId": 3 // Node.js
 }
 ```
@@ -36,6 +37,7 @@ Update group
 ```json
 {
     "name": "Node.js 146",
+    "months": 6,
     "directionId": 3 // Node.js
 }
 ```
