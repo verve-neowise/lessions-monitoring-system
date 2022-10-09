@@ -4,7 +4,9 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { id, tid } = req.params
+        const { id } = req.params
+
+        const { teacherId } = req.body
 
         const groupExists = await isGroupExists(+id)
 
@@ -14,7 +16,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        const teacherExists = await isTeacherExists(+tid)
+        const teacherExists = await isTeacherExists(+teacherId)
 
         if (!teacherExists) {
             return res.status(403).json({
@@ -22,7 +24,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        const group = await changeGroupTeacher(+id, +tid)
+        const group = await changeGroupTeacher(+id, +teacherId)
 
         res.json({
             message: "Group teacher changed",

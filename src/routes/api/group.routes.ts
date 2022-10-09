@@ -20,7 +20,7 @@ router.delete('/:id', deleteGroup)
 router.get('/:id', groupDetails)
 
 router.get('/:id/teacher', getGroupTeacher)
-router.put('/:id/teacher/:tid', changeGroupTeacher)
+router.put('/:id/teacher', changeGroupTeacher)
 
 router.get('/:id/students', getGroupStudents)
 router.post('/:id/students', addGroupStudent)

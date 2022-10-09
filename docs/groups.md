@@ -13,7 +13,11 @@ Route `/groups`
 Get all groups
 
 ---
+**`GET`** /:id
 
+Get group details
+
+---
 **`POST`** /
 
 Create group
@@ -47,13 +51,40 @@ Delete group
 
 Return group teacher
 
+---
 
+**`PUT`** /:id/teacher 
 
-router.get('/:id/teacher', getGroupTeacher)
-router.put('/:id/teacher/:tid', changeGroupTeacher)
+Change group teacher
 
-router.get('/:id/students', getGroupStudents)
-router.post('/:id/students', addGroupStudent)
-router.delete('/:id/students/:id', removeGroupStudent)
+```json
+{
+    "teacherId": 0
+}
+```
 
+---
+
+**`GET`** /:id/students 
+
+Get group students
+
+---
+
+**`POST`** /:id/students 
+
+Add student to group
+
+```json
+{
+    "studentId": 0
+}
+```
+---
+
+**`DELETE`** /:id/students
+
+Remove group student
+
+---
 
