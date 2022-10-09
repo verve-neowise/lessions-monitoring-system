@@ -83,7 +83,7 @@ enum Permission {
   admins
   profile
   directions
-  statistics
+  dashboard
 }
 
 enum Role {
