@@ -19,7 +19,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const studentDto: StudentDto = {
             name,
             surname,
-            birthday,
+            birthday: new Date(Date.parse(birthday)),
             phone,
         }
 

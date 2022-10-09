@@ -2,6 +2,6 @@ export interface StudentDto {
     userId?: number,
     name: string,
     surname: string,
-    birthday: string,
+    birthday: Date,
     phone: string
 }
