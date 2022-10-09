@@ -1,3 +1,4 @@
+import { findAdminByUserId } from './../../services/admin.service';
 import { Role } from '@prisma/client';
 import { findStudentByUserId } from '@services/student.service';
 import { findTeacherByUserId } from '@services/teacher.service';
@@ -58,6 +59,29 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                     surname,
                     phone,
                     birthday
+                }
+            })
+        }
+        else if (user?.role == 'admin') {
+            
+            const profile = await findAdminByUserId(userId)
+
+            if (!profile) {
+                return res.status(400).json({
+                    message: `User ${user.username} do not have admin profile`
+                })
+            }
+
+            const { name, surname } = profile!
+
+            res.json({
+                message: "User profile",
+                profile: {
+                    username,
+                    role,
+                    permissions,
+                    name,
+                    surname
                 }
             })
         }
