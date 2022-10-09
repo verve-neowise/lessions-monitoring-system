@@ -85,6 +85,8 @@ export const deleteDirection = async (id: number) => {
 
 export const allDirectionsCount = async () => {
     return prisma.direction.aggregate({
-       _count: { }
+        _count: { 
+            id: true
+        }
     })
 }

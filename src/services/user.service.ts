@@ -79,7 +79,9 @@ export const changeUserRole = async (id: number, role: Role) => {
 
 export const allUsersCount = async () => {
     return prisma.user.aggregate({
-       _count: { }
+        _count: { 
+            id: true
+        }
     })
 }
 

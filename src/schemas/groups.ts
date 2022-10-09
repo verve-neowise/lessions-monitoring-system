@@ -8,7 +8,12 @@ export const createGroupSchema = schema(object({
             min: 3
         }),
         directionId: number({
+            required: true,
             min: 0
+        }),
+        months: number({
+            required: true,
+            min: 1
         })
     }
 }))

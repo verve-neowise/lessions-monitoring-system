@@ -20,6 +20,18 @@ model User {
   status EntityStatus @default(active)
 }
 
+
+model Admin {
+  id Int @id @default(autoincrement())
+
+  userId Int  @unique
+
+  name     String
+  surname  String
+
+  status EntityStatus @default(active)
+}
+
 model Student {
   id Int @id @default(autoincrement())
 
@@ -59,6 +71,8 @@ model Group {
 
   direction   Direction @relation(fields: [directionId], references: [id])
   directionId Int
+
+  months   Int
 
   students Student[]
 

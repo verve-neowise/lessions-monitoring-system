@@ -7,9 +7,9 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const teacherCount = (await allTeachersCount())._count
-        const studentCount = (await allStudentsCount())._count
-        const groupCount = (await allGroupsCount())._count
+        const teacherCount = (await allTeachersCount())._count.id
+        const studentCount = (await allStudentsCount())._count.id
+        const groupCount = (await allGroupsCount())._count.id
 
         const directions = await allDirectionsWithGroup()
 

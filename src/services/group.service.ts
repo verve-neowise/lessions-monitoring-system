@@ -61,6 +61,8 @@ export const deleteGroup = async (id: number) => {
 
 export const allGroupsCount = async () => {
     return prisma.group.aggregate({
-       _count: { }
+        _count: { 
+            id: true
+        }
     })
 }
