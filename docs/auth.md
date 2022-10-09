@@ -2,15 +2,6 @@
 
 Route `/auth`
 
-**`POST`** /register
-
-```json
-{
-    "username": "username",
-    "password": "12345678"
-}
-```
-
 ---
 
 **`POST`** /login

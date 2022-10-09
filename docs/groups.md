@@ -12,6 +12,8 @@ Route `/groups`
 
 Get all groups
 
+---
+
 **`POST`** /
 
 Create group
@@ -22,6 +24,8 @@ Create group
 }
 ```
 
+---
+
 **`PUT`** /:id
 
 Update group
@@ -31,7 +35,25 @@ Update group
     "directionId": 3 // Node.js
 }
 ```
+---
 
 **`DELETE`** /:id
 
 Delete group
+
+---
+
+**`GET`** /:id/teacher 
+
+Return group teacher
+
+
+
+router.get('/:id/teacher', getGroupTeacher)
+router.put('/:id/teacher/:tid', changeGroupTeacher)
+
+router.get('/:id/students', getGroupStudents)
+router.post('/:id/students', addGroupStudent)
+router.delete('/:id/students/:id', removeGroupStudent)
+
+

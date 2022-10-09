@@ -22,7 +22,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             username,
             password,
             role: 'student',
-            permissions: ['profile']
+            permissions: ['profile', 'students']
         }
 
         const user = await createUser(userDto)
