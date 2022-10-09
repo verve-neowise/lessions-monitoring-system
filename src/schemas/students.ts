@@ -3,9 +3,15 @@ import { object, schema, string, number } from "@verve-neowise/validius";
 export const createStudentSchema = schema(object({
     required: true,
     entries: {
-        userId: number({
+        username: string({
             required: true,
-            min: 0
+            min: 3,
+            max: 16
+        }),
+        password: string({
+            required: true,
+            min: 3,
+            max: 32
         }),
         name: string({
             required: true,

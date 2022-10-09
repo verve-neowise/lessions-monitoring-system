@@ -3,7 +3,11 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const allDirections = async () => {
-    return prisma.direction.findMany()
+    return prisma.direction.findMany({
+        where: {
+            status: 'active'
+        }
+    })
 }
 
 export const findDirectionById = async (id: number) => {
@@ -39,9 +43,12 @@ export const updateDirection = async (id: number, name: string) => {
 }
 
 export const deleteDirection = async (id: number) => {
-    return prisma.direction.delete({
+    return prisma.teacher.update({
         where: {
             id
+        },
+        data: {
+            status: 'deleted'
         }
     })
 }

@@ -1,26 +1,26 @@
-import { TeacherDto } from '@models/index';
-import { isTeacherExists, updateTeacher } from '@services/teacher.service';
+import { isStudentExists, updateStudent } from '@services/student.service';
+import { StudentDto } from '@models/index';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = +req.params.id
 
-        const find = await isTeacherExists(id)
+        const find = await isStudentExists(id)
         
         if (!find) {
             return res.status(403).json({
-                message: "Teacher not found: " + id
+                message: "Student not found: " + id
             })
         }
 
-        const dto: TeacherDto = req.body
+        const dto: StudentDto = req.body
 
-        const teacher = await updateTeacher(id, dto)
+        const student = await updateStudent(id, dto)
 
         res.json({
-            message: "Teacher updated.",
-            teacher
+            message: "Student updated.",
+            student
         })
     }
     catch(err) {

@@ -8,7 +8,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         if (!find) {
             return res.status(403).json({
-                message: `user ${id} not found.`
+                message: `User ${id} not found.`
             })
         }
 

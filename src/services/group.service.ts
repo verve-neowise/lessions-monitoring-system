@@ -4,7 +4,11 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const allGroups = async () => {
-    return prisma.group.findMany()
+    return prisma.group.findMany({
+        where: {
+            status: 'active'
+        }
+    })
 }
 
 export const findGroupById = async (id: number) => {
@@ -44,11 +48,15 @@ export const updateGroup = async (id: number, data: any) => {
 }
 
 export const deleteGroup = async (id: number) => {
-    return prisma.group.delete({
+    return prisma.teacher.update({
         where: {
             id
+        },
+        data: {
+            status: 'deleted'
         }
     })
+
 }
 
 export const allGroupsCount = async () => {

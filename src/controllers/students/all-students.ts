@@ -1,13 +1,13 @@
-import { allTeachers } from '@services/teacher.service';
+import { allStudents } from './../../services/student.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const teachers = await allTeachers()
+        const students = await allStudents()
         
         res.json({
-            message: "All directions",
-            teachers
+            message: "All students",
+            students
         })
     }
     catch(err) {

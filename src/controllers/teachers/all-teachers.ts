@@ -6,7 +6,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const teachers = await allTeachers()
         
         res.json({
-            message: "All directions",
+            message: "All teachers",
             teachers
         })
     }

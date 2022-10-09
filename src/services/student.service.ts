@@ -4,7 +4,11 @@ import { PrismaClient, Student } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const allStudents = async () => {
-    return prisma.student.findMany()
+    return prisma.student.findMany({
+        where: {
+            status: 'active'
+        }
+    })
 }
 
 export const findStudentById = async (id: number) => {
@@ -55,9 +59,12 @@ export const updateStudent = async (id: number, data: StudentDto) => {
 }
 
 export const deleteStudent = async (id: number) => {
-    return prisma.student.delete({
+    return prisma.student.update({
         where: {
             id
+        },
+        data: {
+            status: 'deleted'
         }
     })
 }
