@@ -1,4 +1,4 @@
-import { allStudents } from './../../services/student.service';
+import { allStudents } from '@services/student.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {

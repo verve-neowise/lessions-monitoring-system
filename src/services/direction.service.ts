@@ -10,6 +10,36 @@ export const allDirections = async () => {
     })
 }
 
+export const allDirectionsWithGroup = async () => {
+    return prisma.direction.findMany({
+        include: {
+            groups: {
+                where: {
+                    status: 'active'
+                },
+                select: {
+                    id: true,
+                    students: {
+                        select: {
+                            id: true
+                        }
+                    }
+                }
+            },
+            teachers: {
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true
+                }
+            }
+        },
+        where: {
+            status: 'active'
+        }
+    })
+}
+
 export const findDirectionById = async (id: number) => {
     return prisma.direction.findUnique({
         where: {
@@ -49,18 +79,6 @@ export const deleteDirection = async (id: number) => {
         },
         data: {
             status: 'deleted'
-        }
-    })
-}
-
-export const allDirectionsDetails = async () => {
-    return prisma.direction.findMany({
-        include: {
-            groups: {
-                include: {
-                    _count: true
-                }
-            }
         }
     })
 }

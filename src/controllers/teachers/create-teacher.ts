@@ -8,7 +8,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const { username, password } = req.body
 
-
         const existsUser = await findUser(username)
 
         if (existsUser) {
@@ -26,7 +25,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const user = await createUser(userDto)
 
-        const { name, surname, birthday, phone } = req.body
+        const { name, surname, birthday, phone, directions } = req.body
         
         const teacherDto: TeacherDto = {
             userId: user.id,
@@ -34,6 +33,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             surname,
             birthday,
             phone,
+            directions
         }
 
         const teacher = await createTeacher(teacherDto)

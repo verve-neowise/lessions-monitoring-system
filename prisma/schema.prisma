@@ -47,6 +47,8 @@ model Teacher {
 
   groups Group[]
 
+  directions Direction[]
+
   status EntityStatus @default(active)
 }
 
@@ -71,6 +73,7 @@ model Direction {
   name String
 
   groups Group[]
+  teachers Teacher[]
 
   status EntityStatus @default(active)
 }

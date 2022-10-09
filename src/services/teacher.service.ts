@@ -34,22 +34,27 @@ export const isTeacherExists = async (id: number) => {
 
 export const createTeacher = async (data: TeacherDto) => {
 
-    const { name, surname, birthday, phone } = data
+    const { name, surname, birthday, phone, directions } = data
 
     return prisma.teacher.create({
         data: {
-            userId: data.userId,
+            userId: data.userId!,
             name,
             surname,
             birthday,
-            phone
+            phone,
+            directions: {
+                connect: directions.map(id => {
+                    return { id }
+                })
+            }
         }
     })
 }
 
 export const updateTeacher = async (id: number, data: TeacherDto) => {
     
-    const { name, surname, birthday, phone } = data
+    const { name, surname, birthday, phone, directions } = data
 
     return prisma.teacher.update({
         where: {
@@ -59,7 +64,12 @@ export const updateTeacher = async (id: number, data: TeacherDto) => {
             name,
             surname,
             birthday,
-            phone
+            phone,
+            directions: {
+                connect: directions.map(id => {
+                    return { id }
+                })
+            }
         }
     })
 }
