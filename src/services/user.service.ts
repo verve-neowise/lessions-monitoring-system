@@ -41,6 +41,20 @@ export const deleteUser = async (id: number) => {
 
 }
 
+export const updateUserPassword = async (id: number, password: string) => {
+    const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+
+    return prisma.user.update({
+        where: {
+            id
+        },
+        data: {
+            password: hashedPassword
+        }
+    })
+}
+
+
 export const updateUser = async (id: number, username: string, password: string) => {
     const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 
