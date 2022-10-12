@@ -20,7 +20,6 @@ model User {
   status EntityStatus @default(active)
 }
 
-
 model Admin {
   id Int @id @default(autoincrement())
 

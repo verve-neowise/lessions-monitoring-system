@@ -40,7 +40,14 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         res.json({
             message: "teacher created.",
-            teacher
+            teacher: {
+                id: teacher.id,
+                name: teacher.name,
+                username: user.username,
+                password: user.password,
+                permissions: user.permissions,
+                role: user.role
+            }
         })
     }
     catch(err) {

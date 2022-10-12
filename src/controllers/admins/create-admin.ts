@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from 'express';
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-        const { username, password } = req.body
+        const { username, password, permissions } = req.body
 
         const existsUser = await findUser(username)
 
@@ -21,7 +21,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             username,
             password,
             role: 'admin',
-            permissions: ['profile', 'dashboard', 'directions', 'groups', 'students', 'teachers']
+            permissions
         }
 
         const user = await createUser(userDto)
@@ -37,7 +37,15 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         res.json({
             message: "Admin created.",
-            admin
+            admin: {
+                id: admin.id,
+                userId: user.id,
+                name: admin.name,
+                username: user.username,
+                password: user.password,
+                permissions: user.permissions,
+                role: user.role
+            }
         })
     }
     catch(err) {
