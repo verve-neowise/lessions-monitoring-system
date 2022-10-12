@@ -19,9 +19,9 @@ model User {
 
   status EntityStatus @default(active)
 
-  Admin   Admin[]
-  Student Student?
-  Teacher Teacher?
+  admin   Admin?
+  student Student?
+  teacher Teacher?
 }
 
 model Admin {
