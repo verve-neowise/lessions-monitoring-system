@@ -1,5 +1,5 @@
 import { AdminDto } from '@models/index'
-import { PrismaClient } from '@prisma/client'
+import { Admin, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -35,7 +35,6 @@ export const isAdminExists = async (id: number) => {
 export const createAdmin = async (data: AdminDto) => {
 
     const { name } = data
-
     return prisma.admin.create({
         data: {
             userId: data.userId!,

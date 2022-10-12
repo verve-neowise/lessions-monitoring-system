@@ -41,7 +41,15 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         res.json({
             message: "student created.",
-            student
+            student: {
+                id: student.id,
+                userId: user.id,
+                name: student.name,
+                username: user.username,
+                password: user.password,
+                permissions: user.permissions,
+                role: user.role
+            }
         })
     }
     catch(err) {
