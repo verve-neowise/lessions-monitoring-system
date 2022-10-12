@@ -34,28 +34,26 @@ export const isAdminExists = async (id: number) => {
 
 export const createAdmin = async (data: AdminDto) => {
 
-    const { name, surname } = data
+    const { name } = data
 
     return prisma.admin.create({
         data: {
             userId: data.userId!,
-            name,
-            surname
+            name: name
         }
     })
 }
 
 export const updateAdmin = async (id: number, data: AdminDto) => {
 
-    const { name, surname } = data
+    const { name } = data
 
     return prisma.admin.update({
         where: {
             id
         },
         data: {
-            name,
-            surname
+            name
         }
     })
 }
