@@ -16,10 +16,6 @@ export const createAdminSchema = schema(object({
         name: string({
             required: true,
             min: 3
-        }),
-        surname: string({
-            required: true,
-            min: 3
         })
     }
 }))
@@ -32,9 +28,5 @@ export const updateAdminSchema = schema(object({
             required: true,
             min: 3
         }),
-        surname: string({
-            required: true,
-            min: 3
-        })
     }
 }))
