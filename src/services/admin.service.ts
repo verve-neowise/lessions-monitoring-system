@@ -7,6 +7,9 @@ export const allAdmins = async () => {
     return prisma.admin.findMany({
         where: {
             status: 'active'
+        },
+        include: {
+            user: true
         }
     })
 }

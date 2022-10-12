@@ -5,9 +5,21 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const admins = await allAdmins()
         
+        const mapped = admins.map(admin => {
+            return {
+                id: admin.id,
+                userId: admin.user.id,
+                name: admin.name,
+                username: admin.user.username,
+                password: admin.user.password,
+                permissions: admin.user.permissions,
+                role: admin.user.role
+            }
+        })
+
         res.json({
             message: "All admins",
-            admins
+            admins: mapped
         })
     }
     catch(err) {
