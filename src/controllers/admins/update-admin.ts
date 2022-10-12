@@ -1,7 +1,6 @@
 import { updateAdmin } from './../../services/admin.service';
 import { isAdminExists } from '@services/admin.service';
-import { isStudentExists, updateStudent } from '@services/student.service';
-import { AdminDto, StudentDto } from '@models/index';
+import { AdminDto } from '@models/index';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -16,11 +15,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        const { name, surname } = req.body
+        const { name } = req.body
 
         const dto: AdminDto = {
-            name,
-            surname
+            name
         }
 
         const admin = await updateAdmin(id, dto)
