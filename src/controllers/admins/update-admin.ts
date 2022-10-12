@@ -1,3 +1,5 @@
+import { updateUserPassword } from './../../services/user.service';
+import { findAdminById } from './../../services/admin.service';
 import { Role } from '@prisma/client';
 import { findUser, updatePermissions, updateUser } from '@services/user.service';
 import { isAdminExists, updateAdmin } from '@services/admin.service';
@@ -8,7 +10,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = +req.params.id
 
-        const find = await isAdminExists(id)
+        const find = await findAdminById(id)
         
         if (!find) {
             return res.status(403).json({
@@ -20,7 +22,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const userFind = await findUser(username)
 
-        if (userFind) {
+        if (userFind && find.userId !== userFind.id) {
             return res.status(403).json({
                 message: "User with username: " + username + " already exists"
             })
@@ -31,7 +33,15 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         }
 
         const admin = await updateAdmin(id, dto)
-        const user = await updateUser(admin.userId, username, password)
+        let user;
+
+        if (userFind) {
+           user = await updateUserPassword(admin.userId, password)
+        }
+        else {
+            user = await updateUser(admin.userId, username, password)
+        }
+        
         const updatePermission = await updatePermissions(admin.userId, permissions)
 
         res.json({

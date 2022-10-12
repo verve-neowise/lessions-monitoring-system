@@ -47,8 +47,9 @@ model Student {
   phone    String
 
   groups Group[]
+  assessments Assessment[]
 
-  status EntityStatus @default(active)
+  status     EntityStatus @default(active)
 }
 
 model Teacher {
@@ -80,11 +81,13 @@ model Group {
   months Int
 
   students Student[]
+  lessions Lession[]
 
   teacher   Teacher? @relation(fields: [teacherId], references: [id])
   teacherId Int?
 
   status EntityStatus @default(active)
+
 }
 
 model Direction {
@@ -95,6 +98,32 @@ model Direction {
   teachers Teacher[]
 
   status EntityStatus @default(active)
+}
+
+model Lession {
+  id Int @id @default(autoincrement())
+
+  month Int
+
+  group      Group        @relation(fields: [groupId], references: [id])
+  groupId    Int
+
+  assessments Assessment[]
+}
+
+model Assessment {
+
+  id Int @id @default(autoincrement())
+
+  student Student @relation(fields: [studentId], references: [id])
+  studentId Int
+
+  lession   Lession @relation(fields: [lessionId], references: [id])
+  lessionId Int
+
+  comment String
+  color   String
+  score   Int
 }
 
 enum Permission {
