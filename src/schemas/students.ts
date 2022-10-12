@@ -31,26 +31,3 @@ export const createStudentSchema = schema(object({
         })
     }
 }))
-
-
-export const updateStudentSchema = schema(object({
-    required: true,
-    entries: {
-        name: string({
-            required: true,
-            min: 3
-        }),
-        surname: string({
-            required: true,
-            min: 3
-        }),
-        birthday: string({
-            required: true,
-            min: 3
-        }),
-        phone: string({
-            required: true,
-            min: 3
-        })
-    }
-}))
