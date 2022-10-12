@@ -7,6 +7,14 @@ export const allStudents = async () => {
     return prisma.student.findMany({
         where: {
             status: 'active'
+        },
+        include: {
+            user: true,
+            groups: {
+                where: {
+                    status: 'active'
+                }
+            }
         }
     })
 }
