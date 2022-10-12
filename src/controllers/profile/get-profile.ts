@@ -72,7 +72,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 })
             }
 
-            const { name, surname } = profile!
+            const { name } = profile!
 
             res.json({
                 message: "User profile",
@@ -80,8 +80,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                     username,
                     role,
                     permissions,
-                    name,
-                    surname
+                    name
                 }
             })
         }
