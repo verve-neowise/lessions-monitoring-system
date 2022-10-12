@@ -8,7 +8,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const id = +req.params.id
 
         const find = await isStudentExists(id)
-        
+
         if (!find) {
             return res.status(403).json({
                 message: "Student not found: " + id
@@ -16,7 +16,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         }
 
         const { name, surname, birthday, phone, username, password } = req.body
-        
+
         const userFind = await findUser(username)
 
         if (userFind) {
@@ -34,17 +34,22 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const student = await updateStudent(id, studentDto)
         const user = await updateUser(student.userId, username, password)
-        
+
         res.json({
             message: "Student updated.",
-            id: student.id,
-            userId: user.id,
-            name: student.name,
-            username: user.username,
-            role: user.role
+            student: {
+                id: student.id,
+                userId: user.id,
+                username: user.username,
+                name: student.name,
+                surname: student.surname,
+                birthday: student.birthday,
+                phone: student.birthday,
+                role: user.role
+            }
         })
     }
-    catch(err) {
+    catch (err) {
         next(err)
     }
 }
