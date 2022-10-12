@@ -42,7 +42,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 userId: user.id,
                 name: admin.name,
                 username: user.username,
-                password: user.password,
                 permissions: user.permissions,
                 role: user.role
             }

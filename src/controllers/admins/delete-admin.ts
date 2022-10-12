@@ -20,6 +20,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         res.json({
             message: "Admin deleted.",
+            admin
         })
     }
     catch(err) {

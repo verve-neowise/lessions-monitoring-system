@@ -1,5 +1,5 @@
 import { Role } from '@prisma/client';
-import { updatePermissions, updateUser } from '@services/user.service';
+import { findUser, updatePermissions, updateUser } from '@services/user.service';
 import { isAdminExists, updateAdmin } from '@services/admin.service';
 import { AdminDto, UserDto } from '@models/index';
 import { Request, Response, NextFunction } from 'express';
@@ -18,15 +18,16 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const { name, username, password, permissions } = req.body
 
-        const dto: AdminDto = {
-            name
+        const userFind = await findUser(username)
+
+        if (userFind) {
+            return res.status(403).json({
+                message: "User with username: " + username + " already exists"
+            })
         }
 
-        const userDto: UserDto = {
-            username,
-            password,
-            permissions,
-            role: Role.admin
+        const dto: AdminDto = {
+            name
         }
 
         const admin = await updateAdmin(id, dto)
@@ -40,7 +41,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 userId: user.id,
                 name: admin.name,
                 username: user.username,
-                password: user.password,
                 permissions: updatePermission.permissions,
                 role: user.role
             }
