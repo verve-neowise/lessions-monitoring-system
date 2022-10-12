@@ -27,7 +27,6 @@ model Admin {
   userId Int  @unique
 
   name     String
-  surname  String
 
   status EntityStatus @default(active)
 }

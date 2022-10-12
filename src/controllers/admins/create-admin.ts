@@ -26,19 +26,18 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const user = await createUser(userDto)
 
-        const { name, surname } = req.body
+        const { name } = req.body
         
         const adminDto: AdminDto = {
             userId: user.id,
-            name,
-            surname,
+            name
         }
 
-        const student = await createAdmin(adminDto)
+        const admin = await createAdmin(adminDto)
 
         res.json({
             message: "Admin created.",
-            student
+            admin
         })
     }
     catch(err) {
