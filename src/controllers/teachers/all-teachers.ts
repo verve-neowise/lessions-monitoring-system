@@ -28,7 +28,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 })
             }
         })
-
+        
         res.json({
             message: "All teachers",
             teachers: mapped
