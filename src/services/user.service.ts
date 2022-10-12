@@ -1,11 +1,15 @@
 import { UserDto } from '@models/user.dto'
-import { Permission, User, PrismaClient, Role } from '@prisma/client'
+import { Permission, PrismaClient, Role } from '@prisma/client'
 import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
 
 export const allUsers = async () => {
-    return prisma.user.findMany()
+    return prisma.user.findMany({
+        where: {
+            status: 'active'
+        }
+    })
 }
 
 export const findUser = async (username: string) => {
@@ -15,7 +19,6 @@ export const findUser = async (username: string) => {
         }
     })
 }
-
 
 export const findUserById = async (id: number) => {
     return prisma.user.findUnique({
@@ -27,11 +30,15 @@ export const findUserById = async (id: number) => {
 
 
 export const deleteUser = async (id: number) => {
-    return prisma.user.delete({
+    return prisma.user.update({
         where: {
             id
+        },
+        data: {
+            status: 'deleted'
         }
     })
+
 }
 
 export const updateUser = async (id: number, username: string, password: string) => {
@@ -72,7 +79,9 @@ export const changeUserRole = async (id: number, role: Role) => {
 
 export const allUsersCount = async () => {
     return prisma.user.aggregate({
-       _count: { }
+        _count: { 
+            id: true
+        }
     })
 }
 

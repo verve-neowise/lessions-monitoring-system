@@ -16,7 +16,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const group = await deleteGroup(id)
 
         res.json({
-            message: "Teacher deleted.",
+            message: "Group deleted.",
             group
         })
     }

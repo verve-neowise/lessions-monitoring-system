@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 import { permissions } from '@middlewares/index';
-import { getStatistics } from '@controllers/statistics';
+import { getStatistics } from '@controllers/dashboard';
 
 const router = Router()
 
-router.use(permissions('statistics'))
+router.use(permissions('dashboard'))
 
 router.get('/', getStatistics)
 

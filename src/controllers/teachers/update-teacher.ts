@@ -14,9 +14,17 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        const dto: TeacherDto = req.body
+        const { name, surname, birthday, phone, directions } = req.body
+        
+        const teacherDto: TeacherDto = {
+            name,
+            surname,
+            birthday: new Date(Date.parse(birthday)),
+            phone,
+            directions
+        }
 
-        const teacher = await updateTeacher(id, dto)
+        const teacher = await updateTeacher(id, teacherDto)
 
         res.json({
             message: "Teacher updated.",

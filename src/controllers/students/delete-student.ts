@@ -1,23 +1,24 @@
-import { deleteTeacher, isTeacherExists } from '@services/teacher.service';
+import { deleteUser } from '@services/user.service';
+import { deleteStudent, isStudentExists } from '@services/student.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = +req.params.id
 
-        const find = await isTeacherExists(id)
+        const find = await isStudentExists(id)
         
         if (!find) {
             return res.status(403).json({
-                message: "Teacher not found: " + id
+                message: "Student not found: " + id
             })
         }
 
-        const teacher = await deleteTeacher(id)
+        const student = await deleteStudent(id)
+        const user = await deleteUser(student.userId)
 
         res.json({
-            message: "Teacher deleted.",
-            teacher
+            message: "Student deleted.",
         })
     }
     catch(err) {

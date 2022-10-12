@@ -3,7 +3,41 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const allDirections = async () => {
-    return prisma.direction.findMany()
+    return prisma.direction.findMany({
+        where: {
+            status: 'active'
+        }
+    })
+}
+
+export const allDirectionsWithGroup = async () => {
+    return prisma.direction.findMany({
+        include: {
+            groups: {
+                where: {
+                    status: 'active'
+                },
+                select: {
+                    id: true,
+                    students: {
+                        select: {
+                            id: true
+                        }
+                    }
+                }
+            },
+            teachers: {
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true
+                }
+            }
+        },
+        where: {
+            status: 'active'
+        }
+    })
 }
 
 export const findDirectionById = async (id: number) => {
@@ -39,27 +73,20 @@ export const updateDirection = async (id: number, name: string) => {
 }
 
 export const deleteDirection = async (id: number) => {
-    return prisma.direction.delete({
+    return prisma.direction.update({
         where: {
             id
-        }
-    })
-}
-
-export const allDirectionsDetails = async () => {
-    return prisma.direction.findMany({
-        include: {
-            groups: {
-                include: {
-                    _count: true
-                }
-            }
+        },
+        data: {
+            status: 'deleted'
         }
     })
 }
 
 export const allDirectionsCount = async () => {
     return prisma.direction.aggregate({
-       _count: { }
+        _count: { 
+            id: true
+        }
     })
 }

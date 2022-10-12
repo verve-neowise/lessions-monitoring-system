@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try { 
-        const { username, password } = req.body
+        const { username, password, permissions } = req.body
 
         const oldUser = await findUser(username)
 
@@ -18,7 +18,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             username, 
             password,
             role: Role.none, 
-            permissions: []
+            permissions
         })
 
         res.json({

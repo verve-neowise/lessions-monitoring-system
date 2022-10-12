@@ -7,11 +7,11 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const dto: GroupDto = req.body
 
-        const teacher = await createGroup(dto)
+        const group = await createGroup(dto)
 
         res.json({
             message: "group created.",
-            teacher
+            group
         })
     }
     catch(err) {

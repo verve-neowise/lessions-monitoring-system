@@ -1,27 +1,47 @@
-import { TeacherDto } from '@models/teacher.dto';
-import { createTeacher, findTeacherByUserId } from '@services/teacher.service';
+import { createStudent, isStudentExists } from './../../services/student.service';
+import { UserDto } from './../../models/user.dto';
+import { StudentDto } from '@models/index';
+import { createUser, findUser } from '@services/user.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-        const { userId } = req.body
+        const { username, password } = req.body
 
-        const dto: TeacherDto = req.body
 
-        const model = await findTeacherByUserId(+userId)
+        const existsUser = await findUser(username)
 
-        if (model) {
+        if (existsUser) {
             return res.status(403).json({
-                message: "Teacher profile already exists for user: " + userId
+                message: `user with username ${username} already exists.`
             })
         }
 
-        const teacher = await createTeacher(dto)
+        const userDto: UserDto = {
+            username,
+            password,
+            role: 'student',
+            permissions: ['profile', 'students']
+        }
+
+        const user = await createUser(userDto)
+
+        const { name, surname, birthday, phone } = req.body
+        
+        const studentDto: StudentDto = {
+            userId: user.id,
+            name,
+            surname,
+            birthday: new Date(Date.parse(birthday)),
+            phone,
+        }
+
+        const student = await createStudent(studentDto)
 
         res.json({
-            message: "teacher created.",
-            teacher
+            message: "student created.",
+            student
         })
     }
     catch(err) {

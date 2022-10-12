@@ -1,7 +1,8 @@
 export interface TeacherDto {
-    userId: number,
+    userId?: number,
     name: string,
     surname: string,
-    birthday: string,
-    phone: string
+    birthday: Date,
+    phone: string,
+    directions: number[]
 }

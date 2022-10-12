@@ -16,6 +16,20 @@ model User {
   role Role
 
   permissions Permission[]
+
+  status EntityStatus @default(active)
+}
+
+
+model Admin {
+  id Int @id @default(autoincrement())
+
+  userId Int  @unique
+
+  name     String
+  surname  String
+
+  status EntityStatus @default(active)
 }
 
 model Student {
@@ -29,6 +43,8 @@ model Student {
   phone    String
 
   groups   Group[]
+
+  status EntityStatus @default(active)
 }
 
 model Teacher {
@@ -42,6 +58,10 @@ model Teacher {
   phone    String
 
   groups Group[]
+
+  directions Direction[]
+
+  status EntityStatus @default(active)
 }
 
 model Group {
@@ -52,10 +72,14 @@ model Group {
   direction   Direction @relation(fields: [directionId], references: [id])
   directionId Int
 
+  months   Int
+
   students Student[]
 
   teacher   Teacher? @relation(fields: [teacherId], references: [id])
   teacherId Int?
+
+  status EntityStatus @default(active)
 }
 
 model Direction {
@@ -63,6 +87,9 @@ model Direction {
   name String
 
   groups Group[]
+  teachers Teacher[]
+
+  status EntityStatus @default(active)
 }
 
 enum Permission {
@@ -73,7 +100,7 @@ enum Permission {
   admins
   profile
   directions
-  statistics
+  dashboard
 }
 
 enum Role {
@@ -81,4 +108,10 @@ enum Role {
   student
   teacher
   admin
+}
+
+enum EntityStatus {
+  active
+  disabled
+  deleted
 }

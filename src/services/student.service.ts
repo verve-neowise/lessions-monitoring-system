@@ -4,7 +4,11 @@ import { PrismaClient, Student } from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const allStudents = async () => {
-    return prisma.student.findMany()
+    return prisma.student.findMany({
+        where: {
+            status: 'active'
+        }
+    })
 }
 
 export const findStudentById = async (id: number) => {
@@ -34,7 +38,7 @@ export const createStudent = async (data: StudentDto) => {
 
     return prisma.student.create({
         data: {
-            userId: data.userId,
+            userId: data.userId!,
             name,
             surname,
             birthday,
@@ -44,20 +48,29 @@ export const createStudent = async (data: StudentDto) => {
 }
 
 export const updateStudent = async (id: number, data: StudentDto) => {
+
+    const { name, surname, phone, birthday } = data
+
     return prisma.student.update({
         where: {
             id
         },
         data: {
-
+            name,
+            surname,
+            phone,
+            birthday
         }
     })
 }
 
 export const deleteStudent = async (id: number) => {
-    return prisma.student.delete({
+    return prisma.student.update({
         where: {
             id
+        },
+        data: {
+            status: 'deleted'
         }
     })
 }
@@ -65,6 +78,8 @@ export const deleteStudent = async (id: number) => {
 
 export const allStudentsCount = async () => {
     return prisma.student.aggregate({
-       _count: { }
+        _count: { 
+            id: true
+        }
     })
 }

@@ -1,4 +1,5 @@
 import { deleteTeacher, isTeacherExists } from '@services/teacher.service';
+import { deleteUser } from '@services/user.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -14,7 +15,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         }
 
         const teacher = await deleteTeacher(id)
-
+        const user = await deleteUser(teacher.userId)
+        
         res.json({
             message: "Teacher deleted.",
             teacher
