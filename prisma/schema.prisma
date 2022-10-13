@@ -103,7 +103,7 @@ model Direction {
 model Lession {
   id Int @id @default(autoincrement())
 
-  month Int
+  date Int
 
   group      Group        @relation(fields: [groupId], references: [id])
   groupId    Int

@@ -130,6 +130,11 @@ export const createGroup = async (data: GroupDto) => {
                     id: directionId
                 }
             }
+        },
+        select: {
+            id: true,
+            direction: true,
+            months: true,
         }
     })
 }
