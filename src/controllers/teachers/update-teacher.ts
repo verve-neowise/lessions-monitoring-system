@@ -1,22 +1,43 @@
 import { TeacherDto } from '@models/index';
-import { isTeacherExists, updateTeacher } from '@services/teacher.service';
-import { updateUser } from '@services/user.service';
+import { findTeacherById, isTeacherExists, updateTeacher } from '@services/teacher.service';
+import { checkUsernameUnique, findUserById, updateUser, updateUserName, updateUserPassword } from '@services/user.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = +req.params.id
+        const { name, surname, birthday, phone, directions, username, password } = req.body
 
-        const find = await isTeacherExists(id)
+        const oldTeacher = await findTeacherById(id)
         
-        if (!find) {
+        if (!oldTeacher) {
             return res.status(403).json({
                 message: "Teacher not found: " + id
             })
         }
 
-        const { name, surname, birthday, phone, directions, username, password } = req.body
-        
+        const { userId } = oldTeacher
+
+        const isUsernameUnique = await checkUsernameUnique(userId, username)
+
+        if (!isUsernameUnique) {
+            return res.status(403).json({
+                message: "User with username: " + username + " already exists"
+            })
+        }
+
+        // update username and password
+        if (username.length > 0 && password.length > 0) {
+            await updateUser(userId, username, password)
+        }
+        // update only username
+        else if (username.length > 0) {
+            await updateUserName(userId, username)
+        }
+        // update only password
+        else if (password.length > 0) {
+            await updateUserPassword(userId, password)
+        }
         const teacherDto: TeacherDto = {
             name,
             surname,
@@ -26,11 +47,11 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         }
 
         const teacher = await updateTeacher(id, teacherDto)
-        const user = await updateUser(teacher.userId, username, password)
+        let user = (await findUserById(userId))!
         
         res.json({
             message: "Teacher updated.",
-            student: {
+            teacher: {
                 id: teacher.id,
                 userId: user.id,
                 username: user.username,

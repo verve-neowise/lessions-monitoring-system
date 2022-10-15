@@ -61,6 +61,9 @@ export const createTeacher = async (data: TeacherDto) => {
                     return { id }
                 })
             }
+        },
+        include: {
+            directions: true
         }
     })
 }

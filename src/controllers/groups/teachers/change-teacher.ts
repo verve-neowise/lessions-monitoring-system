@@ -16,7 +16,12 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
+        console.log("TeacherId: " + teacherId);
+        
+
         const teacherExists = await isTeacherExists(+teacherId)
+
+
 
         if (!teacherExists) {
             return res.status(403).json({

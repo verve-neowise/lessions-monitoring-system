@@ -7,7 +7,7 @@ import { Request, Response, NextFunction } from 'express';
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-        const { username, password, permissions } = req.body
+        const { username, password, permissions, name } = req.body
 
         const existsUser = await findUser(username)
 
@@ -26,7 +26,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const user = await createUser(userDto)
 
-        const { name } = req.body
         
         const adminDto: AdminDto = {
             userId: user.id,

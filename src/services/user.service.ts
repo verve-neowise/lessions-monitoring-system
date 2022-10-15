@@ -41,6 +41,28 @@ export const deleteUser = async (id: number) => {
 
 }
 
+
+export const updateUserName = async (id: number, username: string) => {
+
+    return prisma.user.update({
+        where: {
+            id
+        },
+        data: {
+            username
+        }
+    })
+}
+
+export const checkUsernameUnique = async (userId: number, username: string) => {
+    const user = await findUser(username)
+    if (!user) {
+        return true
+    }
+    
+    return user.id === userId
+}
+
 export const updateUserPassword = async (id: number, password: string) => {
     const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 

@@ -14,6 +14,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
+        console.log("Delete student: ", id, sid);
+
         const studentExists = await isStudentExists(+sid)
 
         if (!studentExists) {
@@ -25,7 +27,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         await removeStudentFromGroup(+id, +sid)
 
         res.json({
-            message: "Student added to group",
+            message: "Student remove from group",
         })
     }
     catch(err) {

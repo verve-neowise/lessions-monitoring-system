@@ -44,9 +44,11 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             student: {
                 id: student.id,
                 userId: user.id,
-                name: student.name,
                 username: user.username,
-                password: user.password,
+                name: student.name,
+                surname: student.surname,
+                birhtday: student.birthday,
+                phone: student.phone,
                 permissions: user.permissions,
                 role: user.role
             }

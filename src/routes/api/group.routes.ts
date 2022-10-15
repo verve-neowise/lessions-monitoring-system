@@ -24,6 +24,6 @@ router.put('/:id/teacher', changeGroupTeacher)
 
 router.get('/:id/students', getGroupStudents)
 router.post('/:id/students', addGroupStudent)
-router.delete('/:id/students/:id', removeGroupStudent)
+router.delete('/:id/students/:sid', removeGroupStudent)
 
 export default router

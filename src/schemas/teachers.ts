@@ -38,3 +38,41 @@ export const createTeacherSchema = schema(object({
         })
     }
 }))
+
+
+export const updateTeacherSchema = schema(object({
+    required: true,
+    entries: {
+        username: string({
+            min: 0,
+            max: 16
+        }),
+        password: string({
+            min: 0,
+            max: 32
+        }),
+        name: string({
+            required: true,
+            min: 3
+        }),
+        surname: string({
+            required: true,
+            min: 3
+        }),
+        birthday: string({
+            required: true,
+            min: 3
+        }),
+        phone: string({
+            required: true,
+            min: 3
+        }),
+        directions: array({
+            required: true,
+            template: number({
+                required: true,
+                min: 0
+            })
+        })
+    }
+}))

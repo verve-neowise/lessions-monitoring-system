@@ -38,7 +38,7 @@ const createTeacherAccountIfNotExists = async (id: number) => {
             userId: id,
             name: "",
             surname: "",
-            birthday: "",
+            birthday: new Date(),
             phone: ""
         })
     }
@@ -51,8 +51,9 @@ const createStudentAccountIfNotExists = async (id: number) => {
             userId: id,
             name: "",
             surname: "",
-            birthday: "",
-            phone: ""
+            birthday: new Date(),
+            phone: "",
+            directions: []
         })
     }
 }
