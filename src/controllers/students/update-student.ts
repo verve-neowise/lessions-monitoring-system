@@ -58,7 +58,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 name: student.name,
                 surname: student.surname,
                 birthday: student.birthday,
-                phone: student.birthday,
+                phone: student.phone,
                 role: user.role
             }
         })
