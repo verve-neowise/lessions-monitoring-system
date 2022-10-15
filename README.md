@@ -1,4 +1,16 @@
-# lessions-monitoring-system
-Lession monitoring system 
+# Lessions Monitoring System
 
-### [Documentation](./docs/index.md)
+You can with this API:
+
+-   Manage administrator
+-   Manage teachers
+-   Manage students
+-   Manage groups and directions
+-   Bind teacher to the group
+-   Add, Remove student to Group
+-   Group students assessments
+-   Manage users permissions
+
+etc
+
+[API Documentation](./docs/index.md)
