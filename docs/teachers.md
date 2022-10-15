@@ -18,6 +18,30 @@ Get all teachers
 
 Get teacher details
 
+Response:
+```json
+{
+  "message": "All teachers",
+  "teachers": [
+    {
+      "id": 1,
+      "userId": 3,
+      "username": "neowise",
+      "name": "Jalol",
+      "surname": "Imomaddinov",
+      "birthday": "1997-08-08T19:00:00.000Z",
+      "phone": "99899565121",
+      "groups": [],
+      "directions": [
+        {
+          "id": 1,
+          "name": "Backend Node.js"
+        }
+      ]
+    }
+  ]
+}
+```
 ---
 
 **`POST`** /
@@ -30,7 +54,8 @@ Create teacher
     "name": "Jalol",
     "surname": "Imomaddinov",
     "birthday": "08-09-1997",
-    "phone": "99899565121"
+    "phone": "99899565121",
+    "directions": [1, 2]
 }
 ```
 ---

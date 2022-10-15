@@ -7,6 +7,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     try {
 
         const { username, password } = req.body
+        const { name, surname, birthday, phone, directions } = req.body
 
         const existsUser = await findUser(username)
 
@@ -25,7 +26,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const user = await createUser(userDto)
 
-        const { name, surname, birthday, phone, directions } = req.body
         
         const teacherDto: TeacherDto = {
             userId: user.id,

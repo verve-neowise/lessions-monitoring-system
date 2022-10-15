@@ -5,12 +5,13 @@ export default (req: Request, res: Response, next: NextFunction) => {
     try {
         const payload: Payload = res.locals.payload
 
-        const { userId, username, permissions } = payload
+        const { userId, username, permissions, role } = payload
 
         res.json({
             userId,
             username,
-            permissions
+            permissions,
+            role
         })
     } catch (err) {
         next(err)
