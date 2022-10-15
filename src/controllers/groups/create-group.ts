@@ -16,6 +16,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             message: "group created.",
             group: {
                 id: group.id,
+                name: group.name,
                 months: group.months,
                 direction: group.direction
             }

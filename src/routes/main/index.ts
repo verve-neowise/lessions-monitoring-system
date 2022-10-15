@@ -6,8 +6,6 @@ import mainRoutes from './main.routes'
 
 const router = Router()
 
-router.use(requestLogger)
-
 router.use('/', mainRoutes)
 
 router.use(errorHandler)
