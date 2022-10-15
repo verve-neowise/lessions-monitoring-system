@@ -51,7 +51,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         
         res.json({
             message: "Teacher updated.",
-            student: {
+            teacher: {
                 id: teacher.id,
                 userId: user.id,
                 username: user.username,
