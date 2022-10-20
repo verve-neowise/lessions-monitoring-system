@@ -25,7 +25,7 @@ export const createAssessment = async (data: any) => {
     })
 }
 
-export const updateAssessment= async (id: number, data: any) => {
+export const updateAssessment = async (id: number, data: any) => {
     return prisma.assessment.update({
         where: {
             id
