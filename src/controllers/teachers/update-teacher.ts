@@ -1,4 +1,4 @@
-import { TeacherDto } from '@models/index';
+import { TeacherDto, TeacherResponse } from '@models/index';
 import { findTeacherById, isTeacherExists, updateTeacher } from '@services/teacher.service';
 import { checkUsernameUnique, findUserById, updateUser, updateUserName, updateUserPassword } from '@services/user.service';
 import { Request, Response, NextFunction } from 'express';
@@ -48,19 +48,23 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const teacher = await updateTeacher(id, teacherDto)
         let user = (await findUserById(userId))!
+          
+        const response: TeacherResponse = {
+            id: teacher.id,
+            userId: user.id,
+            username: user.username,
+            name: teacher.name,
+            surname: teacher.surname,
+            phone: teacher.phone,
+            groups: teacher.groups,
+            directions: teacher.directions,
+            permissions: user.permissions,
+            role: user.role
+        }
         
         res.json({
             message: "Teacher updated.",
-            teacher: {
-                id: teacher.id,
-                userId: user.id,
-                username: user.username,
-                name: teacher.name,
-                surname: teacher.surname,
-                birthday: teacher.birthday,
-                phone: teacher.birthday,
-                role: user.role
-            }
+            teacher: response
         })
     }
     catch(err) {

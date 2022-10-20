@@ -1,6 +1,6 @@
 import { createAdmin } from '@services/admin.service';
 import { UserDto } from '@models/user.dto';
-import { AdminDto } from '@models/index';
+import { AdminDto, AdminResponse } from '@models/index';
 import { createUser, findUser } from '@services/user.service';
 import { Request, Response, NextFunction } from 'express';
 
@@ -34,16 +34,18 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const admin = await createAdmin(adminDto)
 
+        const response: AdminResponse = {
+            id: admin.id,
+            userId: user.id,
+            name: admin.name,
+            username: user.username,
+            permissions: user.permissions,
+            role: user.role
+        }
+
         res.json({
             message: "Admin created.",
-            admin: {
-                id: admin.id,
-                userId: user.id,
-                name: admin.name,
-                username: user.username,
-                permissions: user.permissions,
-                role: user.role
-            }
+            admin: response
         })
     }
     catch(err) {

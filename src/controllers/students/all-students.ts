@@ -1,3 +1,4 @@
+import { StudentResponse } from '@models/student.dto';
 import { allStudents } from '@services/student.service';
 import { Request, Response, NextFunction } from 'express';
 
@@ -5,7 +6,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const students = await allStudents()
         
-        const mapped = students.map(student => {
+        const mapped: StudentResponse[] = students.map(student => {
             return {
                 id: student.id,
                 userId: student.user.id,
@@ -20,7 +21,9 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                         id: group.id,
                         name: group.name
                     }
-                })
+                }),
+                permissions: student.user.permissions,
+                role: student.user.role
             }
         })
 

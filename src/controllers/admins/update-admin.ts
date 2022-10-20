@@ -2,7 +2,7 @@ import { checkUsernameUnique, findUserById, updateUserName, updateUserPassword }
 import { findAdminById } from '@services/admin.service';
 import { findUser, updatePermissions, updateUser } from '@services/user.service';
 import { isAdminExists, updateAdmin } from '@services/admin.service';
-import { AdminDto, UserDto } from '@models/index';
+import { AdminDto, AdminResponse, UserDto } from '@models/index';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -47,21 +47,23 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             name
         }
 
+        await updatePermissions(userId, permissions)
+
         const admin = await updateAdmin(id, adminDto)
         let user = (await findUserById(userId))!
         
-        const updatePermission = await updatePermissions(userId, permissions)
+        const response: AdminResponse = {
+            id: admin.id,
+            userId: user.id,
+            name: admin.name,
+            username: user.username,
+            permissions: user.permissions,
+            role: user.role
+        }
 
         res.json({
             message: "Admin updated.",
-            admin: {
-                id: admin.id,
-                userId: user.id,
-                name: admin.name,
-                username: user.username,
-                permissions: updatePermission.permissions,
-                role: user.role
-            }
+            admin: response
         })
     }
     catch(err) {

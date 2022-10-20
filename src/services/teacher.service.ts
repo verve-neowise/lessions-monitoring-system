@@ -86,6 +86,10 @@ export const updateTeacher = async (id: number, data: TeacherDto) => {
                     return { id }
                 })
             }
+        },
+        include: {
+            directions: true,
+            groups: true
         }
     })
 }
@@ -97,6 +101,10 @@ export const deleteTeacher = async (id: number) => {
         },
         data: {
             status: 'deleted'
+        },
+        include: {
+            directions: true,
+            groups: true
         }
     })
 }

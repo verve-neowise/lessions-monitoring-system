@@ -1,3 +1,4 @@
+import { AdminResponse } from '@models/admin.dto';
 import { allAdmins } from '@services/admin.service';
 import { Request, Response, NextFunction } from 'express';
 
@@ -5,7 +6,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const admins = await allAdmins()
         
-        const mapped = admins.map(admin => {
+        const mapped: AdminResponse[] = admins.map(admin => {
             return {
                 id: admin.id,
                 userId: admin.user.id,

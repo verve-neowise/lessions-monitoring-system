@@ -1,6 +1,7 @@
 import { deleteUser } from '@services/user.service';
 import { deleteStudent, isStudentExists } from '@services/student.service';
 import { Request, Response, NextFunction } from 'express';
+import { StudentResponse } from '@models/index';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -16,6 +17,19 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const student = await deleteStudent(id)
         const user = await deleteUser(student.userId)
+
+        const response: StudentResponse = {
+            id: student.id,
+            userId: user.id,
+            username: user.username,
+            name: student.name,
+            surname: student.surname,
+            birthday: student.birthday,
+            phone: student.phone,
+            groups: [],
+            permissions: user.permissions,
+            role: user.role
+        } 
 
         res.json({
             message: "Student deleted.",
