@@ -1,6 +1,6 @@
 import { createStudent, isStudentExists } from './../../services/student.service';
 import { UserDto } from './../../models/user.dto';
-import { StudentDto } from '@models/index';
+import { StudentDto, StudentResponse } from '@models/index';
 import { createUser, findUser } from '@services/user.service';
 import { Request, Response, NextFunction } from 'express';
 
@@ -39,19 +39,22 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const student = await createStudent(studentDto)
 
+        const response: StudentResponse = {
+            id: student.id,
+            userId: user.id,
+            username: user.username,
+            name: student.name,
+            surname: student.surname,
+            birthday: student.birthday,
+            phone: student.phone,
+            groups: [],
+            permissions: user.permissions,
+            role: user.role
+        } 
+
         res.json({
             message: "student created.",
-            student: {
-                id: student.id,
-                userId: user.id,
-                username: user.username,
-                name: student.name,
-                surname: student.surname,
-                birhtday: student.birthday,
-                phone: student.phone,
-                permissions: user.permissions,
-                role: user.role
-            }
+            student: response
         })
     }
     catch(err) {

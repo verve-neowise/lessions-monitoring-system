@@ -2,6 +2,7 @@ import { deleteUser } from '@services/user.service';
 import { deleteStudent, isStudentExists } from '@services/student.service';
 import { Request, Response, NextFunction } from 'express';
 import { deleteAdmin, isAdminExists } from '@services/admin.service';
+import { AdminResponse } from '@models/index';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -18,9 +19,18 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const admin = await deleteAdmin(id)
         const user = await deleteUser(admin.userId)
 
+        const response: AdminResponse = {
+            id: admin.id,
+            userId: user.id,
+            name: admin.name,
+            username: user.username,
+            permissions: user.permissions,
+            role: user.role
+        }
+
         res.json({
             message: "Admin deleted.",
-            admin
+            admin: response
         })
     }
     catch(err) {

@@ -1,4 +1,4 @@
-import { TeacherDto, UserDto } from '@models/index'
+import { TeacherDto, TeacherResponse, UserDto } from '@models/index'
 import { createTeacher, findTeacherByUserId } from '@services/teacher.service'
 import { createUser, findUser } from '@services/user.service'
 import { Request, Response, NextFunction } from 'express'
@@ -42,19 +42,22 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const teacher = await createTeacher(teacherDto)
 
+        const response: TeacherResponse = {
+            id: teacher.id,
+            userId: user.id,
+            username: user.username,
+            name: teacher.name,
+            surname: teacher.surname,
+            phone: teacher.phone,
+            groups: [],
+            directions: teacher.directions,
+            permissions: user.permissions,
+            role: user.role
+        }
+
         res.json({
             message: 'teacher created.',
-            teacher: {
-                id: teacher.id,
-                username: user.username,
-                name: teacher.name,
-                surname: teacher.surname,
-                birhtday: teacher.birthday,
-                phone: teacher.phone,
-                directions: teacher.directions,
-                permissions: user.permissions,
-                role: user.role,
-            },
+            teacher: response
         })
     } catch (err) {
         next(err)

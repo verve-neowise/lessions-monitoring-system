@@ -1,5 +1,5 @@
 import { findStudentById, isStudentExists, updateStudent } from '@services/student.service';
-import { StudentDto } from '@models/index';
+import { StudentDto, StudentResponse } from '@models/index';
 import { Request, Response, NextFunction } from 'express';
 import { checkUsernameUnique, findUser, findUserById, updateUser, updateUserName, updateUserPassword } from '@services/user.service';
 
@@ -49,18 +49,22 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const student = await updateStudent(id, studentDto)
         let user = (await findUserById(userId))!
 
+        const response: StudentResponse = {
+            id: student.id,
+            userId: user.id,
+            username: user.username,
+            name: student.name,
+            surname: student.surname,
+            birthday: student.birthday,
+            phone: student.phone,
+            groups: student.groups,
+            permissions: user.permissions,
+            role: user.role
+        } 
+
         res.json({
             message: "Student updated.",
-            student: {
-                id: student.id,
-                userId: user.id,
-                username: user.username,
-                name: student.name,
-                surname: student.surname,
-                birthday: student.birthday,
-                phone: student.phone,
-                role: user.role
-            }
+            student: response
         })
     }
     catch (err) {

@@ -68,6 +68,9 @@ export const updateStudent = async (id: number, data: StudentDto) => {
             surname,
             phone,
             birthday
+        },
+        include: {
+            groups: true
         }
     })
 }

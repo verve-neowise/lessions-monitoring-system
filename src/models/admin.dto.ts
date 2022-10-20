@@ -11,3 +11,12 @@ export interface UpdateAdminDto {
     password: string
     permissions: Permission
 }
+
+export interface AdminResponse {
+    id: number,
+    userId: number,
+    name: string,
+    username: string,
+    permissions: string[],
+    role: string
+}
