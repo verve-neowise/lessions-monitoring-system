@@ -91,6 +91,9 @@ export const allStudentsCount = async () => {
     return prisma.student.aggregate({
         _count: { 
             id: true
+        },
+        where: {
+            status: 'active'
         }
     })
 }

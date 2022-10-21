@@ -13,7 +13,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 username: teacher.user.username,
                 name: teacher.name,
                 surname: teacher.surname,
-                birthday: teacher.birthday,
                 phone: teacher.phone,
                 groups: teacher.groups.map(group => {
                     return {

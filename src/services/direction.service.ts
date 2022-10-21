@@ -21,7 +21,12 @@ export const allDirectionsWithGroup = async () => {
                     id: true,
                     students: {
                         select: {
-                            id: true
+                            id: true,
+                            name: true,
+                            surname: true,
+                        },
+                        where: {
+                            status: 'active'
                         }
                     }
                 }

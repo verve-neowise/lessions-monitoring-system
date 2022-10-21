@@ -60,7 +60,6 @@ model Teacher {
 
   name     String
   surname  String
-  birthday DateTime
   phone    String
 
   groups Group[]

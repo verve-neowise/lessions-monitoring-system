@@ -47,14 +47,13 @@ export const isTeacherExists = async (id: number) => {
 
 export const createTeacher = async (data: TeacherDto) => {
 
-    const { name, surname, birthday, phone, directions } = data
+    const { name, surname, phone, directions } = data
 
     return prisma.teacher.create({
         data: {
             userId: data.userId!,
             name,
             surname,
-            birthday,
             phone,
             directions: {
                 connect: directions.map(id => {
@@ -70,7 +69,7 @@ export const createTeacher = async (data: TeacherDto) => {
 
 export const updateTeacher = async (id: number, data: TeacherDto) => {
     
-    const { name, surname, birthday, phone, directions } = data
+    const { name, surname, phone, directions } = data
 
     return prisma.teacher.update({
         where: {
@@ -79,7 +78,6 @@ export const updateTeacher = async (id: number, data: TeacherDto) => {
         data: {
             name,
             surname,
-            birthday,
             phone,
             directions: {
                 connect: directions.map(id => {
@@ -113,6 +111,9 @@ export const allTeachersCount = async () => {
     return prisma.teacher.aggregate({
        _count: { 
             id: true
+        },
+        where: {
+            status: 'active'
         }
     })
 }
