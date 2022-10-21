@@ -21,6 +21,14 @@ export const createLessionsForCount = (groupId: number, count: number) => {
     })
 }
 
+export const findLessionByGroup = (groupId: number) => {
+    return prisma.lession.findMany({
+        where: {
+            groupId
+        }
+    })
+}
+
 export const findLessionById = async (id: number) => {
     return prisma.lession.findUnique({
         where: {

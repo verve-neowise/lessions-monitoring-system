@@ -3,8 +3,6 @@ import { createGroup } from '@services/group.service';
 import { createLessionsForCount } from '@services/lession.service';
 import { Request, Response, NextFunction } from 'express';
 
-import { Group } from '@prisma/client';
-
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const dto: GroupDto = req.body
