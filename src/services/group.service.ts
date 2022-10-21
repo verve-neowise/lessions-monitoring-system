@@ -172,6 +172,9 @@ export const allGroupsCount = async () => {
     return prisma.group.aggregate({
         _count: { 
             id: true
+        },
+        where: {
+            status: 'active'
         }
     })
 }

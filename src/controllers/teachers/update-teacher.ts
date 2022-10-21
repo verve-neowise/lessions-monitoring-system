@@ -41,7 +41,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const teacherDto: TeacherDto = {
             name,
             surname,
-            birthday: new Date(Date.parse(birthday)),
             phone,
             directions
         }
