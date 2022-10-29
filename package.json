@@ -5,7 +5,6 @@
     "main": "index.js",
     "scripts": {
         "dev": "nodemon src/index.ts",
-        "build": "npx tsc --rootDir src --outDir lib",
         "start": "npx ts-node src/index.ts",
         "deploy": "pm2 restart lms",
         "mock": "ts-node mocks/mock.ts",
