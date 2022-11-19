@@ -35,7 +35,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             userId: user.id,
             name,
             surname,
-            birthday: new Date(Date.parse(birthday)),
             phone,
             directions,
         }
