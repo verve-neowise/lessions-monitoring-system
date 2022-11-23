@@ -1,5 +1,5 @@
-import { Role } from '@prisma/client'
-import { findAdminByUserId } from './../../services/admin.service';
+import { findAdminByUserId } from '@services/admin.service';
+import { Role } from '@prisma/client';
 import { findStudentByUserId } from '@services/student.service';
 import { findTeacherByUserId } from '@services/teacher.service';
 import { findUserById } from '@services/user.service';
@@ -47,7 +47,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 })
             }
 
-            const { name, surname, phone, birthday } = profile!
+            const { name, surname, phone } = profile!
 
             res.json({
                 message: "User profile",
@@ -57,8 +57,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                     permissions,
                     name,
                     surname,
-                    phone,
-                    birthday
+                    phone
                 }
             })
         }
