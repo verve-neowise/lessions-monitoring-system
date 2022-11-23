@@ -21,10 +21,6 @@ export const createTeacherSchema = schema(object({
             required: true,
             min: 3
         }),
-        birthday: string({
-            required: true,
-            min: 3
-        }),
         phone: string({
             required: true,
             min: 3
@@ -56,10 +52,6 @@ export const updateTeacherSchema = schema(object({
             min: 3
         }),
         surname: string({
-            required: true,
-            min: 3
-        }),
-        birthday: string({
             required: true,
             min: 3
         }),

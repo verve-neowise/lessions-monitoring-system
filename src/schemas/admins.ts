@@ -37,7 +37,7 @@ export const adminUpdateSchema = schema(object({
             max: 16
         }),
         password: string({
-            min: 3,
+            min: 0,
             max: 32
         }),
         name: string({

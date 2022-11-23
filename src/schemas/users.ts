@@ -46,7 +46,7 @@ export const updateUserSchema = schema(object({
         }),
         password: string({
             required: true,
-            min: 3,
+            min: 0,
             max: 32
         })
     }
