@@ -6,7 +6,7 @@ import { Request, Response, NextFunction } from 'express';
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = +req.params.id
-        const { name, surname, birthday, phone, directions, username, password } = req.body
+        const { name, surname, phone, directions, username, password } = req.body
 
         const oldTeacher = await findTeacherById(id)
         

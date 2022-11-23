@@ -12,7 +12,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const { name, username, password, permissions } = req.body
 
         const oldAdmin = await findAdminById(id)
-        
 
         if (!oldAdmin) {
             return res.status(403).json({
