@@ -8,7 +8,8 @@
         "start": "npx ts-node src/index.ts",
         "deploy": "pm2 restart lms",
         "mock": "ts-node mocks/mock.ts",
-        "test": "echo \"No tests available\""
+        "test": "echo \"No tests available\"",
+        "postinstall": "npx prisma db push"
     },
     "repository": {
         "type": "git",

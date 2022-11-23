@@ -14,3 +14,25 @@ You can with this API:
 etc
 
 [API Documentation](./docs/index.md)
+
+Test project:
+
+Create .env file with content:
+
+```js
+DATABASE_URL=""
+JWT_SECRET=""
+EXPIRES_IN="4h"
+PORT=8080
+```
+Run install 
+
+```bash
+npm install
+```
+
+Run app
+
+```bash
+npm start
+```

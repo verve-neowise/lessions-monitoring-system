@@ -1,5 +1,5 @@
+import { Role } from '@prisma/client'
 import { findAdminByUserId } from './../../services/admin.service';
-import { Role } from '@prisma/client';
 import { findStudentByUserId } from '@services/student.service';
 import { findTeacherByUserId } from '@services/teacher.service';
 import { findUserById } from '@services/user.service';
