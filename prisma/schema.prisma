@@ -105,15 +105,18 @@ model Lesson {
   group   Group @relation(fields: [groupId], references: [id])
   groupId Int
 
-  material Material?
+  material Material  @relation(fields: [materialId], references: [id])
+  materialId Int @unique
+  
   assessments Assessment[]
 }
 
 model Material {
   id       Int    @id @default(autoincrement())
-  
-  lesson   Lesson @relation(fields: [lessonId], references: [id])
-  lessonId Int @unique
+
+  content String
+
+  lesson   Lesson?
 }
 
 model Assessment {

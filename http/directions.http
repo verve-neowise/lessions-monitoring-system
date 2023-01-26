@@ -1,0 +1,9 @@
+@adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicm9vdCIsInBlcm1pc3Npb25zIjpbImFkbWluIl0sImlhdCI6MTY3NDc0Nzk5OCwiZXhwIjoxNjc0NzYyMzk4fQ.dndFLE2CKw7P7QY0WkM69mjStv1Oo8Pc5RFtN6Iw0kQ
+
+POST http://localhost:8080/api/v1/directions
+Authorization: {{adminToken}}
+Content-Type: application/json
+
+{
+    "name": "Node.js"
+}

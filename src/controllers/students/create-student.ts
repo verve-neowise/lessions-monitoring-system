@@ -9,7 +9,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const { username, password } = req.body
 
-
         const existsUser = await findUser(username)
 
         if (existsUser) {

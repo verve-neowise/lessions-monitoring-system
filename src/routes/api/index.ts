@@ -4,14 +4,13 @@ import authRoutes from './auth.routes'
 import userRoutes from './users.routes'
 import permissionRoutes from './permission.routes'
 import directionRoutes from './direction.routes'
-import groupRoutes from './group.routes'
+import groupRoutes from './group-routes'
 import adminRoutes from './admin.routes'
 import teacherRoutes from './teacher.routes'
 import studentRoutes from './student.routes'
 import dashboardRoutes from './dashboard.routes'
 
 const router = Router()
-
 
 router.use('/auth', authRoutes)
 router.use('/users', userRoutes)
