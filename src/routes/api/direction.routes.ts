@@ -7,7 +7,7 @@ import { body } from '@verve-neowise/express-validius';
 
 const router = Router()
 
-router.use(permissions('directions'))
+router.use(permissions('admin'))
 
 router.get('/', allDirections)
 router.post('/', body(directionSchema), createDirection)

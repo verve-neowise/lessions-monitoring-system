@@ -5,7 +5,7 @@ import { permissions } from '@middlewares/index';
 
 const router = Router()
 
-router.use(permissions('profile'))
+router.use(permissions('admin'))
 
 router.get('/', allPermissions)
 

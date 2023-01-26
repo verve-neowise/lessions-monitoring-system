@@ -7,7 +7,7 @@ import { adminSchema, adminUpdateSchema } from '@schemas/admins';
 
 const router = Router()
 
-router.use(permissions('admins'))
+router.use(permissions('admin'))
 
 router.get('/', allAdmins)
 router.post('/', body(adminSchema), createAdmin)

@@ -7,7 +7,7 @@ import { createUserSchema, permissionsSchema, updateUserSchema } from '@schemas/
 
 const router = Router()
 
-router.use(permissions('users'))
+router.use(permissions('admin'))
 
 router.get('/', allUsers)
 router.post('/', body(createUserSchema), createUser)

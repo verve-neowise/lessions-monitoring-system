@@ -126,14 +126,9 @@ model Assessment {
 }
 
 enum Permission {
-  students
-  teachers
-  groups
-  users
-  admins
-  profile
-  directions
-  dashboard
+  student
+  teacher
+  admin
 }
 
 enum Role {

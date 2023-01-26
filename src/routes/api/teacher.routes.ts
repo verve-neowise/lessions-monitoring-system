@@ -8,19 +8,17 @@ import { allTeacherDirection, addTeacherDirection, deleteTeacherDirection } from
 
 const router = Router()
 
-router.use(permissions('teachers'))
+router.get('/', permissions('admin'), allTeachers)
+router.post('/', permissions('admin'), body(createTeacherSchema), createTeacher)
+router.put('/:id', permissions('admin'), body(updateTeacherSchema), updateTeacher)
+router.delete('/:id', permissions('admin'), deleteTeacher)
 
-router.get('/', allTeachers)
-router.post('/', body(createTeacherSchema), createTeacher)
-router.put('/:id', body(updateTeacherSchema), updateTeacher)
-router.delete('/:id', deleteTeacher)
+router.get('/:id', permissions('admin', 'teacher'), teacherDetails)
 
-router.get('/:id', teacherDetails)
+router.get('/:id/groups', permissions('admin', 'teacher'), teacherGroups)
 
-router.get('/:id/groups', teacherGroups)
-
-router.get('/:id/directions', allTeacherDirection)
-router.post('/:id/directions', addTeacherDirection)
-router.delete('/:id/directions/:dir_id', deleteTeacherDirection)
+router.get('/:id/directions', permissions('admin', 'teacher'), allTeacherDirection)
+router.post('/:id/directions', permissions('admin'), addTeacherDirection)
+router.delete('/:id/directions/:dir_id', permissions('admin'), deleteTeacherDirection)
 
 export default router

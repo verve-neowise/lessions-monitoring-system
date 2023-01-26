@@ -5,7 +5,7 @@ import { getStatistics } from '@controllers/dashboard';
 
 const router = Router()
 
-router.use(permissions('dashboard'))
+router.use(permissions('admin'))
 
 router.get('/', getStatistics)
 

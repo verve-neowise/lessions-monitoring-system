@@ -7,14 +7,12 @@ import { createStudentSchema, updateStudentSchema } from '@schemas/students';
 
 const router = Router()
 
-router.use(permissions('students'))
+router.get('/', permissions('admin'), allStudents)
+router.post('/', permissions('admin'), body(createStudentSchema), createStudent)
+router.put('/:id', permissions('admin'), body(updateStudentSchema), updateStudent)
+router.delete('/:id', permissions('admin'), deleteStudent)
 
-router.get('/', allStudents)
-router.post('/', body(createStudentSchema), createStudent)
-router.put('/:id', body(updateStudentSchema), updateStudent)
-router.delete('/:id', deleteStudent)
-
-router.get('/:id', studentDetails)
-router.get('/:id/groups', studentGroups)
+router.get('/:id', permissions('admin', 'teacher'), studentDetails)
+router.get('/:id/groups', permissions('admin', 'teacher'), studentGroups)
 
 export default router
