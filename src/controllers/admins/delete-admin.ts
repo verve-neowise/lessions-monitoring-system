@@ -1,5 +1,4 @@
 import { deleteUser } from '@services/user.service';
-import { deleteStudent, isStudentExists } from '@services/student.service';
 import { Request, Response, NextFunction } from 'express';
 import { deleteAdmin, isAdminExists } from '@services/admin.service';
 import { AdminResponse } from '@models/index';

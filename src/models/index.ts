@@ -1,4 +1,4 @@
-export * from './Payload'
+export * from './payload.dto'
 export * from './student.dto'
 export * from './teacher.dto'
 export * from './user.dto'

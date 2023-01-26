@@ -1,8 +1,8 @@
 import { checkUsernameUnique, findUserById, updateUserName, updateUserPassword } from '@services/user.service';
 import { findAdminById } from '@services/admin.service';
-import { findUser, updatePermissions, updateUser } from '@services/user.service';
-import { isAdminExists, updateAdmin } from '@services/admin.service';
-import { AdminDto, AdminResponse, UserDto } from '@models/index';
+import { updatePermissions, updateUser } from '@services/user.service';
+import { updateAdmin } from '@services/admin.service';
+import { AdminDto, AdminResponse } from '@models/index';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {

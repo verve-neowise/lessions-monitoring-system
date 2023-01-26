@@ -1,4 +1,4 @@
-import { array, number, object, schema, string } from '@verve-neowise/validius'
+import { object, schema, string } from '@verve-neowise/validius'
 
 export const loginSchema = schema(
     object({

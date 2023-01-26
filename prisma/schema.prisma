@@ -13,8 +13,6 @@ model User {
   username String @unique
   password String
 
-  role Role
-
   permissions Permission[]
 
   status EntityStatus @default(active)
@@ -46,10 +44,10 @@ model Student {
   birthday DateTime
   phone    String
 
-  groups Group[]
+  groups      Group[]
   assessments Assessment[]
 
-  status     EntityStatus @default(active)
+  status EntityStatus @default(active)
 }
 
 model Teacher {
@@ -58,9 +56,9 @@ model Teacher {
   user   User @relation(fields: [userId], references: [id])
   userId Int  @unique
 
-  name     String
-  surname  String
-  phone    String
+  name    String
+  surname String
+  phone   String
 
   groups Group[]
 
@@ -80,13 +78,12 @@ model Group {
   months Int
 
   students Student[]
-  lessions Lession[]
+  lessons  Lesson[]
 
   teacher   Teacher? @relation(fields: [teacherId], references: [id])
   teacherId Int?
 
   status EntityStatus @default(active)
-
 }
 
 model Direction {
@@ -99,26 +96,34 @@ model Direction {
   status EntityStatus @default(active)
 }
 
-model Lession {
+model Lesson {
   id Int @id @default(autoincrement())
 
-  date Int
+  title String
+  date  DateTime
 
-  group      Group        @relation(fields: [groupId], references: [id])
-  groupId    Int
+  group   Group @relation(fields: [groupId], references: [id])
+  groupId Int
 
+  material Material?
   assessments Assessment[]
 }
 
-model Assessment {
+model Material {
+  id       Int    @id @default(autoincrement())
+  
+  lesson   Lesson @relation(fields: [lessonId], references: [id])
+  lessonId Int @unique
+}
 
+model Assessment {
   id Int @id @default(autoincrement())
 
-  student Student @relation(fields: [studentId], references: [id])
+  student   Student @relation(fields: [studentId], references: [id])
   studentId Int
 
-  lession   Lession @relation(fields: [lessionId], references: [id])
-  lessionId Int
+  lesson   Lesson @relation(fields: [lessonId], references: [id])
+  lessonId Int    @map("lessonId")
 
   comment String
   color   String
@@ -126,13 +131,6 @@ model Assessment {
 }
 
 enum Permission {
-  student
-  teacher
-  admin
-}
-
-enum Role {
-  none
   student
   teacher
   admin

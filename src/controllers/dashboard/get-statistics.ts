@@ -1,4 +1,4 @@
-import { allDirectionsWithGroup, allDirectionsCount } from '@services/direction.service';
+import { allDirectionsWithGroup } from '@services/direction.service';
 import { allGroupsCount } from '@services/group.service';
 import { allStudentsCount } from '@services/student.service';
 import { allTeachersCount } from '@services/teacher.service';
