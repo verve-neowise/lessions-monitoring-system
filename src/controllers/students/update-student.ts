@@ -59,7 +59,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             phone: student.phone,
             groups: student.groups,
             permissions: user.permissions,
-            role: user.role
         } 
 
         res.json({

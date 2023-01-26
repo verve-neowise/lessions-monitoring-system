@@ -21,8 +21,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const userDto: UserDto = {
             username,
             password,
-            role: 'student',
-            permissions: ['profile', 'students']
+            permissions: ['student']
         }
 
         const user = await createUser(userDto)
@@ -49,7 +48,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             phone: student.phone,
             groups: [],
             permissions: user.permissions,
-            role: user.role
         } 
 
         res.json({

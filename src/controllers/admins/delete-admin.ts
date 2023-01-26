@@ -24,7 +24,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             name: admin.name,
             username: user.username,
             permissions: user.permissions,
-            role: user.role
         }
 
         res.json({

@@ -23,7 +23,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                     }
                 }),
                 permissions: student.user.permissions,
-                role: student.user.role
             }
         })
 

@@ -20,7 +20,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const userDto: UserDto = {
             username,
             password,
-            role: 'admin',
             permissions
         }
 
@@ -40,7 +39,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             name: admin.name,
             username: user.username,
             permissions: user.permissions,
-            role: user.role
         }
 
         res.json({

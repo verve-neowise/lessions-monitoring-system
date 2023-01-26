@@ -21,5 +21,4 @@ export interface StudentResponse {
         name: string
     }[],
     permissions: Permission[]
-    role: string
 }

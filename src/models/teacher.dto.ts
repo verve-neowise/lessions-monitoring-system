@@ -25,5 +25,4 @@ export interface TeacherResponse {
         name: string
     }[]
     permissions: Permission[]
-    role: string
 }

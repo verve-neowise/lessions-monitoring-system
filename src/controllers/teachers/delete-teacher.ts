@@ -28,7 +28,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             groups: teacher.groups,
             directions: teacher.directions,
             permissions: user.permissions,
-            role: user.role
         }
 
         res.json({

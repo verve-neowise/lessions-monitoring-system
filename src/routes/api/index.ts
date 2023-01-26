@@ -8,7 +8,6 @@ import groupRoutes from './group.routes'
 import adminRoutes from './admin.routes'
 import teacherRoutes from './teacher.routes'
 import studentRoutes from './student.routes'
-import profileRoutes from './profile.routes'
 import dashboardRoutes from './dashboard.routes'
 
 const router = Router()
@@ -22,7 +21,6 @@ router.use('/groups', groupRoutes)
 router.use('/admins', adminRoutes)
 router.use('/teachers', teacherRoutes)
 router.use('/students', studentRoutes)
-router.use('/profile', profileRoutes)
 router.use('/dashboard', dashboardRoutes)
 
 router.use(errorHandler)

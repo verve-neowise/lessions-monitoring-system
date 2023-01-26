@@ -19,13 +19,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const userDto: UserDto = {
             username,
             password,
-            role: 'teacher',
             permissions: [
-                'directions',
-                'groups',
-                'profile',
-                'students',
-                'teachers',
+                'teacher'
             ],
         }
 
@@ -51,7 +46,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             groups: [],
             directions: teacher.directions,
             permissions: user.permissions,
-            role: user.role
         }
 
         res.json({

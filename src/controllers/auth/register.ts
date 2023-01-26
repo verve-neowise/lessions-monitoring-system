@@ -5,7 +5,6 @@ import { Payload } from '@models/index';
 
 import { findUser, createUser } from '@services/user.service';
 import { sign } from '@services/jwt.service';
-import { Role } from '@prisma/client';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -21,7 +20,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     let newUser = await createUser({
         username, 
         password,
-        role: Role.none, 
         permissions: []
     })
 
@@ -29,7 +27,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         userId: newUser.id,
         username: newUser.username,
         permissions: [],
-        role: newUser.role
     }
 
     const token = sign(payload)
@@ -38,7 +35,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         userId: payload.userId,
         username: payload.username,
         permissions: payload.permissions,
-        role: payload.role,
         token
     })
     }

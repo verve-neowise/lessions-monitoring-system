@@ -27,7 +27,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                     }
                 }),
                 permissions: teacher.user.permissions,
-                role: teacher.user.role
             }
         })
         

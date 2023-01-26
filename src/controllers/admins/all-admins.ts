@@ -13,7 +13,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 name: admin.name,
                 username: admin.user.username,
                 permissions: admin.user.permissions,
-                role: admin.user.role
             }
         })
 
