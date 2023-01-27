@@ -11,7 +11,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const studentCount = (await allStudentsCount())._count.id
         const groupCount = (await allGroupsCount())._count.id
 
-        const directions = await allDirectionsWithGroup()
+        const directions = await allDirectionsWithGroup()_count.id
 
         const response = directions.map(dir => {
             const groupCount = dir.groups.length
