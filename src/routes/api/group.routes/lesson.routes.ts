@@ -5,11 +5,15 @@ import { addLesson, deleteLesson, getLessons, updateLesson } from '@controllers/
 import { body } from '@verve-neowise/express-validius';
 import { lessonSchema } from '@schemas/lesson';
 
-const router = Router()
+import material from './material.routes'
+
+const router = Router({ mergeParams: true })
 
 router.get('/', permissions('admin', 'teacher', 'student'), getLessons)
-router.post('/', permissions('admin', 'teacher', 'student'), body(lessonSchema), addLesson)
-router.put('/:lesson', permissions('admin', 'teacher', 'student'), body(lessonSchema), updateLesson)
-router.delete('/:lesson', permissions('admin', 'teacher', 'student'), deleteLesson)
+router.post('/', permissions('teacher'), body(lessonSchema), addLesson)
+router.put('/:lesson', permissions('teacher'), body(lessonSchema), updateLesson)
+router.delete('/:lesson', permissions('teacher'), deleteLesson)
+
+router.use('/:id', material)
 
 export default router

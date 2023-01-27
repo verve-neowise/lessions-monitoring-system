@@ -6,9 +6,9 @@ import { createGroupSchema } from '@schemas/groups';
 
 import { allGroups, createGroup, deleteGroup, groupDetails, updateGroup } from '@controllers/groups/index';
 
-import teachers from './teachers';
-import students from './students';
-import lessons from './lessons';
+import teachers from './teacher.routes';
+import students from './student.routes';
+import lessons from './lesson.routes';
 
 const router = Router({ mergeParams: true })
 

@@ -88,10 +88,7 @@ export const deleteStudent = async (id: number) => {
 
 
 export const allStudentsCount = async () => {
-    return prisma.student.aggregate({
-        _count: { 
-            id: true
-        },
+    return prisma.student.count({
         where: {
             status: 'active'
         }

@@ -12,6 +12,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         // TODO: create material for lesson
         // TODO: create attachment folder
+        // TODO: create assessments for this lesson
 
         const response: LessonResponse = {
             id: lesson.id,

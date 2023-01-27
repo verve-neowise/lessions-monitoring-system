@@ -1,7 +1,7 @@
 @adminToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicm9vdCIsInBlcm1pc3Npb25zIjpbImFkbWluIl0sImlhdCI6MTY3NDc0Nzk5OCwiZXhwIjoxNjc0NzYyMzk4fQ.dndFLE2CKw7P7QY0WkM69mjStv1Oo8Pc5RFtN6Iw0kQ
 @teacherToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsInVzZXJuYW1lIjoiYWxpbW92IiwicGVybWlzc2lvbnMiOlsidGVhY2hlciJdLCJpYXQiOjE2NzQ3NDgxODcsImV4cCI6MTY3NDc2MjU4N30.AL11LHi-GEjEM7nVxu4OOQgFLN9GKft9_hyK2XA4MK8
 
-POST http://localhost:8080/api/v1/auth/login
+POST http://neowise.uz:3115/api/v1/auth/login
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/api/v1/admins
+POST http://neowise.uz:3115/api/v1/admins
 Content-Type: application/json
 
 {
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/api/v1/teachers
+POST http://neowise.uz:3115/api/v1/teachers
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoicm9vdCIsInBlcm1pc3Npb25zIjpbImFkbWluIl0sImlhdCI6MTY3NDc0Nzk5OCwiZXhwIjoxNjc0NzYyMzk4fQ.dndFLE2CKw7P7QY0WkM69mjStv1Oo8Pc5RFtN6Iw0kQ
 Content-Type: application/json
 

@@ -106,10 +106,7 @@ export const deleteTeacher = async (id: number) => {
 }
 
 export const allTeachersCount = async () => {
-    return prisma.teacher.aggregate({
-       _count: { 
-            id: true
-        },
+    return prisma.teacher.count({
         where: {
             status: 'active'
         }
