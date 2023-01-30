@@ -18,14 +18,15 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const { userId } = oldStudent
 
-        const isUsernameUnique = await checkUsernameUnique(userId, username)
+        if (username) {
+            const isUsernameUnique = await checkUsernameUnique(userId, username)
 
-        if (!isUsernameUnique) {
-            return res.status(403).json({
-                message: "User with username: " + username + " already exists"
-            })
+            if (!isUsernameUnique) {
+                return res.status(403).json({
+                    message: "User with username: " + username + " already exists"
+                })
+            }
         }
-
 
         // update username and password
         if (username && password && username.length > 0 && password.length > 0) {
