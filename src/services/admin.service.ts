@@ -73,13 +73,5 @@ export const deleteAdmin = async (id: number) => {
 
 
 export const allAdminsCount = async () => {
-    return prisma.admin.count({
-        where: {
-            user: {
-                permissions: {
-                    has: 'admin'
-                }
-            }
-        }
-    })
+    return prisma.admin.count()
 }

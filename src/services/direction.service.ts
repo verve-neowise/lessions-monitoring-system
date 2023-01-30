@@ -19,6 +19,7 @@ export const allDirectionsWithGroup = async () => {
                 },
                 select: {
                     id: true,
+                    name: true,
                     students: {
                         select: {
                             id: true,
