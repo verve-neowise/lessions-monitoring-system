@@ -86,11 +86,14 @@ export const deleteStudent = async (id: number) => {
     })
 }
 
-
 export const allStudentsCount = async () => {
-    return prisma.student.count({
+    return prisma.admin.count({
         where: {
-            status: 'active'
+            user: {
+                permissions: {
+                    has: 'student'
+                }
+            }
         }
     })
 }

@@ -12,7 +12,7 @@ router.post('/', permissions('admin'), body(createStudentSchema), createStudent)
 router.put('/:id', permissions('admin'), body(updateStudentSchema), updateStudent)
 router.delete('/:id', permissions('admin'), deleteStudent)
 
-router.get('/:id', permissions('admin', 'teacher'), studentDetails)
-router.get('/:id/groups', permissions('admin', 'teacher'), studentGroups)
+router.get('/:id', permissions('admin', 'teacher', 'student'), studentDetails)
+router.get('/:id/groups', permissions('admin', 'teacher', 'student'), studentGroups)
 
 export default router

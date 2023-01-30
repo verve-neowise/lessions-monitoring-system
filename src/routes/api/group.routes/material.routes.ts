@@ -8,6 +8,6 @@ const router = Router()
 router.put('/material', permissions('teacher'), updateMaterial)
 router.get('/attachments', permissions('teacher', 'admin', 'student'), getAttachments)
 router.post('/attachments', permissions('teacher'), addAttachment)
-router.get('/attachment/:attachment', permissions('teacher'), removeAttachment)
+router.delete('/attachments/:attachment', permissions('teacher'), removeAttachment)
 
 export default router

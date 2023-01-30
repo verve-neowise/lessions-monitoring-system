@@ -14,6 +14,6 @@ router.post('/', permissions('teacher'), body(lessonSchema), addLesson)
 router.put('/:lesson', permissions('teacher'), body(lessonSchema), updateLesson)
 router.delete('/:lesson', permissions('teacher'), deleteLesson)
 
-router.use('/:id', material)
+router.use('/:lesson', material)
 
 export default router

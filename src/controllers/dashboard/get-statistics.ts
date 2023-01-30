@@ -22,7 +22,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 name: dir.name,
                 groups: groupCount,
                 students: studentCount,
-                teachers: dir.teachers
+                teachers: teacherCount
             }
         })
 

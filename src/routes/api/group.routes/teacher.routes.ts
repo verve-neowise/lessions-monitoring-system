@@ -5,7 +5,7 @@ import { changeGroupTeacher, getGroupTeacher } from '@controllers/groups/teacher
 
 const router = Router()
 
-router.get('/', permissions('admin', 'teacher'), getGroupTeacher)
+router.get('/', permissions('admin', 'teacher', 'student'), getGroupTeacher)
 router.put('/', permissions('admin'), changeGroupTeacher)
 
 export default router

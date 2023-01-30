@@ -106,9 +106,13 @@ export const deleteTeacher = async (id: number) => {
 }
 
 export const allTeachersCount = async () => {
-    return prisma.teacher.count({
+    return prisma.admin.count({
         where: {
-            status: 'active'
+            user: {
+                permissions: {
+                    has: 'teacher'
+                }
+            }
         }
     })
 }
