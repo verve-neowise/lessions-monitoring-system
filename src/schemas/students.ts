@@ -35,14 +35,6 @@ export const createStudentSchema = schema(object({
 export const updateStudentSchema = schema(object({
     required: true,
     entries: {
-        username: string({
-            min: 0,
-            max: 16
-        }),
-        password: string({
-            min: 0,
-            max: 32
-        }),
         name: string({
             required: true,
             min: 3

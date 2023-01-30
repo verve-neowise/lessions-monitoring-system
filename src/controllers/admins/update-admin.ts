@@ -30,23 +30,26 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         }
 
         // update username and password
-        if (username.length > 0 && password.length > 0) {
+        if (username && password && username.length > 0 && password.length > 0) {
             await updateUser(userId, username, password)
         }
         // update only username
-        else if (username.length > 0) {
+        else if (username && username.length > 0) {
             await updateUserName(userId, username)
         }
         // update only password
-        else if (password.length > 0) {
+        else if (password && password.length > 0) {
             await updateUserPassword(userId, password)
         }
-
+        
+        if (permissions && permissions.length > 0) {
+            await updatePermissions(userId, permissions)
+        }
+        
         const adminDto: AdminDto = {
             name
         }
 
-        await updatePermissions(userId, permissions)
 
         const admin = await updateAdmin(id, adminDto)
         let user = (await findUserById(userId))!

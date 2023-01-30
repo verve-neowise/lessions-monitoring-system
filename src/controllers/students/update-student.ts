@@ -1,12 +1,12 @@
 import { findStudentById, isStudentExists, updateStudent } from '@services/student.service';
 import { StudentDto, StudentResponse } from '@models/index';
 import { Request, Response, NextFunction } from 'express';
-import { checkUsernameUnique, findUser, findUserById, updateUser, updateUserName, updateUserPassword } from '@services/user.service';
+import { checkUsernameUnique, findUser, findUserById, updatePermissions, updateUser, updateUserName, updateUserPassword } from '@services/user.service';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = +req.params.id
-        const { name, surname, birthday, phone, username, password } = req.body
+        const { name, surname, birthday, phone, username, password, permissions } = req.body
 
         const oldStudent = await findStudentById(id)
 
@@ -26,17 +26,22 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
+
         // update username and password
-        if (username.length > 0 && password.length > 0) {
+        if (username && password && username.length > 0 && password.length > 0) {
             await updateUser(userId, username, password)
         }
         // update only username
-        else if (username.length > 0) {
+        else if (username && username.length > 0) {
             await updateUserName(userId, username)
         }
         // update only password
-        else if (password.length > 0) {
+        else if (password && password.length > 0) {
             await updateUserPassword(userId, password)
+        }
+        
+        if (permissions && permissions.length > 0) {
+            await updatePermissions(userId, permissions)
         }
 
         const studentDto: StudentDto = {
