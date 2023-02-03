@@ -19,6 +19,11 @@ export interface TeacherResponse {
     groups: {
         id: number
         name: string
+        direction: {
+            id: number
+            name: string
+        }
+        students: number
     }[]
     directions: {
         id: number

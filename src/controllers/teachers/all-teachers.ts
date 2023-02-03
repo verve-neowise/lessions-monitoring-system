@@ -17,7 +17,12 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 groups: teacher.groups.map(group => {
                     return {
                         id: group.id,
-                        name: group.name
+                        name: group.name,
+                        direction: {
+                            id: group.direction.id,
+                            name: group.direction.name
+                        },
+                        students: group._count.students
                     }
                 }),
                 directions: teacher.directions.map(direction => {

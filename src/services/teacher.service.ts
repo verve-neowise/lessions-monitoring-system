@@ -11,6 +11,14 @@ export const allTeachers = async () => {
         include: {
             user: true,
             groups: {
+                include: {
+                    direction: true,
+                    _count: {
+                        select: {
+                            students: true,
+                        }
+                    }
+                },
                 where: {
                     status: 'active'
                 }
