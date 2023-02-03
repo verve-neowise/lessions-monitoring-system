@@ -8,6 +8,15 @@ export interface TeacherDto {
     directions: number[]
 }
 
+export type TeacherGroup = {
+    id: number
+    name: string
+    direction: {
+        id: number
+        name: string
+    }
+    students: number
+}
 
 export interface TeacherResponse {
     id: number
@@ -16,15 +25,7 @@ export interface TeacherResponse {
     name: string
     surname: string
     phone: string
-    groups: {
-        id: number
-        name: string
-        direction: {
-            id: number
-            name: string
-        }
-        students: number
-    }[]
+    groups: (TeacherGroup | { id: number, name: string })[]
     directions: {
         id: number
         name: string
