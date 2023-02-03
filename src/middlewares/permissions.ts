@@ -31,10 +31,6 @@ export default (...permissions: Permission[]) => {
                 
                 const orgId = +req.params.orgId
 
-                console.log(orgId);
-                console.log(payload);
-                
-
                 if (orgId != payload.orgId) {
                     return res.status(403).json({
                         message: 'Access denied to this organization'

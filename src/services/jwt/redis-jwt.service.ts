@@ -1,4 +1,4 @@
-import redis, { RedisClientType } from 'redis'
+import * as redis from 'redis'
 import JWTR from 'jwt-redis'
 
 import { Payload } from "@models/index"
@@ -6,7 +6,7 @@ import jwtConfig from '@configs/jwt.config'
 
 const { secret, expiresIn } = jwtConfig
 
-const client: RedisClientType = redis.createClient();
+const client: redis.RedisClientType = redis.createClient();
 
 const jwtr = new JWTR(client);
 
