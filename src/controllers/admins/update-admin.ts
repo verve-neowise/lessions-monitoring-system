@@ -7,11 +7,13 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const organizationId = +req.params.orgId 
+
         const id = +req.params.id
 
         const { name, username, password, permissions } = req.body
 
-        const oldAdmin = await findAdminById(id)
+        const oldAdmin = await findAdminById(organizationId, id)
 
         if (!oldAdmin) {
             return res.status(403).json({

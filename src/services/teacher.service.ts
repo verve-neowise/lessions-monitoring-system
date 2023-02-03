@@ -3,10 +3,13 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const allTeachers = async () => {
+export const allTeachers = async (organizationId: number) => {
     return prisma.teacher.findMany({
         where: {
-            status: 'active'
+            status: 'active',
+            user: {
+                organizationId
+            }
         },
         include: {
             user: true,
@@ -32,24 +35,30 @@ export const allTeachers = async () => {
     })
 }
 
-export const findTeacherById = async (id: number) => {
-    return prisma.teacher.findUnique({
+export const findTeacherById = async (organizationId: number, id: number) => {
+    return prisma.teacher.findFirst({
         where: {
-            id
+            id,
+            user: {
+                organizationId
+            }
         }
     })
 }
 
-export const findTeacherByUserId = async (userId: number) => {
-    return prisma.teacher.findUnique({
+export const findTeacherByUserId = async (organizationId: number, userId: number) => {
+    return prisma.teacher.findFirst({
         where: {
-            userId
+            userId,
+            user: {
+                organizationId
+            }
         }
     })
 }
 
-export const isTeacherExists = async (id: number) => {
-    const teacher = await findTeacherById(id)
+export const isTeacherExists = async (organizationId: number, id: number) => {
+    const teacher = await findTeacherById(organizationId, id)
     return teacher !== null
 }
 
@@ -113,6 +122,24 @@ export const deleteTeacher = async (id: number) => {
     })
 }
 
-export const allTeachersCount = async () => {
-    return prisma.teacher.count()
+export const allTeachersCount = async (organizationId: number) => {
+    return prisma.teacher.count({
+        where: {
+            user: {
+                organizationId
+            }
+        }
+    })
+}
+
+export const isTeacherBelongsToOrganization = async (organizationId: number, teacherId: number) => {
+    const teacher = await prisma.teacher.findFirst({
+        where: {
+            user: {
+                organizationId
+            },
+            id: teacherId
+        }
+    })
+    return teacher != null
 }

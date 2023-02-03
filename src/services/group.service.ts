@@ -3,9 +3,10 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const allGroups = async () => {
+export const allGroups = async (organizationId: number) => {
     return prisma.group.findMany({
         where: {
+            organizationId,
             status: 'active'
         },
         select: {
@@ -24,10 +25,11 @@ export const allGroups = async () => {
     })
 }
 
-export const findGroupById = async (id: number) => {
-    return prisma.group.findUnique({
+export const findGroupById = async (organizationId: number, id: number) => {
+    return prisma.group.findFirst({
         where: {
-            id
+            id,
+            organizationId
         }
     })
 }
@@ -98,10 +100,11 @@ export const addStudentToGroup = (id: number, studentId: number) => {
     })
 }
 
-export const getGroupStudents = (id: number) => {
-    return prisma.group.findUnique({
+export const getGroupStudents = (organizationId: number, id: number) => {
+    return prisma.group.findFirst({
         where: {
-            id
+            id,
+            organizationId
         },
         select: {
             name: true,
@@ -114,12 +117,12 @@ export const getGroupStudents = (id: number) => {
     })
 }
 
-export const isGroupExists = async (id: number) => {
-    const group = await findGroupById(id)
+export const isGroupExists = async (organizationId: number, id: number) => {
+    const group = await findGroupById(organizationId, id)
     return group !== null
 }
 
-export const createGroup = async (data: GroupDto) => {
+export const createGroup = async (organizationId: number, data: GroupDto) => {
     const { name, months, directionId } = data
     return prisma.group.create({
         data: {
@@ -128,6 +131,11 @@ export const createGroup = async (data: GroupDto) => {
             direction: {
                 connect: {
                     id: directionId
+                }
+            },
+            organization: {
+                connect: {
+                    id: organizationId
                 }
             }
         },
@@ -168,9 +176,10 @@ export const deleteGroup = async (id: number) => {
 
 }
 
-export const allGroupsCount = async () => {
+export const allGroupsCount = async (organizationId: number) => {
     return prisma.group.count({
         where: {
+            organizationId,
             status: 'active'
         }
     })

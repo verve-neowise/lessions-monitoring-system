@@ -4,7 +4,10 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const admins = await allAdmins()
+
+        const organizationId = +req.params.orgId 
+
+        const admins = await allAdmins(organizationId)
         
         const mapped: AdminResponse[] = admins.map(admin => {
             return {

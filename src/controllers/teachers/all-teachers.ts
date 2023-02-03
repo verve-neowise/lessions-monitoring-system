@@ -4,7 +4,9 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const teachers = await allTeachers()
+        const organizationId = +req.params.orgId 
+
+        const teachers = await allTeachers(organizationId)
         
         const mapped: TeacherResponse[] = teachers.map(teacher => {
             return {

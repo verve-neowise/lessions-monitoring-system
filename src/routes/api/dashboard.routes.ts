@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { permissions } from '@middlewares/index';
 import { getStatistics } from '@controllers/dashboard';
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
 router.use(permissions('admin'))
 

@@ -2,7 +2,7 @@ import { addAttachment, getAttachments, removeAttachment, updateMaterial } from 
 import permissions from "@middlewares/permissions"
 import { Router } from "express"
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
 // /groups/1/lessons/3/material
 router.put('/material', permissions('teacher'), updateMaterial)

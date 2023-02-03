@@ -6,7 +6,10 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const organizationId = +req.params.orgId 
 
+        console.log(req.params);
+        
         const { username, password, permissions, name } = req.body
 
         const existsUser = await findUser(username)
@@ -20,10 +23,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const userDto: UserDto = {
             username,
             password,
-            permissions
+            permissions: permissions ?? ['admin']
         }
 
-        const user = await createUser(userDto)
+        const user = await createUser(organizationId, userDto)
 
         
         const adminDto: AdminDto = {

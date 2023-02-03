@@ -7,6 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Organization {
+  id        Int         @id @default(autoincrement())
+  name      String
+  
+  status    EntityStatus @default(active)
+
+  users     User[]
+  groups    Group[]
+  directions Direction[]
+}
+
 model User {
   id Int @id @default(autoincrement())
 
@@ -16,6 +27,9 @@ model User {
   permissions Permission[]
 
   status EntityStatus @default(active)
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
 
   admin   Admin?
   student Student?
@@ -75,6 +89,9 @@ model Group {
   direction   Direction @relation(fields: [directionId], references: [id])
   directionId Int
 
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
+
   months Int
 
   students Student[]
@@ -93,6 +110,9 @@ model Direction {
   groups   Group[]
   teachers Teacher[]
 
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
+
   status EntityStatus @default(active)
 }
 
@@ -105,18 +125,18 @@ model Lesson {
   group   Group @relation(fields: [groupId], references: [id])
   groupId Int
 
-  material Material  @relation(fields: [materialId], references: [id])
-  materialId Int @unique
-  
+  material   Material @relation(fields: [materialId], references: [id])
+  materialId Int      @unique
+
   assessments Assessment[]
 }
 
 model Material {
-  id       Int    @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
   content String
 
-  lesson   Lesson?
+  lesson Lesson?
 }
 
 model Assessment {
@@ -137,6 +157,7 @@ enum Permission {
   student
   teacher
   admin
+  surpervisor
 }
 
 enum EntityStatus {

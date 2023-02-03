@@ -5,7 +5,7 @@ import { permissions } from '@middlewares/index';
 import { body } from '@verve-neowise/express-validius';
 import { createStudentSchema, updateStudentSchema } from '@schemas/students';
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
 router.get('/', permissions('admin'), allStudents)
 router.post('/', permissions('admin'), body(createStudentSchema), createStudent)

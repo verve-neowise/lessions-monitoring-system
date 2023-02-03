@@ -5,7 +5,7 @@ import { allUsers, createUser, deleteUser, updatePermissions, updateUser } from 
 import { body } from '@verve-neowise/express-validius';
 import { createUserSchema, permissionsSchema, updateUserSchema } from '@schemas/index';
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
 router.use(permissions('admin'))
 

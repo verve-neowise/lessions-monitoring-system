@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { permissions } from '@middlewares/index';
 import { addGroupStudent, getGroupStudents, removeGroupStudent } from '@controllers/groups/students';
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
 router.get('/', permissions('admin', 'teacher'),  getGroupStudents)
 router.post('/', permissions('admin'),  addGroupStudent)

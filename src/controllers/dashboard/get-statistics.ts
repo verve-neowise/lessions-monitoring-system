@@ -7,11 +7,14 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const teacherCount = await allTeachersCount()
-        const studentCount = await allStudentsCount()
-        const groupCount = await allGroupsCount()
 
-        const directions = await allDirectionsWithGroup()
+        const organizationId = +req.params.orgId 
+
+        const teacherCount = await allTeachersCount(organizationId)
+        const studentCount = await allStudentsCount(organizationId)
+        const groupCount = await allGroupsCount(organizationId)
+
+        const directions = await allDirectionsWithGroup(organizationId)
 
         const response = directions.map(dir => {
             const groupCount = dir.groups.length

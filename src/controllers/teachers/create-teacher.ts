@@ -5,6 +5,8 @@ import { Request, Response, NextFunction } from 'express'
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const organizationId = +req.params.orgId 
+
         const { username, password } = req.body
         const { name, surname, birthday, phone, directions } = req.body
 
@@ -24,7 +26,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             ],
         }
 
-        const user = await createUser(userDto)
+        const user = await createUser(organizationId, userDto)
 
         const teacherDto: TeacherDto = {
             userId: user.id,

@@ -5,10 +5,13 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+
+        const organizationId = +req.params.orgId 
+
         const id = +req.params.id
         const { name, surname, phone, directions, username, password, permissions } = req.body
 
-        const oldTeacher = await findTeacherById(id)
+        const oldTeacher = await findTeacherById(organizationId, id)
         
         if (!oldTeacher) {
             return res.status(403).json({

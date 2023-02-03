@@ -3,11 +3,13 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try { 
+        const organizationId = +req.params.orgId 
+
         const id = +req.params.id
 
         const { name } = req.body
 
-        if (await isDirectionExists(id)) {
+        if (await isDirectionExists(organizationId, id)) {
             
             const direction = await updateDirection(id, name)
 

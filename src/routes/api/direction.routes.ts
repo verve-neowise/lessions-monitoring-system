@@ -5,7 +5,7 @@ import { directionSchema } from '@schemas/index';
 import { permissions } from '@middlewares/index';
 import { body } from '@verve-neowise/express-validius';
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
 router.use(permissions('admin'))
 

@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import bcrypt from "bcrypt";
 
 import { Payload } from '@models/index';
 
@@ -17,7 +16,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         return res.status(403).send({ message: `username ${username} already taken` })
     }
 
-    let newUser = await createUser({
+    let newUser = await createUser(-1, {
         username, 
         password,
         permissions: []
@@ -26,15 +25,17 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     const payload: Payload = {
         userId: newUser.id,
         username: newUser.username,
+        orgId: -1,
         permissions: [],
     }
 
-    const token = sign(payload)
+    const token = await sign(payload)
 
     res.json({
         userId: payload.userId,
         username: payload.username,
         permissions: payload.permissions,
+        organization: payload.orgId,
         token
     })
     }

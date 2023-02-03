@@ -5,9 +5,11 @@ import { StudentResponse } from '@models/index';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const organizationId = +req.params.orgId 
+
         const id = +req.params.id
 
-        const find = await isStudentExists(id)
+        const find = await isStudentExists(organizationId, id)
         
         if (!find) {
             return res.status(403).json({

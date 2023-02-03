@@ -6,7 +6,7 @@ import { allTeachers, createTeacher, deleteTeacher, teacherDetails, teacherGroup
 import { createTeacherSchema, updateTeacherSchema } from '@schemas/teachers';
 import { allTeacherDirection, addTeacherDirection, deleteTeacherDirection } from '@controllers/teachers/directions';
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
 router.get('/', permissions('admin'), allTeachers)
 router.post('/', permissions('admin'), body(createTeacherSchema), createTeacher)

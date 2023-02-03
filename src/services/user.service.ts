@@ -110,13 +110,18 @@ export const allUsersCount = async () => {
     })
 }
 
-export const createUser = async (data: UserDto) => {
+export const createUser = async (organizationId: number, data: UserDto) => {
     const hashedPassword = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10))
     
     return prisma.user.create({
         data: {
             username: data.username,
             password: hashedPassword,
+            organization: {
+                connect: {
+                    id: organizationId
+                }
+            },
             permissions: data.permissions
         }
     })

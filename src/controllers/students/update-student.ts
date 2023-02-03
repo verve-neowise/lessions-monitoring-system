@@ -5,10 +5,12 @@ import { checkUsernameUnique, findUser, findUserById, updatePermissions, updateU
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const organizationId = +req.params.orgId 
+
         const id = +req.params.id
         const { name, surname, birthday, phone, username, password, permissions } = req.body
 
-        const oldStudent = await findStudentById(id)
+        const oldStudent = await findStudentById(organizationId, id)
 
         if (!oldStudent) {
             return res.status(403).json({
