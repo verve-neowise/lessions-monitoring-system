@@ -18,9 +18,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        console.log("TeacherId: " + teacherId);
-        
-
         const teacherExists = await isTeacherExists(organizationId, +teacherId)
 
         if (!teacherExists) {

@@ -34,9 +34,10 @@ export const findGroupById = async (organizationId: number, id: number) => {
     })
 }
 
-export const getGroupTeacher = async (id: number) => {
-    return prisma.group.findUnique({
+export const getGroupTeacher = async (organizationId: number, id: number) => {
+    return prisma.group.findFirst({
         where: {
+            organizationId,
             id
         },
         include: {
