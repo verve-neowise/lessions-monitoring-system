@@ -2,6 +2,7 @@ import { LessonDto, LessonResponse } from '@models/lesson.dto';
 import { Request, Response, NextFunction } from 'express';
 import { createLesson } from '@services/lesson.service'
 import { findGroupById } from '@services/group.service';
+import { createAttachmentsFolder } from '@services/attachment.service';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -20,8 +21,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const lesson = await createLesson(groupId, lessonDto)
 
-        // TODO: create material for lesson
-        // TODO: create attachment folder
+        createAttachmentsFolder(organizationId, lesson.id)
+
         // TODO: create assessments for this lesson
 
         const response: LessonResponse = {

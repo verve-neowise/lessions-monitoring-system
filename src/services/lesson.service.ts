@@ -15,7 +15,7 @@ export const createLesson = async (groupId: number, lesson: LessonDto) => {
     return prisma.lesson.create({
         data: {
             title: lesson.title,
-            date: lesson.date,
+            date: new Date(lesson.date),
             group: {
                 connect: {
                     id: groupId
@@ -23,7 +23,7 @@ export const createLesson = async (groupId: number, lesson: LessonDto) => {
             },
             material: {
                 create: {
-                    content: ''
+                    content: '',
                 }
             }
         },
@@ -36,11 +36,33 @@ export const createLesson = async (groupId: number, lesson: LessonDto) => {
     })    
 }
 
+export const updateLessonMaterial = async (lessonId: number, content: string) => {
+    return prisma.lesson.update({
+        where: {
+            id: lessonId
+        },
+        data: {
+            material: {
+                update: {
+                    content
+                }
+            }
+        },
+        select: {
+            material: {
+                select: {
+                    content: true
+                }
+            }
+        }
+    })
+}
+
 export const updateLesson = async (lessonId: number, lessonDto: LessonDto) => {
     return prisma.lesson.update({
         data: {
             title: lessonDto.title,
-            date: lessonDto.date,
+            date: new Date(lessonDto.date),
         },
         where: {
             id: lessonId

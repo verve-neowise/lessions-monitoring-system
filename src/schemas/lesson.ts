@@ -10,3 +10,11 @@ export const lessonSchema = schema(object({
         })
     }
 }))
+
+export const materialSchema = schema(object({
+    entries: {
+        content: string({
+            required: true
+        })
+    }
+}))
