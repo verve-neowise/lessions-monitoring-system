@@ -6,7 +6,7 @@ const prisma = new PrismaClient()
 export const getLessons = async (groupId: number) => {
     return prisma.lesson.findMany({
         where: {
-            groupId
+            groupId,
         }
     })
 }

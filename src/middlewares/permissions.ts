@@ -27,7 +27,7 @@ export default (...permissions: Permission[]) => {
 
             let hasAccess = permissions.some(permission => payload.permissions.includes(permission))
 
-            if (hasAccess) {
+            if (hasAccess || permissions.length == 0) {
                 
                 const orgId = +req.params.orgId
 
