@@ -35,6 +35,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 userId: user.id,
                 username: user.username,
                 permissions: user.permissions,
+                organizationId: user.organizationId,
                 token
             })
         }
