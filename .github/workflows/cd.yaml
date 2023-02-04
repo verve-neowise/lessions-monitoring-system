@@ -17,10 +17,9 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/node/lessions-monitoring-system
+            cd /apps/lms-production
             git pull
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            npm install
-            npx prisma generate dev
-            npm run deploy
+            yarn install
+            yarn deploy

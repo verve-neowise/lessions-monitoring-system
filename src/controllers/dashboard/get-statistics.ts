@@ -1,4 +1,4 @@
-import { allDirectionsWithGroup, allDirectionsCount } from '@services/direction.service';
+import { allDirectionsWithGroup } from '@services/direction.service';
 import { allGroupsCount } from '@services/group.service';
 import { allStudentsCount } from '@services/student.service';
 import { allTeachersCount } from '@services/teacher.service';
@@ -7,11 +7,14 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const teacherCount = (await allTeachersCount())._count.id
-        const studentCount = (await allStudentsCount())._count.id
-        const groupCount = (await allGroupsCount())._count.id
 
-        const directions = await allDirectionsWithGroup()
+        const organizationId = +req.params.orgId 
+
+        const teacherCount = await allTeachersCount(organizationId)
+        const studentCount = await allStudentsCount(organizationId)
+        const groupCount = await allGroupsCount(organizationId)
+
+        const directions = await allDirectionsWithGroup(organizationId)
 
         const response = directions.map(dir => {
             const groupCount = dir.groups.length

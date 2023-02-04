@@ -16,13 +16,6 @@ export const adminSchema = schema(object({
         name: string({
             required: true,
             min: 3
-        }),
-        permissions: array({
-            required: true,
-            template: string({
-                required: true,
-                min: 2
-            })
         })
     }
 }))
@@ -31,25 +24,9 @@ export const adminSchema = schema(object({
 export const adminUpdateSchema = schema(object({
     required: true,
     entries: {
-        username: string({
-            required: true,
-            min: 3,
-            max: 16
-        }),
-        password: string({
-            min: 0,
-            max: 32
-        }),
         name: string({
             required: true,
             min: 3
         }),
-        permissions: array({
-            required: true,
-            template: string({
-                required: true,
-                min: 2
-            })
-        })
     }
 }))

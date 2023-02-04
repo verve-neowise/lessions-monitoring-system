@@ -4,11 +4,13 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const organizationId = +req.params.orgId 
+
         const { id } = req.params
 
         const { teacherId } = req.body
 
-        const groupExists = await isGroupExists(+id)
+        const groupExists = await isGroupExists(organizationId, +id)
 
         if (!groupExists) {
             return res.status(403).json({
@@ -16,12 +18,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        console.log("TeacherId: " + teacherId);
-        
-
-        const teacherExists = await isTeacherExists(+teacherId)
-
-
+        const teacherExists = await isTeacherExists(organizationId, +teacherId)
 
         if (!teacherExists) {
             return res.status(403).json({

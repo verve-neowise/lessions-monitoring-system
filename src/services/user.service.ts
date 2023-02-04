@@ -1,5 +1,5 @@
 import { UserDto } from '@models/user.dto'
-import { Permission, PrismaClient, Role } from '@prisma/client'
+import { Permission, PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
@@ -102,17 +102,6 @@ export const updatePermissions = async (id: number, permissions: Permission[]) =
     })
 }
 
-export const changeUserRole = async (id: number, role: Role) => {
-    return prisma.user.update({
-        where: {
-            id
-        },
-        data: {
-            role
-        }
-    })
-} 
-
 export const allUsersCount = async () => {
     return prisma.user.aggregate({
         _count: { 
@@ -121,14 +110,18 @@ export const allUsersCount = async () => {
     })
 }
 
-export const createUser = async (data: UserDto) => {
+export const createUser = async (organizationId: number, data: UserDto) => {
     const hashedPassword = bcrypt.hashSync(data.password, bcrypt.genSaltSync(10))
     
     return prisma.user.create({
         data: {
             username: data.username,
             password: hashedPassword,
-            role: data.role,
+            organization: {
+                connect: {
+                    id: organizationId
+                }
+            },
             permissions: data.permissions
         }
     })

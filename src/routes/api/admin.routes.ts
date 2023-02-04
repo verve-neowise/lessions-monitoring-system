@@ -5,9 +5,9 @@ import { permissions } from '@middlewares/index';
 import { body } from '@verve-neowise/express-validius';
 import { adminSchema, adminUpdateSchema } from '@schemas/admins';
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
-router.use(permissions('admins'))
+router.use(permissions('admin'))
 
 router.get('/', allAdmins)
 router.post('/', body(adminSchema), createAdmin)

@@ -1,9 +1,12 @@
-import { Role } from '@prisma/client';
 import { createUser, findUser } from '@services/user.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try { 
+        const organizationId = +req.params.orgId 
+
+        const orgId = +req.params.org
+
         const { username, password, permissions } = req.body
 
         const oldUser = await findUser(username)
@@ -14,10 +17,9 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        let newUser = await createUser({
+        let newUser = await createUser(organizationId, {
             username, 
             password,
-            role: Role.none, 
             permissions
         })
 
@@ -25,7 +27,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             message: "User successfuly created.",
             user: {
                 username,
-                role: newUser.role,
+                organization: orgId,
                 permissions: newUser.permissions
             }
         })

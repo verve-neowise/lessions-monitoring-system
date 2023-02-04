@@ -5,9 +5,11 @@ import { isGroupExists, updateGroup } from '@services/group.service';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const organizationId = +req.params.orgId 
+
         const id = +req.params.id
 
-        const find = await isGroupExists(id)
+        const find = await isGroupExists(organizationId, id)
         
         if (!find) {
             return res.status(403).json({

@@ -1,14 +1,15 @@
 import { deleteUser } from '@services/user.service';
-import { deleteStudent, isStudentExists } from '@services/student.service';
 import { Request, Response, NextFunction } from 'express';
 import { deleteAdmin, isAdminExists } from '@services/admin.service';
 import { AdminResponse } from '@models/index';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const organizationId = +req.params.orgId 
+
         const id = +req.params.id
 
-        const find = await isAdminExists(id)
+        const find = await isAdminExists(organizationId, id)
         
         if (!find) {
             return res.status(403).json({
@@ -25,7 +26,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             name: admin.name,
             username: user.username,
             permissions: user.permissions,
-            role: user.role
         }
 
         res.json({

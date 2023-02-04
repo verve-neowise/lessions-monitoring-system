@@ -5,9 +5,11 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const organizationId = +req.params.orgId 
+
         const id = +req.params.id
 
-        const find = await isTeacherExists(id)
+        const find = await isTeacherExists(organizationId, id)
         
         if (!find) {
             return res.status(403).json({
@@ -28,7 +30,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             groups: teacher.groups,
             directions: teacher.directions,
             permissions: user.permissions,
-            role: user.role
         }
 
         res.json({

@@ -6,9 +6,9 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const organizationId = +req.params.orgId 
 
         const { username, password } = req.body
-
 
         const existsUser = await findUser(username)
 
@@ -21,11 +21,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const userDto: UserDto = {
             username,
             password,
-            role: 'student',
-            permissions: ['profile', 'students']
+            permissions: ['student']
         }
 
-        const user = await createUser(userDto)
+        const user = await createUser(organizationId, userDto)
 
         const { name, surname, birthday, phone } = req.body
         
@@ -49,7 +48,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             phone: student.phone,
             groups: [],
             permissions: user.permissions,
-            role: user.role
         } 
 
         res.json({

@@ -26,16 +26,16 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 userId: user.id,
                 username: user.username,
                 permissions: user.permissions,
-                role: user.role
+                orgId: user.organizationId
             }
     
-            const token = sign(payload)
+            const token = await sign(payload)
     
             res.json({
                 userId: user.id,
                 username: user.username,
                 permissions: user.permissions,
-                role: user.role,
+                organizationId: user.organizationId,
                 token
             })
         }

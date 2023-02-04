@@ -23,6 +23,7 @@ Create admin
    "username": "admin1", 
    "password": "1234",
    "permissions": ["students"]
+}
 ```
 
 Response

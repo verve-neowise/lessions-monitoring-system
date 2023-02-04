@@ -4,7 +4,7 @@ import { requestLogger } from '@middlewares/index'
 
 import mainRoutes from './main.routes'
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
 router.use('/', mainRoutes)
 

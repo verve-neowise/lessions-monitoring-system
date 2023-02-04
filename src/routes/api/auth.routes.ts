@@ -5,7 +5,7 @@ import { login, register, verify } from '@controllers/auth/index'
 import { loginSchema, registerSchema } from '@schemas/index'
 import { permissions } from '@middlewares/index'
 
-const router = Router()
+const router = Router({ mergeParams: true })
 
 router.post('/login', body(loginSchema), login)
 

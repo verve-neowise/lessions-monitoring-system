@@ -3,11 +3,17 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try { 
-        const directions = await allDirections()
+        const organizationId = +req.params.orgId 
+
+        const directions = await allDirections(organizationId)
 
         res.json({
             message: "All directions",
-            directions
+            directions: directions.map(direction => ({
+                id: direction.id,
+                name: direction.name,
+                status: direction.status
+            }))
         })
     }
     catch(err) {

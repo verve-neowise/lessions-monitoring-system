@@ -1,6 +1,6 @@
 # Groups
 
-Route `/groups`
+Route `org/:org_id/groups`
 
 > Permissions: `groups`
 

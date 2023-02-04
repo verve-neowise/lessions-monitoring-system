@@ -1,14 +1,16 @@
 import { findStudentById, isStudentExists, updateStudent } from '@services/student.service';
 import { StudentDto, StudentResponse } from '@models/index';
 import { Request, Response, NextFunction } from 'express';
-import { checkUsernameUnique, findUser, findUserById, updateUser, updateUserName, updateUserPassword } from '@services/user.service';
+import { checkUsernameUnique, findUser, findUserById, updatePermissions, updateUser, updateUserName, updateUserPassword } from '@services/user.service';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const id = +req.params.id
-        const { name, surname, birthday, phone, username, password } = req.body
+        const organizationId = +req.params.orgId 
 
-        const oldStudent = await findStudentById(id)
+        const id = +req.params.id
+        const { name, surname, birthday, phone, username, password, permissions } = req.body
+
+        const oldStudent = await findStudentById(organizationId, id)
 
         if (!oldStudent) {
             return res.status(403).json({
@@ -18,25 +20,31 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const { userId } = oldStudent
 
-        const isUsernameUnique = await checkUsernameUnique(userId, username)
+        if (username) {
+            const isUsernameUnique = await checkUsernameUnique(userId, username)
 
-        if (!isUsernameUnique) {
-            return res.status(403).json({
-                message: "User with username: " + username + " already exists"
-            })
+            if (!isUsernameUnique) {
+                return res.status(403).json({
+                    message: "User with username: " + username + " already exists"
+                })
+            }
         }
 
         // update username and password
-        if (username.length > 0 && password.length > 0) {
+        if (username && password && username.length > 0 && password.length > 0) {
             await updateUser(userId, username, password)
         }
         // update only username
-        else if (username.length > 0) {
+        else if (username && username.length > 0) {
             await updateUserName(userId, username)
         }
         // update only password
-        else if (password.length > 0) {
+        else if (password && password.length > 0) {
             await updateUserPassword(userId, password)
+        }
+        
+        if (permissions && permissions.length > 0) {
+            await updatePermissions(userId, permissions)
         }
 
         const studentDto: StudentDto = {
@@ -59,7 +67,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             phone: student.phone,
             groups: student.groups,
             permissions: user.permissions,
-            role: user.role
         } 
 
         res.json({
