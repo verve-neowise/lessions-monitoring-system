@@ -18,5 +18,4 @@ export interface AdminResponse {
     name: string,
     username: string,
     permissions: string[],
-    role: string
 }
