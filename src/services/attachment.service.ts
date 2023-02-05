@@ -25,5 +25,7 @@ export const existsAttachment = (organizationId: number, lessonId: number, filen
 }
 
 export function getPath(organizationId: number, lessonId: number) {
+    console.log(pathConfig.attachmentPath);
+    console.log(organizationId, lessonId);
     return path.join(pathConfig.attachmentPath, organizationId.toString(), lessonId.toString())
 }

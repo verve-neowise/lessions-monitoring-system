@@ -15,11 +15,13 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const path = getPath(organizationId, lessonId)
         
+
         res.sendFile(file, {
             root: path
         })
     }
     catch(err) {
+        console.log(err);
         next(err)
     }
 }

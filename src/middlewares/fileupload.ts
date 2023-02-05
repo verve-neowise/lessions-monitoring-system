@@ -11,6 +11,9 @@ const storage = multer.diskStorage({
             fs.mkdirSync(folder)
         }
         callback(null, folder)
+    },
+    filename(req, file, callback) {
+        callback(null, file.originalname)
     }
 })
 

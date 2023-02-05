@@ -81,6 +81,21 @@ export const deleteLesson = async (lessonId: number) => {
     })
 }
 
+export const getLessonMaterial = async (lessonId: number) => {
+    return prisma.lesson.findUnique({
+        where: {
+            id: lessonId
+        },
+        select: {
+            material: {
+                select: {
+                    content: true
+                }
+            }
+        }
+    })
+}
+
 export const setLessonMaterial = async (lessonId: number, materialId: number) => {
     return prisma.lesson.update({
         where: {
