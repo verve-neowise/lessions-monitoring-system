@@ -16,6 +16,7 @@ model Organization {
   users      User[]
   groups     Group[]
   directions Direction[]
+  criterias  Criteria[]
 }
 
 model User {
@@ -122,6 +123,8 @@ model Lesson {
   title String
   date  DateTime
 
+  criteria Criteria @relation(fields: [criteriaId], references: [id])
+
   group   Group @relation(fields: [groupId], references: [id])
   groupId Int
 
@@ -129,6 +132,7 @@ model Lesson {
   materialId Int      @unique
 
   assessments Assessment[]
+  criteriaId  Int
 }
 
 model Material {
@@ -138,7 +142,29 @@ model Material {
 
   status EntityStatus @default(active)
 
-  lessonId   Lesson?
+  lessonId Lesson?
+}
+
+model Criteria {
+  id      Int @id @default(autoincrement())
+  maximum Int
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
+
+  status EntityStatus @default(active)
+  
+  scroings Scoring[]
+  Lesson   Lesson[]
+}
+
+model Scoring {
+  id          Int    @id @default(autoincrement())
+  value       Int
+  description String
+
+  criteria   Criteria @relation(fields: [criteriaId], references: [id], onDelete: Cascade)
+  criteriaId Int
 }
 
 model Assessment {

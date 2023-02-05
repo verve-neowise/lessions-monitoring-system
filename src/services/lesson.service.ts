@@ -7,6 +7,9 @@ export const getLessons = async (groupId: number) => {
     return prisma.lesson.findMany({
         where: {
             groupId,
+        },
+        include: {
+            criteria: true
         }
     })
 }
@@ -21,6 +24,11 @@ export const createLesson = async (groupId: number, lesson: LessonDto) => {
                     id: groupId
                 }
             },
+            criteria: {
+                connect: {
+                    id: lesson.criteria
+                }
+            },
             material: {
                 create: {
                     content: '',
@@ -31,7 +39,8 @@ export const createLesson = async (groupId: number, lesson: LessonDto) => {
             id: true,
             title: true,
             date: true,
-            material: true
+            material: true,
+            criteria: true
         }
     })    
 }
@@ -63,6 +72,14 @@ export const updateLesson = async (lessonId: number, lessonDto: LessonDto) => {
         data: {
             title: lessonDto.title,
             date: new Date(lessonDto.date),
+            criteria: {
+                connect: {
+                    id: lessonDto.criteria
+                }
+            }
+        },
+        include: {
+            criteria: true
         },
         where: {
             id: lessonId
@@ -76,7 +93,8 @@ export const deleteLesson = async (lessonId: number) => {
             id: lessonId
         },
         include: {
-            material: true
+            material: true,
+            criteria: true
         }
     })
 }

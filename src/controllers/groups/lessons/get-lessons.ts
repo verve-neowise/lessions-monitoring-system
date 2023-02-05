@@ -23,7 +23,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 {
                     id: lesson.id,
                     date: lesson.date,
-                    title: lesson.title
+                    title: lesson.title,
+                    criteria: lesson.criteria
                 }
             ))
         })

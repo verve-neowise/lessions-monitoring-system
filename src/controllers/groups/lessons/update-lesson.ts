@@ -23,7 +23,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const response: LessonResponse = {
             id: lesson.id,
             title: lesson.title,
-            date: lesson.date
+            date: lesson.date,
+            criteria: lesson.criteria
         }
 
         res.json({
