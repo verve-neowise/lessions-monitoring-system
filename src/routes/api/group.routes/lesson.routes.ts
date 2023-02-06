@@ -6,6 +6,7 @@ import { body } from '@verve-neowise/express-validius';
 import { lessonSchema } from '@schemas/lesson';
 
 import material from './material.routes'
+import assessments from './lesson-assessments.routes'
 
 const router = Router({ mergeParams: true })
 
@@ -15,5 +16,6 @@ router.put('/:lesson', permissions('teacher'), body(lessonSchema), updateLesson)
 router.delete('/:lesson', permissions('teacher'), deleteLesson)
 
 router.use('/:lesson', material)
+router.use('/:lesson', assessments)
 
 export default router

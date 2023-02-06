@@ -19,7 +19,13 @@ export const allGroups = async (organizationId: number) => {
                     name: true
                 }
             },
-            teacher: true,
+            teacher: {
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true
+                }
+            },
             status: true
         }
     })

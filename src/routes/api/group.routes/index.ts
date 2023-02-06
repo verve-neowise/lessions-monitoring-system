@@ -4,7 +4,7 @@ import { permissions } from '@middlewares/index';
 import { body } from '@verve-neowise/express-validius';
 import { createGroupSchema } from '@schemas/groups';
 
-import { allGroups, createGroup, deleteGroup, groupDetails, updateGroup } from '@controllers/groups/index';
+import { allGroups, createGroup, deleteGroup, groupDetails, updateGroup, groupAssessments } from '@controllers/groups/index';
 
 import teachers from './teacher.routes';
 import students from './student.routes';
@@ -22,5 +22,7 @@ router.get('/:id', permissions('admin', 'teacher', 'student'), groupDetails)
 router.use('/:id/teacher', teachers)
 router.use('/:id/students', students)
 router.use('/:id/lessons', lessons)
+
+router.get('/:id/assessments', permissions('admin', 'teacher'), groupAssessments)
 
 export default router

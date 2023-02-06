@@ -15,6 +15,18 @@ export const createAssessments = (dtos: AssessmentDto[]) => {
     })
 }
 
+export const createAssessment = (dto: AssessmentDto) => {
+    return client.assessment.create({
+        data: {
+            lessonId: dto.lessonId,
+            studentId: dto.studentId,
+            groupId: dto.groupId,
+            comment: dto.comment,
+            score: dto.score
+        }
+    })
+}
+
 export const updateAssessment = (assessmentId: number, dto: { score: number, comment: string }) => {
     return client.assessment.update({
         where: {
@@ -38,13 +50,24 @@ export const getAssessmentsByStudent = (studentId: number) => {
     })
 }
 
+export const getAssessmentsByGroupStudent = (groupId: number, studentId: number) => {
+    return client.assessment.findMany({
+        where: {
+            studentId,
+            groupId
+        }
+    })
+}
+
 export const getAssessmentsByLesson = (lessonId: number) => {
     return client.assessment.findMany({
         where: {
             lessonId
         },
-        include: {
-            student: true
+        select: {
+            score: true,
+            comment: true,
+            studentId: true
         }
     })
 }
@@ -53,10 +76,25 @@ export const getAssessmentsByGroup = (groupId: number) => {
     return client.assessment.findMany({
         where: {
             groupId
-        },
-        include: {
-            student: true,
-            lesson: true,
         }
     })
+}
+
+export const isAssessmentExists = async (assessmentId: number) => {
+    const assessment = await client.assessment.findUnique({
+        where: {
+            id: assessmentId
+        }
+    })
+    return assessment != null
+}
+
+export const isStudentAssessmentExists = async (lessonId: number, studentId: number) => {
+    const assessment = await client.assessment.findFirst({
+        where: {
+            lessonId,
+            studentId
+        }
+    })
+    return assessment != null
 }

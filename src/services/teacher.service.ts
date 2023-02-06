@@ -97,7 +97,7 @@ export const updateTeacher = async (id: number, data: TeacherDto) => {
             surname,
             phone,
             directions: {
-                connect: directions.map(id => ({ id }))
+                set: directions.map(direction => ({ id: direction }))
             }
         },
         include: {

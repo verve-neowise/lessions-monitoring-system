@@ -5,6 +5,7 @@ import { findGroupById, getGroupStudents } from '@services/group.service';
 import { createAttachmentsFolder } from '@services/attachment.service';
 import { createAssessments } from '@services/assessment.service';
 import { Lesson, Student } from '@prisma/client';
+import { AssessmentDto } from '@models/assessment.dto';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -26,7 +27,9 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const groupStudents = await getGroupStudents(organizationId, groupId)
         
         if (groupStudents) {
-            const assessments = buildAssessments(groupId, lesson.id, groupStudents.students)
+            const dtos = buildAssessments(groupId, lesson.id, groupStudents.students)
+            const assessments = await createAssessments(dtos)
+            console.log("Assessments:", assessments.count);
         }
 
         createAttachmentsFolder(organizationId, lesson.id)
@@ -49,6 +52,12 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
-const buildAssessments = (groupId: number, lessonId: number, students: Student[]) => {
-    // return students.map()
+const buildAssessments = (groupId: number, lessonId: number, students: Student[]): AssessmentDto[] => {
+    return students.map(student => ({
+        groupId,
+        lessonId,
+        studentId: student.id,
+        comment: '',
+        score: -1
+    }))
 }
