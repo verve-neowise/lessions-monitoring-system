@@ -1,4 +1,4 @@
-import { PrismaClient } from ".prisma/client"
+import { PrismaClient, Lesson } from ".prisma/client"
 import { LessonDto } from "@models/lesson.dto"
 
 const prisma = new PrismaClient()
@@ -19,6 +19,7 @@ export const createLesson = async (groupId: number, lesson: LessonDto) => {
         data: {
             title: lesson.title,
             date: new Date(lesson.date),
+            type: lesson.type,
             group: {
                 connect: {
                     id: groupId
@@ -40,7 +41,8 @@ export const createLesson = async (groupId: number, lesson: LessonDto) => {
             title: true,
             date: true,
             material: true,
-            criteria: true
+            criteria: true,
+            type: true
         }
     })    
 }
@@ -76,7 +78,8 @@ export const updateLesson = async (lessonId: number, lessonDto: LessonDto) => {
                 connect: {
                     id: lessonDto.criteria
                 }
-            }
+            },
+            type: lessonDto.type
         },
         include: {
             criteria: true

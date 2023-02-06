@@ -1,3 +1,4 @@
+import { LessonType } from "@prisma/client";
 import { number, object, schema, string } from "@verve-neowise/validius";
 
 export const lessonSchema = schema(object({
@@ -10,8 +11,10 @@ export const lessonSchema = schema(object({
         }),
         criteria: number({
             required: true
+        }),
+        type: string({
+            match: [LessonType.exam, LessonType.lesson, LessonType.practice]
         })
-
     }
 }))
 

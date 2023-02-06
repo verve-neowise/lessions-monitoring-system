@@ -1,8 +1,10 @@
 import { LessonDto, LessonResponse } from '@models/lesson.dto';
 import { Request, Response, NextFunction } from 'express';
 import { createLesson } from '@services/lesson.service'
-import { findGroupById } from '@services/group.service';
+import { findGroupById, getGroupStudents } from '@services/group.service';
 import { createAttachmentsFolder } from '@services/attachment.service';
+import { createAssessments } from '@services/assessment.service';
+import { Lesson, Student } from '@prisma/client';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -21,12 +23,19 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const lesson = await createLesson(groupId, lessonDto)
 
+        const groupStudents = await getGroupStudents(organizationId, groupId)
+        
+        if (groupStudents) {
+            const assessments = buildAssessments(groupId, lesson.id, groupStudents.students)
+        }
+
         createAttachmentsFolder(organizationId, lesson.id)
 
         const response: LessonResponse = {
             id: lesson.id,
             title: lesson.title,
             criteria: lesson.criteria,
+            type: lesson.type,
             date: lesson.date
         }
 
@@ -38,4 +47,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     catch(err) {
         next(err)
     }
+}
+
+const buildAssessments = (groupId: number, lessonId: number, students: Student[]) => {
+    // return students.map()
 }

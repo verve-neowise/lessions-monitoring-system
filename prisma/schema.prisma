@@ -97,11 +97,12 @@ model Group {
 
   students Student[]
   lessons  Lesson[]
+  assessment Assessment[]
 
   teacher   Teacher? @relation(fields: [teacherId], references: [id])
   teacherId Int?
 
-  status EntityStatus @default(active)
+  status     EntityStatus @default(active)
 }
 
 model Direction {
@@ -131,6 +132,8 @@ model Lesson {
   material   Material @relation(fields: [materialId], references: [id])
   materialId Int      @unique
 
+  type LessonType
+
   assessments Assessment[]
   criteriaId  Int
 }
@@ -153,7 +156,7 @@ model Criteria {
   organizationId Int
 
   status EntityStatus @default(active)
-  
+
   scroings Scoring[]
   Lesson   Lesson[]
 }
@@ -170,6 +173,9 @@ model Scoring {
 model Assessment {
   id Int @id @default(autoincrement())
 
+  group Group @relation(fields: [groupId], references: [id])
+  groupId Int
+
   student   Student @relation(fields: [studentId], references: [id])
   studentId Int
 
@@ -177,7 +183,7 @@ model Assessment {
   lessonId Int    @map("lessonId")
 
   comment String
-  color   String
+  color   String @default("black")
   score   Int
 }
 
@@ -192,4 +198,10 @@ enum EntityStatus {
   active
   disabled
   deleted
+}
+
+enum LessonType {
+  lesson
+  practice
+  exam
 }

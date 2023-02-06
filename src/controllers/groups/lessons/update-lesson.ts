@@ -24,6 +24,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             id: lesson.id,
             title: lesson.title,
             date: lesson.date,
+            type: lesson.type,
             criteria: lesson.criteria
         }
 
