@@ -1,12 +1,12 @@
 import { TeacherDto } from '@models/teacher.dto'
-import { PrismaClient } from '@prisma/client'
+import { EntityStatus, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const allTeachers = async (organizationId: number) => {
+export const allTeachers = async (organizationId: number, status: EntityStatus) => {
     return prisma.teacher.findMany({
         where: {
-            status: 'active',
+            status,
             user: {
                 organizationId
             }
@@ -142,4 +142,15 @@ export const isTeacherBelongsToOrganization = async (organizationId: number, tea
         }
     })
     return teacher != null
+}
+
+export const recoverTeacher = async (teacherId: number) => {
+    return await prisma.teacher.update({
+        where: {
+            id: teacherId
+        },
+        data: {
+            status: 'active'
+        }
+    })
 }

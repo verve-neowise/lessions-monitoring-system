@@ -1,13 +1,13 @@
 import { GroupDto } from '@models/index'
-import { PrismaClient } from '@prisma/client'
+import { EntityStatus, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const allGroups = async (organizationId: number) => {
+export const allGroups = async (organizationId: number, status: EntityStatus) => {
     return prisma.group.findMany({
         where: {
             organizationId,
-            status: 'active'
+            status
         },
         select: {
             id: true,
@@ -129,11 +129,21 @@ export const isGroupExists = async (organizationId: number, id: number) => {
     return group !== null
 }
 
+export const isGroupWithNameExists = async (organizationId: number, name: string) => {
+    const group = await prisma.group.findFirst({
+        where: {
+            organizationId,
+            name: name.trim().toLowerCase()
+        }
+    })
+    return group !== null
+}
+
 export const createGroup = async (organizationId: number, data: GroupDto) => {
     const { name, months, directionId } = data
     return prisma.group.create({
         data: {
-            name,
+            name: name.toLowerCase(),
             months,
             direction: {
                 connect: {
@@ -164,7 +174,7 @@ export const updateGroup = async (id: number, data: GroupDto) => {
             id
         },
         data: {
-            name,
+            name: name.trim().toLowerCase(),
             months,
             directionId
         }
@@ -187,6 +197,17 @@ export const allGroupsCount = async (organizationId: number) => {
     return prisma.group.count({
         where: {
             organizationId,
+            status: 'active'
+        }
+    })
+}
+
+export const recoverGroup = async (groupId: number) => {
+    return await prisma.group.update({
+        where: {
+            id: groupId
+        },
+        data: {
             status: 'active'
         }
     })

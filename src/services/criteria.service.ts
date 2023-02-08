@@ -1,13 +1,13 @@
 import { CriteriaDto } from '@models/criteria.dto'
-import { PrismaClient } from '@prisma/client'
+import { EntityStatus, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const allCriterias = async (organizationId: number) => {
+export const allCriterias = async (organizationId: number, status: EntityStatus) => {
     return prisma.criteria.findMany({
         where: {
             organizationId,
-            status: 'active'
+            status: status
         },
         include: {
             scroings: true
@@ -86,6 +86,17 @@ export const deleteCriteria = async (id: number) => {
         },
         include: {
             scroings: true
+        }
+    })
+}
+
+export const recoverCriteria = async (criteriaId: number) => {
+    return await prisma.criteria.update({
+        where: {
+            id: criteriaId
+        },
+        data: {
+            status: 'active'
         }
     })
 }

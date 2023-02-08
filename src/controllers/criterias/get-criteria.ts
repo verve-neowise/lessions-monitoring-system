@@ -1,4 +1,4 @@
-import { deleteCriteria, isCriteriaExists } from '@services/criteria.service';
+import { findCriteriaById } from '@services/criteria.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -6,18 +6,16 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const id = +req.params.id
         const organizationId = +req.params.orgId
 
-        const isExists = await isCriteriaExists(organizationId, id)
+        const criteria = await findCriteriaById(organizationId, id)
 
-        if (!isExists) {
+        if (!criteria) {
             return res.status(404).json({
-                message: `Direction not found.`
-            })            
+                message: 'Criteia not found'
+            })
         }
 
-        const criteria = await deleteCriteria(id)
-
-        res.json({
-            message: 'Criteria deleted',
+        res.status(200).json({
+            message: 'Retrive criteria',
             criteria
         })
     }
