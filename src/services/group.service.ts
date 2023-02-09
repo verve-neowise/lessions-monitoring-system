@@ -31,6 +31,30 @@ export const allGroups = async (organizationId: number, status: EntityStatus) =>
     })
 }
 
+export const findGroupByIdWithDetails = async (organizationId: number, id: number) => {
+    return prisma.group.findFirst({
+        where: {
+            id,
+            organizationId
+        },
+        include: {
+            direction: {
+                select: {
+                    id: true,
+                    name: true
+                }
+            },
+            teacher: {
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true
+                }
+            }
+        }
+    })
+}
+
 export const findGroupById = async (organizationId: number, id: number) => {
     return prisma.group.findFirst({
         where: {

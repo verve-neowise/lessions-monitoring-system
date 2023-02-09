@@ -48,6 +48,32 @@ export const allDirectionsWithGroup = async (organizationId: number) => {
     })
 }
 
+export const findDirectionWithDetailsById = async (organizationId: number, id: number) => {
+    return prisma.direction.findFirst({
+        where: {
+            id,
+            organizationId,
+        },
+        include: {
+            groups: {
+                select: {
+                    id: true,
+                    name: true,
+                    months: true,
+                    teacher: true,
+                    _count: {
+                        select: {
+                            students: true
+                        }
+                    }
+                }
+            },
+            teachers: true,
+        }
+    })
+}
+
+
 export const findDirectionById = async (organizationId: number, id: number) => {
     return prisma.direction.findFirst({
         where: {

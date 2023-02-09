@@ -1,4 +1,4 @@
-import { findGroupById } from '@services/group.service';
+import { findGroupById, findGroupByIdWithDetails } from '@services/group.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -6,7 +6,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const id = +req.params.id
         const organizationId = +req.params.orgId
 
-        const group = await findGroupById(organizationId, id)
+        const group = await findGroupByIdWithDetails(organizationId, id)
 
         if (!group) {
             return res.status(404).json({

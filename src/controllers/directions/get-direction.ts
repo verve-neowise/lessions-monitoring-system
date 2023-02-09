@@ -1,4 +1,4 @@
-import { findDirectionById } from '@services/direction.service';
+import { findDirectionById, findDirectionWithDetailsById } from '@services/direction.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -6,7 +6,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const id = +req.params.id
         const organizationId = +req.params.orgId
 
-        const direction = await findDirectionById(organizationId, id)
+        const direction = await findDirectionWithDetailsById(organizationId, id)
 
         if (!direction) {
             return res.status(404).json({
