@@ -101,11 +101,12 @@ export const deleteStudent = async (id: number) => {
     })
 }
 
-export const allStudentsCount = async (organizationId: number) => {
+export const allStudentsCount = async (organizationId: number, status: EntityStatus) => {
     return prisma.student.count({
         where: {
             user: {
-                organizationId
+                organizationId,
+                status
             }
         }
     })

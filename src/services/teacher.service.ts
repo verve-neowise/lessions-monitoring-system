@@ -125,12 +125,13 @@ export const deleteTeacher = async (id: number) => {
     })
 }
 
-export const allTeachersCount = async (organizationId: number) => {
+export const allTeachersCount = async (organizationId: number, status: EntityStatus) => {
     return prisma.teacher.count({
         where: {
             user: {
                 organizationId
-            }
+            },
+            status
         }
     })
 }

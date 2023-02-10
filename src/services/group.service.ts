@@ -224,11 +224,11 @@ export const deleteGroup = async (id: number) => {
 
 }
 
-export const allGroupsCount = async (organizationId: number) => {
+export const allGroupsCount = async (organizationId: number, status: EntityStatus) => {
     return prisma.group.count({
         where: {
             organizationId,
-            status: 'active'
+            status
         }
     })
 }

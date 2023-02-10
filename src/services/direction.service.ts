@@ -14,7 +14,7 @@ export const allDirections = async (organizationId: number, status: EntityStatus
     })
 }
 
-export const allDirectionsWithGroup = async (organizationId: number) => {
+export const allDirectionsWithGroup = async (organizationId: number, status: EntityStatus) => {
     return prisma.direction.findMany({
         include: {
             groups: {
@@ -46,7 +46,7 @@ export const allDirectionsWithGroup = async (organizationId: number) => {
         },
         where: {
             organizationId,
-            status: 'active'
+            status
         },
         orderBy: {
             id: 'asc'

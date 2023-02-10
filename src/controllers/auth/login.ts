@@ -17,9 +17,11 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             return res.status(401).send({ message: 'Username or password wrong'} )
         }
         
-        console.log(username, password);
-        console.log(user.password);
-        console.log(bcrypt.compareSync(password, user.password));
+        if (user.status != 'active') {
+            return res.status(401).send({
+                message: 'Account has blocked'
+            })
+        }
 
         if (bcrypt.compareSync(password, user.password)) {
             const payload: Payload = {
