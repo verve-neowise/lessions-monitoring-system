@@ -25,9 +25,9 @@ export const getStudentGroups = async (id: number) => {
                     },
                     status: true
                 },
-                where: {
-                    status: 'active'
-                }
+                // where: {
+                //     status: 'active'
+                // }
             }
         }
     })

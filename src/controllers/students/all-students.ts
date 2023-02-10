@@ -20,11 +20,13 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 surname: student.surname,
                 birthday: student.birthday,
                 phone: student.phone,
-                
+
                 groups: student.groups.map(group => {
                     return {
                         id: group.id,
-                        name: group.name
+                        name: group.name,
+                        status: group.status,
+                        direction: group.direction
                     }
                 }),
                 permissions: student.user.permissions,
