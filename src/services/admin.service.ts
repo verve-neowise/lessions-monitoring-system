@@ -13,6 +13,9 @@ export const allAdmins = async (organizationId: number, status: EntityStatus) =>
         },
         include: {
             user: true
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }

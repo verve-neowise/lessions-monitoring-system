@@ -7,6 +7,9 @@ export const allOrganizations = async (status: EntityStatus) => {
     return prisma.organization.findMany({
         where: {
             status
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }

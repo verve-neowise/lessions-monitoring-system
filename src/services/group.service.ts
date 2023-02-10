@@ -16,17 +16,22 @@ export const allGroups = async (organizationId: number, status: EntityStatus) =>
             direction: {
                 select: {
                     id: true,
-                    name: true
+                    name: true,
+                    status: true
                 }
             },
             teacher: {
                 select: {
                     id: true,
                     name: true,
-                    surname: true
+                    surname: true,
+                    status: true
                 }
             },
             status: true
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
@@ -41,14 +46,16 @@ export const findGroupByIdWithDetails = async (organizationId: number, id: numbe
             direction: {
                 select: {
                     id: true,
-                    name: true
+                    name: true,
+                    status: true
                 }
             },
             teacher: {
                 select: {
                     id: true,
                     name: true,
-                    surname: true
+                    surname: true,
+                    status: true
                 }
             }
         }

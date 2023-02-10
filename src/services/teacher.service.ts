@@ -31,6 +31,9 @@ export const allTeachers = async (organizationId: number, status: EntityStatus) 
                     status: 'active'
                 }
             }
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }

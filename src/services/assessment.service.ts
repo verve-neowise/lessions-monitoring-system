@@ -46,6 +46,9 @@ export const getAssessmentsByStudent = (studentId: number) => {
         },
         include: {
             lesson: true
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
@@ -55,6 +58,9 @@ export const getAssessmentsByGroupStudent = (groupId: number, studentId: number)
         where: {
             studentId,
             groupId
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
@@ -68,6 +74,9 @@ export const getAssessmentsByLesson = (lessonId: number) => {
             score: true,
             comment: true,
             studentId: true
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
@@ -76,6 +85,9 @@ export const getAssessmentsByGroup = (groupId: number) => {
     return client.assessment.findMany({
         where: {
             groupId
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }

@@ -11,6 +11,9 @@ export const allCriterias = async (organizationId: number, status: EntityStatus)
         },
         include: {
             scroings: true
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }

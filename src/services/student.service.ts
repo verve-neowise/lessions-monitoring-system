@@ -14,6 +14,9 @@ export const allStudents = async (organizationId: number, status: EntityStatus) 
         include: {
             user: true,
             groups: true
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }

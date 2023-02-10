@@ -7,6 +7,9 @@ export const allDirections = async (organizationId: number, status: EntityStatus
         where: {
             organizationId,
             status
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
@@ -44,6 +47,9 @@ export const allDirectionsWithGroup = async (organizationId: number) => {
         where: {
             organizationId,
             status: 'active'
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }

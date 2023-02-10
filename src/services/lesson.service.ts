@@ -10,6 +10,9 @@ export const getLessons = async (groupId: number) => {
         },
         include: {
             criteria: true
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
