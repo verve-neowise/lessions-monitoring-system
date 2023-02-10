@@ -15,9 +15,23 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
+        const details = {
+            id: direction.id,
+            name: direction.name,
+            groups: direction.groups.map(group => ({
+                id: group.id,
+                name: group.name,
+                months: group.months,
+                teachers: group.teacher
+            })),
+            teachers: direction.teachers,
+            students: direction.groups.reduce((all, group) => all + group._count.students, 0),
+            status: direction.status
+        }
+
         res.status(200).json({
             message: 'Direction details',
-            direction: direction
+            direction: details
         })
     }
     catch(err) {
