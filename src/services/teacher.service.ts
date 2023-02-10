@@ -49,6 +49,39 @@ export const findTeacherById = async (organizationId: number, id: number) => {
     })
 }
 
+
+export const findTeacherWithDetailsById = async (organizationId: number, id: number) => {
+    return prisma.teacher.findFirst({
+        where: {
+            id,
+            user: {
+                organizationId
+            }
+        },
+        select: {
+            id: true,
+            name: true,
+            surname: true,
+            phone: true,
+            status: true,
+            directions: {
+                select: {
+                    id: true,
+                    name: true,
+                    status: true
+                }
+            },
+            groups: {
+                select: {
+                    id: true,
+                    name: true,
+                    status: true
+                }
+            }
+        }
+    })
+}
+
 export const findTeacherByUserId = async (organizationId: number, userId: number) => {
     return prisma.teacher.findFirst({
         where: {
