@@ -7,7 +7,7 @@ const router = Router({ mergeParams: true })
 router.get('/', permissions('admin', 'teacher'),  getGroupStudents)
 router.post('/', permissions('admin'),  addGroupStudent)
 
-router.get('/:sid/assessment', permissions('admin'), getGroupStudentAssessment )
+router.get('/:sid/assessment', permissions('admin', 'student'), getGroupStudentAssessment )
 router.delete('/:sid', permissions('admin'), removeGroupStudent)
 
 export default router

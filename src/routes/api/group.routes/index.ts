@@ -14,7 +14,7 @@ import getGroup from '@controllers/groups/get-group';
 const router = Router({ mergeParams: true })
 
 router.get('/', permissions('admin'), allGroups)
-router.get('/:id', permissions('admin'), getGroup)
+router.get('/:id', permissions('admin', 'teacher'), getGroup)
 router.post('/', permissions('admin'), body(createGroupSchema), createGroup)
 router.put('/:id', permissions('admin'), body(createGroupSchema), updateGroup)
 router.delete('/:id', permissions('admin'),  deleteGroup)
