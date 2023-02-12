@@ -134,6 +134,8 @@ model Lesson {
 
   type LessonType
 
+  status EntityStatus @default(active)
+
   assessments Assessment[]
   criteriaId  Int
 }
@@ -182,9 +184,6 @@ model Assessment {
   lesson   Lesson @relation(fields: [lessonId], references: [id])
   lessonId Int    @map("lessonId")
 
-  solution   Solution @relation(fields: [solutionId], references: [id])
-  solutionId Int      @unique
-
   comment    String
   color      String @default("black")
   score      Int
@@ -194,8 +193,6 @@ model Solution {
   id Int @id @default(autoincrement())
 
   content String
-
-  assessment Assessment?
 }
 
 enum Permission {

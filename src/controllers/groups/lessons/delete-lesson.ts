@@ -17,8 +17,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const lesson = await deleteLesson(+lessonId)
         
-        // TODO: delete attachment folder
-
         const response: LessonResponse = {
             id: lesson.id,
             title: lesson.title,
@@ -28,7 +26,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         }
 
         res.json({
-            message: 'lesson ' + id + ' deleted',
+            message: 'lesson ' + lessonId + ' deleted',
             lesson: response
         })
     }

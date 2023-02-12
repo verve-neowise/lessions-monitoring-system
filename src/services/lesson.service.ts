@@ -7,6 +7,7 @@ export const getLessons = async (groupId: number) => {
     return prisma.lesson.findMany({
         where: {
             groupId,
+            status: 'active'
         },
         include: {
             criteria: true
@@ -94,9 +95,12 @@ export const updateLesson = async (lessonId: number, lessonDto: LessonDto) => {
 }
 
 export const deleteLesson = async (lessonId: number) => {
-    return prisma.lesson.delete({
+    return prisma.lesson.update({
         where: {
             id: lessonId
+        },
+        data: {
+            status: 'deleted'
         },
         include: {
             material: true,
