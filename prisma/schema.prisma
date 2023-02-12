@@ -95,14 +95,14 @@ model Group {
 
   months Int
 
-  students Student[]
-  lessons  Lesson[]
+  students   Student[]
+  lessons    Lesson[]
   assessment Assessment[]
 
   teacher   Teacher? @relation(fields: [teacherId], references: [id])
   teacherId Int?
 
-  status     EntityStatus @default(active)
+  status EntityStatus @default(active)
 }
 
 model Direction {
@@ -145,7 +145,7 @@ model Material {
 
   status EntityStatus @default(active)
 
-  lessonId Lesson?
+  lesson Lesson?
 }
 
 model Criteria {
@@ -173,7 +173,7 @@ model Scoring {
 model Assessment {
   id Int @id @default(autoincrement())
 
-  group Group @relation(fields: [groupId], references: [id])
+  group   Group @relation(fields: [groupId], references: [id])
   groupId Int
 
   student   Student @relation(fields: [studentId], references: [id])
@@ -182,9 +182,20 @@ model Assessment {
   lesson   Lesson @relation(fields: [lessonId], references: [id])
   lessonId Int    @map("lessonId")
 
-  comment String
-  color   String @default("black")
-  score   Int
+  solution   Solution @relation(fields: [solutionId], references: [id])
+  solutionId Int      @unique
+
+  comment    String
+  color      String @default("black")
+  score      Int
+}
+
+model Solution {
+  id Int @id @default(autoincrement())
+
+  content String
+
+  assessment Assessment?
 }
 
 enum Permission {

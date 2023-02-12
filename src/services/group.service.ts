@@ -123,6 +123,21 @@ export const removeStudentFromGroup = (id: number, studentId: number) => {
     })
 }
 
+export const addManyStudentsToGroup = (id: number, studentIds: number[]) => {
+    return prisma.group.update({
+        where: {
+            id
+        },
+        data: {
+            students: {
+                connect: studentIds.map(id => ({
+                    id
+                }))
+            }
+        }
+    })
+}
+
 export const addStudentToGroup = (id: number, studentId: number) => {
     return prisma.group.update({
         where: {
