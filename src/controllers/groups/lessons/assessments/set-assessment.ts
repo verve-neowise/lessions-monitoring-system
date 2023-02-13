@@ -1,4 +1,5 @@
 import { AssessmentDto, SetAssessmentDto } from '@models/assessment.dto';
+import { Assessment } from '@prisma/client';
 import { isAssessmentExists, updateAssessment } from '@services/assessment.service';
 import { isGroupExists } from '@services/group.service';
 import { Request, Response, NextFunction } from 'express';
@@ -27,7 +28,9 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        const assessment = await updateAssessment(assessmentId, assessmentDto)
+        const assessment: Assessment = await updateAssessment(assessmentId, assessmentDto)
+
+        console.log(assessment);
 
         res.status(200).json({
             message: 'Assessment set',

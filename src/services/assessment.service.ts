@@ -71,9 +71,12 @@ export const getAssessmentsByLesson = (lessonId: number) => {
             lessonId
         },
         select: {
+            id: true,
             score: true,
             comment: true,
-            studentId: true
+            studentId: true,
+            lessonId: true,
+            groupId: true
         },
         orderBy: {
             id: 'asc'

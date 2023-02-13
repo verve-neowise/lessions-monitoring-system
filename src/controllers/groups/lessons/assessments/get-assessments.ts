@@ -16,6 +16,10 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
+        console.log('org: ' + organizationId);
+        console.log('group: ' + groupId);
+        console.log('lesson: ' + lessonId);
+
         const assessments = await getAssessmentsByLesson(lessonId)
         const group = await getGroupStudents(organizationId, groupId)
         const students = group!.students
