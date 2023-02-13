@@ -10,7 +10,7 @@ import { AssessmentDto } from '@models/assessment.dto';
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
         const groupId = +req.params.id
-        const organizationId = +req.params.id
+        const organizationId = +req.params.orgId
 
         const group = await findGroupById(organizationId, groupId)
 
