@@ -19,6 +19,6 @@ app.use(requestLogger)
 app.use('/', main)
 app.use('/api/v1', api)
 
-app.listen(serverConfig.port, () => {
+app.listen(serverConfig.port, serverConfig.host, 0, () => {
     console.log(`Server running on http://localhost:${serverConfig.port}`)
 })
