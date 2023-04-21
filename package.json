@@ -10,7 +10,7 @@
         "mock": "ts-node mocks/mock.ts",
         "test": "echo \"No tests available\"",
 
-        "postinstall": "npx prisma db push && mkdir ./files ./files/attachments ./files/temps"
+        "postinstall": "npx prisma db push"
     },
     "repository": {
         "type": "git",
