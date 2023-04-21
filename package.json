@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "dev": "nodemon src/index.ts",
-        "start": "npx ts-node src/index.ts",
+        "start": "node -r module-alias/register lib/index.js",
+        "build": "tsc",
         "deploy": "pm2 restart lms_dev",
         "mock": "ts-node mocks/mock.ts",
         "test": "echo \"No tests available\"",
