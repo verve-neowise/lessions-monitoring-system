@@ -7,7 +7,6 @@ import main from '@routes/main'
 import { serverConfig } from '@configs/index'
 import prepare from '@configs/prepare';
 
-
 const app = express()
 
 app.use(express.json())
@@ -23,5 +22,5 @@ app.use('/api/v1', api)
 
 app.listen(serverConfig.port, serverConfig.host, 0, () => {
     console.log(`Server running on http://localhost:${serverConfig.port}`)
-    prepare()
+    // prepare()
 })
