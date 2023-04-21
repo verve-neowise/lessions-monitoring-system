@@ -126,3 +126,14 @@ export const createUser = async (organizationId: number, data: UserDto) => {
         }
     })
 }
+
+export const recoverUser = async (userId: number) => {
+    return await prisma.user.update({
+        where: {
+            id: userId
+        },
+        data: {
+            status: 'active'
+        }
+    })
+}

@@ -12,7 +12,8 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 id: group.id,
                 name: group.name,
                 months: group.months,
-                direction: group.direction.name
+                direction: group.direction.name,
+                status: group.status
             }
         })
 

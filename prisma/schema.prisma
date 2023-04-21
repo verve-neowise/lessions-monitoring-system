@@ -8,14 +8,15 @@ datasource db {
 }
 
 model Organization {
-  id        Int         @id @default(autoincrement())
-  name      String
-  
-  status    EntityStatus @default(active)
+  id   Int    @id @default(autoincrement())
+  name String
 
-  users     User[]
-  groups    Group[]
+  status EntityStatus @default(active)
+
+  users      User[]
+  groups     Group[]
   directions Direction[]
+  criterias  Criteria[]
 }
 
 model User {
@@ -94,8 +95,9 @@ model Group {
 
   months Int
 
-  students Student[]
-  lessons  Lesson[]
+  students   Student[]
+  lessons    Lesson[]
+  assessment Assessment[]
 
   teacher   Teacher? @relation(fields: [teacherId], references: [id])
   teacherId Int?
@@ -122,13 +124,20 @@ model Lesson {
   title String
   date  DateTime
 
+  criteria Criteria @relation(fields: [criteriaId], references: [id])
+
   group   Group @relation(fields: [groupId], references: [id])
   groupId Int
 
   material   Material @relation(fields: [materialId], references: [id])
   materialId Int      @unique
 
+  type LessonType
+
+  status EntityStatus @default(active)
+
   assessments Assessment[]
+  criteriaId  Int
 }
 
 model Material {
@@ -136,11 +145,38 @@ model Material {
 
   content String
 
+  status EntityStatus @default(active)
+
   lesson Lesson?
+}
+
+model Criteria {
+  id      Int @id @default(autoincrement())
+  maximum Int
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
+
+  status EntityStatus @default(active)
+
+  scroings Scoring[]
+  Lesson   Lesson[]
+}
+
+model Scoring {
+  id          Int    @id @default(autoincrement())
+  value       Int
+  description String
+
+  criteria   Criteria @relation(fields: [criteriaId], references: [id], onDelete: Cascade)
+  criteriaId Int
 }
 
 model Assessment {
   id Int @id @default(autoincrement())
+
+  group   Group @relation(fields: [groupId], references: [id])
+  groupId Int
 
   student   Student @relation(fields: [studentId], references: [id])
   studentId Int
@@ -148,9 +184,15 @@ model Assessment {
   lesson   Lesson @relation(fields: [lessonId], references: [id])
   lessonId Int    @map("lessonId")
 
-  comment String
-  color   String
-  score   Int
+  comment    String
+  color      String @default("black")
+  score      Int
+}
+
+model Solution {
+  id Int @id @default(autoincrement())
+
+  content String
 }
 
 enum Permission {
@@ -164,4 +206,10 @@ enum EntityStatus {
   active
   disabled
   deleted
+}
+
+enum LessonType {
+  lesson
+  practice
+  exam
 }

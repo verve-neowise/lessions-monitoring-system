@@ -1,12 +1,15 @@
 import { TeacherResponse } from '@models/teacher.dto';
+import { EntityStatus } from '@prisma/client';
 import { allTeachers } from '@services/teacher.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const status: EntityStatus = req.query.status as EntityStatus ?? EntityStatus.active
+
         const organizationId = +req.params.orgId 
 
-        const teachers = await allTeachers(organizationId)
+        const teachers = await allTeachers(organizationId, status)
         
         const mapped: TeacherResponse[] = teachers.map(teacher => {
             return {

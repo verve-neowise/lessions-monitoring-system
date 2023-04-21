@@ -1,3 +1,4 @@
 export default {
-    attachmentPath: './attachments'
+    attachmentPath: process.env.ATTACHMENTS_PATH!,
+    tempsPath: process.env.TEMPS_PATH!
 }

@@ -1,12 +1,15 @@
 import { OrganizationDto } from '@models/index'
-import { PrismaClient } from '@prisma/client'
+import { EntityStatus, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const allOrganizations = async () => {
+export const allOrganizations = async (status: EntityStatus) => {
     return prisma.organization.findMany({
         where: {
-            status: 'active'
+            status
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
@@ -58,6 +61,17 @@ export const deleteOrganization = async (id: number) => {
     })
 }
 
+
+export const recoverOrganization = async (id: number) => {
+    return prisma.organization.update({
+        where: {
+            id
+        },
+        data: {
+            status: 'active'
+        }
+    })
+}
 
 export const allOrganizationsCount = async () => {
     return prisma.organization.count()

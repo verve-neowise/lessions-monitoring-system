@@ -1,4 +1,5 @@
 import { TeacherDto, TeacherResponse } from '@models/index';
+import { addTeacherDirections, deleteTeacherDirections } from '@services/teacher-directions.service';
 import { findTeacherById, isTeacherExists, updateTeacher } from '@services/teacher.service';
 import { checkUsernameUnique, findUserById, updatePermissions, updateUser, updateUserName, updateUserPassword } from '@services/user.service';
 import { Request, Response, NextFunction } from 'express';
@@ -56,7 +57,18 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         }
 
         const teacher = await updateTeacher(id, teacherDto)
-        let user = (await findUserById(userId))!
+        let user = await findUserById(userId)
+
+        if (!user) {
+            return res.status(404).json({
+                message: 'teacher`s user account not found'
+            })
+        }
+
+        // if (directions) {
+        //     await deleteTeacherDirections()
+        //     await addTeacherDirections(id, directions)
+        // }
           
         const response: TeacherResponse = {
             id: teacher.id,

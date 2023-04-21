@@ -1,18 +1,21 @@
 import { AdminDto } from '@models/index'
-import { PrismaClient } from '@prisma/client'
+import { EntityStatus, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const allAdmins = async (organizationId: number) => {
+export const allAdmins = async (organizationId: number, status: EntityStatus) => {
     return prisma.admin.findMany({
         where: {
-            status: 'active',
+            status,
             user: {
                 organizationId
             }
         },
         include: {
             user: true
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
@@ -99,4 +102,15 @@ export const isAdminBelongsToOrganization = async (organizationId: number, admin
         }
     })
     return admin != null
+}
+
+export const recoverAdmin = async (adminId: number) => {
+    return await prisma.admin.update({
+        where: {
+            id: adminId
+        },
+        data: {
+            status: 'active'
+        }
+    })
 }

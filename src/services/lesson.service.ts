@@ -1,4 +1,4 @@
-import { PrismaClient } from ".prisma/client"
+import { PrismaClient, Lesson } from ".prisma/client"
 import { LessonDto } from "@models/lesson.dto"
 
 const prisma = new PrismaClient()
@@ -6,7 +6,14 @@ const prisma = new PrismaClient()
 export const getLessons = async (groupId: number) => {
     return prisma.lesson.findMany({
         where: {
-            groupId
+            groupId,
+            status: 'active'
+        },
+        include: {
+            criteria: true
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
@@ -15,15 +22,21 @@ export const createLesson = async (groupId: number, lesson: LessonDto) => {
     return prisma.lesson.create({
         data: {
             title: lesson.title,
-            date: lesson.date,
+            date: new Date(lesson.date),
+            type: lesson.type,
             group: {
                 connect: {
                     id: groupId
                 }
             },
+            criteria: {
+                connect: {
+                    id: lesson.criteria
+                }
+            },
             material: {
                 create: {
-                    content: ''
+                    content: '',
                 }
             }
         },
@@ -31,16 +44,49 @@ export const createLesson = async (groupId: number, lesson: LessonDto) => {
             id: true,
             title: true,
             date: true,
-            material: true
+            material: true,
+            criteria: true,
+            type: true
         }
     })    
+}
+
+export const updateLessonMaterial = async (lessonId: number, content: string) => {
+    return prisma.lesson.update({
+        where: {
+            id: lessonId
+        },
+        data: {
+            material: {
+                update: {
+                    content
+                }
+            }
+        },
+        select: {
+            material: {
+                select: {
+                    content: true
+                }
+            }
+        }
+    })
 }
 
 export const updateLesson = async (lessonId: number, lessonDto: LessonDto) => {
     return prisma.lesson.update({
         data: {
             title: lessonDto.title,
-            date: lessonDto.date,
+            date: new Date(lessonDto.date),
+            criteria: {
+                connect: {
+                    id: lessonDto.criteria
+                }
+            },
+            type: lessonDto.type
+        },
+        include: {
+            criteria: true
         },
         where: {
             id: lessonId
@@ -49,12 +95,31 @@ export const updateLesson = async (lessonId: number, lessonDto: LessonDto) => {
 }
 
 export const deleteLesson = async (lessonId: number) => {
-    return prisma.lesson.delete({
+    return prisma.lesson.update({
         where: {
             id: lessonId
         },
+        data: {
+            status: 'deleted'
+        },
         include: {
-            material: true
+            material: true,
+            criteria: true
+        }
+    })
+}
+
+export const getLessonMaterial = async (lessonId: number) => {
+    return prisma.lesson.findUnique({
+        where: {
+            id: lessonId
+        },
+        select: {
+            material: {
+                select: {
+                    content: true
+                }
+            }
         }
     })
 }

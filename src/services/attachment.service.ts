@@ -2,23 +2,30 @@ import { pathConfig } from '../configs'
 import fs, { mkdirSync, rmSync } from 'fs'
 
 import path from 'path'
+import { mkdirsSync } from 'fs-extra'
 
-export const createAttachmentsFolder = (lessonId: number) => {
-    mkdirSync(path.join(pathConfig.attachmentPath, lessonId.toString())) 
+export const createAttachmentsFolder = (organizationId: number, lessonId: number) => {
+    mkdirsSync(getPath(organizationId, lessonId)) 
 }
 
-export const getAttachments = (lessonId: number) => {
-    return fs.readdirSync(getPath(lessonId))
+export const getAttachments = (organizationId: number, lessonId: number) => {
+    return fs.readdirSync(getPath(organizationId, lessonId))
 }
 
-export const deleteAttachment = (lessonId: number, filename: string) => {
-    rmSync(path.join(getPath(lessonId), filename))
+export const deleteAttachment = (organizationId: number, lessonId: number, filename: string) => {
+    rmSync(path.join(getPath(organizationId, lessonId), filename))
 }
 
-export const createAttachment = (lessonId: number, filename: string) => {
-    const folder = getPath(lessonId)
+export const getAttachment = (organizationId: number, lessonId: number, filename: string) => {
+    return path.join(getPath(organizationId, lessonId), filename)
 }
 
-function getPath(lessonId: number) {
-    return path.join(pathConfig.attachmentPath, lessonId.toString())
+export const existsAttachment = (organizationId: number, lessonId: number, filename: string) => {
+    return fs.existsSync(path.join(getPath(organizationId, lessonId), filename))
+}
+
+export function getPath(organizationId: number, lessonId: number) {
+    console.log(pathConfig.attachmentPath);
+    console.log(organizationId, lessonId);
+    return path.join(pathConfig.attachmentPath, organizationId.toString(), lessonId.toString())
 }

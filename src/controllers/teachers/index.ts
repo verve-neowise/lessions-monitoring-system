@@ -1,6 +1,8 @@
 export { default as allTeachers } from './all-teachers'
+export { default as getTeacher } from './get-teacher'
 export { default as createTeacher } from './create-teacher'
 export { default as deleteTeacher } from './delete-teacher'
 export { default as updateTeacher } from './update-teacher'
 export { default as teacherGroups } from './teacher-groups'
 export { default as teacherDetails } from './teacher-details'
+export { default as recoverTeacher } from './recover-teacher'

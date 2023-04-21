@@ -22,11 +22,12 @@ export const getStudentGroups = async (id: number) => {
                         select: {
                             _count: true
                         }
-                    }
+                    },
+                    status: true
                 },
-                where: {
-                    status: 'active'
-                }
+                // where: {
+                //     status: 'active'
+                // }
             }
         }
     })

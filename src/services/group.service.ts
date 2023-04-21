@@ -1,13 +1,13 @@
 import { GroupDto } from '@models/index'
-import { PrismaClient } from '@prisma/client'
+import { EntityStatus, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const allGroups = async (organizationId: number) => {
+export const allGroups = async (organizationId: number, status: EntityStatus) => {
     return prisma.group.findMany({
         where: {
             organizationId,
-            status: 'active'
+            status
         },
         select: {
             id: true,
@@ -16,11 +16,48 @@ export const allGroups = async (organizationId: number) => {
             direction: {
                 select: {
                     id: true,
-                    name: true
+                    name: true,
+                    status: true
                 }
             },
-            teacher: true,
+            teacher: {
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true,
+                    status: true
+                }
+            },
             status: true
+        },
+        orderBy: {
+            id: 'asc'
+        }
+    })
+}
+
+export const findGroupByIdWithDetails = async (organizationId: number, id: number) => {
+    return prisma.group.findFirst({
+        where: {
+            id,
+            organizationId
+        },
+        include: {
+            direction: {
+                select: {
+                    id: true,
+                    name: true,
+                    status: true
+                }
+            },
+            teacher: {
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true,
+                    status: true
+                }
+            }
         }
     })
 }
@@ -86,6 +123,21 @@ export const removeStudentFromGroup = (id: number, studentId: number) => {
     })
 }
 
+export const addManyStudentsToGroup = (id: number, studentIds: number[]) => {
+    return prisma.group.update({
+        where: {
+            id
+        },
+        data: {
+            students: {
+                connect: studentIds.map(id => ({
+                    id
+                }))
+            }
+        }
+    })
+}
+
 export const addStudentToGroup = (id: number, studentId: number) => {
     return prisma.group.update({
         where: {
@@ -123,11 +175,21 @@ export const isGroupExists = async (organizationId: number, id: number) => {
     return group !== null
 }
 
+export const isGroupWithNameExists = async (organizationId: number, name: string) => {
+    const group = await prisma.group.findFirst({
+        where: {
+            organizationId,
+            name: name.trim().toLowerCase()
+        }
+    })
+    return group !== null
+}
+
 export const createGroup = async (organizationId: number, data: GroupDto) => {
     const { name, months, directionId } = data
     return prisma.group.create({
         data: {
-            name,
+            name: name.toLowerCase(),
             months,
             direction: {
                 connect: {
@@ -158,7 +220,7 @@ export const updateGroup = async (id: number, data: GroupDto) => {
             id
         },
         data: {
-            name,
+            name: name.trim().toLowerCase(),
             months,
             directionId
         }
@@ -177,10 +239,21 @@ export const deleteGroup = async (id: number) => {
 
 }
 
-export const allGroupsCount = async (organizationId: number) => {
+export const allGroupsCount = async (organizationId: number, status: EntityStatus) => {
     return prisma.group.count({
         where: {
             organizationId,
+            status
+        }
+    })
+}
+
+export const recoverGroup = async (groupId: number) => {
+    return await prisma.group.update({
+        where: {
+            id: groupId
+        },
+        data: {
             status: 'active'
         }
     })

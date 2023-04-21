@@ -1,5 +1,4 @@
-import { isStudentExists } from '@services/student.service';
-import { addStudentToGroup, isGroupExists } from '@services/group.service';
+import { addManyStudentsToGroup, isGroupExists } from '@services/group.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -18,18 +17,26 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        const studentExists = await isStudentExists(organizationId, +studentId)
-
-        if (!studentExists) {
+        if (!Array.isArray(studentId)) {
             return res.status(403).json({
-                message: "Student not found: " + id
+                message: "student id must be a number array"
             })
         }
 
-        await addStudentToGroup(+id, +studentId)
+        await addManyStudentsToGroup(+id, studentId)
+
+        // const studentExists = await isStudentExists(organizationId, +studentId)
+
+        // if (!studentExists) {
+        //     return res.status(403).json({
+        //         message: "Student not found: " + id
+        //     })
+        // }
+
+        // await addStudentToGroup(+id, +studentId)
 
         res.json({
-            message: "Student added to group",
+            message: "Students added to group",
         })
     }
     catch(err) {

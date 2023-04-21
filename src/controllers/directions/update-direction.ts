@@ -1,4 +1,4 @@
-import { isDirectionExists, updateDirection } from '@services/direction.service';
+import { isDirectionByNameExists, isDirectionExists, updateDirection } from '@services/direction.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -8,6 +8,14 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const id = +req.params.id
 
         const { name } = req.body
+
+        const find = await isDirectionByNameExists(organizationId, name)
+
+        if (find) {
+            return res.status(400).json({
+                message: 'direction with name ' + name + ' already exists'
+            })
+        }
 
         if (await isDirectionExists(organizationId, id)) {
             

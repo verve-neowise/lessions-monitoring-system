@@ -1,17 +1,20 @@
-import { PrismaClient } from '@prisma/client'
+import { EntityStatus, PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const allDirections = async (organizationId: number) => {
+export const allDirections = async (organizationId: number, status: EntityStatus) => {
     return prisma.direction.findMany({
         where: {
             organizationId,
-            status: 'active'
+            status
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
 
-export const allDirectionsWithGroup = async (organizationId: number) => {
+export const allDirectionsWithGroup = async (organizationId: number, status: EntityStatus) => {
     return prisma.direction.findMany({
         include: {
             groups: {
@@ -43,10 +46,39 @@ export const allDirectionsWithGroup = async (organizationId: number) => {
         },
         where: {
             organizationId,
-            status: 'active'
+            status
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
+
+export const findDirectionWithDetailsById = async (organizationId: number, id: number) => {
+    return prisma.direction.findFirst({
+        where: {
+            id,
+            organizationId,
+        },
+        include: {
+            groups: {
+                select: {
+                    id: true,
+                    name: true,
+                    months: true,
+                    teacher: true,
+                    _count: {
+                        select: {
+                            students: true
+                        }
+                    }
+                }
+            },
+            teachers: true,
+        }
+    })
+}
+
 
 export const findDirectionById = async (organizationId: number, id: number) => {
     return prisma.direction.findFirst({
@@ -62,10 +94,22 @@ export const isDirectionExists = async (organizationId: number, id: number) => {
     return direction !== null
 }
 
+
+export const isDirectionByNameExists = async (orgId: number, name: string) => {
+    const find = await prisma.direction.findFirst({
+        where: {
+            organizationId: orgId,
+            name: name.trim().toLowerCase()
+        }
+    })
+
+    return find != null
+}
+
 export const createDirection = async (orgId: number, name: string) => {
     return prisma.direction.create({
         data: {
-            name,
+            name: name.trim().toLowerCase(),
             organization: {
                 connect: {
                     id: orgId
@@ -81,7 +125,7 @@ export const updateDirection = async (id: number, name: string) => {
             id
         },
         data: {
-            name
+            name: name.toLowerCase()
         }
     })
 }
@@ -114,4 +158,15 @@ export const isDirectionBelongsToOrganization = async (orgId: number, directionI
     })
 
     return direction != null
+}
+
+export const recoverDirection = async (directionId: number) => {
+    return await prisma.direction.update({
+        where: {
+            id: directionId
+        },
+        data: {
+            status: 'active'
+        }
+    })
 }

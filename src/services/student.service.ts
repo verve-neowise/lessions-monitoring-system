@@ -1,23 +1,29 @@
 import { StudentDto } from '@models/index'
-import { PrismaClient, Student } from '@prisma/client'
+import { EntityStatus, PrismaClient, Student } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export const allStudents = async (organizationId: number) => {
+export const allStudents = async (organizationId: number, status: EntityStatus) => {
     return prisma.student.findMany({
         where: {
             user: {
                 organizationId
             },
-            status: 'active'
+            status: status
         },
         include: {
             user: true,
             groups: {
-                where: {
-                    status: 'active'
+                select: {
+                    id: true,
+                    name: true,
+                    status: true,
+                    direction: true
                 }
             }
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
@@ -95,11 +101,12 @@ export const deleteStudent = async (id: number) => {
     })
 }
 
-export const allStudentsCount = async (organizationId: number) => {
+export const allStudentsCount = async (organizationId: number, status: EntityStatus) => {
     return prisma.student.count({
         where: {
             user: {
-                organizationId
+                organizationId,
+                status
             }
         }
     })
@@ -115,4 +122,16 @@ export const isStudentBelongsToOrganization = async (organizationId: number, stu
         }
     })
     return student != null
+}
+
+
+export const recoverStudent = async (studentId: number) => {
+    return await prisma.student.update({
+        where: {
+            id: studentId
+        },
+        data: {
+            status: 'active'
+        }
+    })
 }
