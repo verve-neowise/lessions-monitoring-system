@@ -55,7 +55,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             name
         }
 
-
         const admin = await updateAdmin(id, adminDto)
         let user = (await findUserById(userId))!
         
