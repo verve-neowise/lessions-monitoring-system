@@ -1,4 +1,4 @@
-import { GroupDto } from '@models/group.dto';
+import { GroupDto, GroupResponse } from '@models/group.dto';
 import { createGroup, isGroupWithNameExists } from '@services/group.service';
 import { Request, Response, NextFunction } from 'express';
 
@@ -18,14 +18,22 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const group = await createGroup(organizationId, dto)
 
+        const response: GroupResponse =  {
+            id: group.id,
+            name: group.name,
+            months: group.months,
+            direction: {
+                id: group.direction.id,
+                name: group.direction.name,
+                status: group.direction.status
+            },
+            teacher: null,
+            status: group.status
+        }
+
         res.json({
             message: "group created.",
-            group: {
-                id: group.id,
-                name: group.name,
-                months: group.months,
-                direction: group.direction
-            }
+            group: response
         })
     }
     catch(err) {

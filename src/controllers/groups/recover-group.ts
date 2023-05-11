@@ -1,3 +1,4 @@
+import { GroupResponse } from '@models/group.dto';
 import { deleteGroup, isGroupExists, recoverGroup } from '@services/group.service';
 import { Request, Response, NextFunction } from 'express';
 
@@ -16,10 +17,19 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         }
 
         const group = await recoverGroup(id)
+        
+        const response: GroupResponse = {
+            id: group.id,
+            name: group.name,
+            months: group.months,
+            direction: null,
+            teacher: null,
+            status: group.status
+        }
 
         res.json({
             message: "Group recovered.",
-            group
+            group: response
         })
     }
     catch(err) {

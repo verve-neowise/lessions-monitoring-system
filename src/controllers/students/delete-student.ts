@@ -26,7 +26,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             username: user.username,
             name: student.name,
             surname: student.surname,
-            birthday: student.birthday,
             phone: student.phone,
             groups: [],
             permissions: user.permissions,
@@ -34,7 +33,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         res.json({
             message: "Student deleted.",
-            student
+            student: response
         })
     }
     catch(err) {

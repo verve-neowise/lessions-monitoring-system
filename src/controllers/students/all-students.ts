@@ -18,7 +18,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 username: student.user.username,
                 name: student.name,
                 surname: student.surname,
-                birthday: student.birthday,
                 phone: student.phone,
 
                 groups: student.groups.map(group => {

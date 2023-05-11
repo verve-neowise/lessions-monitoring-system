@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { GroupDto } from '@models/index';
+import { GroupDto, GroupResponse } from '@models/index';
 import { isGroupExists, isGroupWithNameExists, updateGroup } from '@services/group.service';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -30,9 +30,29 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const group = await updateGroup(id, dto)
 
+
+        const response: GroupResponse = {
+            id: group.id,
+            name: group.name,
+            months: group.months,
+            direction: {
+                id: group.direction.id,
+                name: group.direction.name,
+                status: group.direction.status
+            },
+            teacher: group.teacher == null ? null : {
+                id: group.teacher.id,
+                name: group.teacher.name,
+                surname: group.teacher.surname,
+                status: group.teacher.status
+            },
+            status: group.status
+        }
+
+
         res.json({
             message: "Group updated.",
-            group
+            group: response
         })
     }
     catch(err) {

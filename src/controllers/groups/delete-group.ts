@@ -1,3 +1,4 @@
+import { GroupResponse } from '@models/group.dto';
 import { deleteGroup, isGroupExists } from '@services/group.service';
 import { Request, Response, NextFunction } from 'express';
 
@@ -17,9 +18,19 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
         const group = await deleteGroup(id)
 
+
+        const response: GroupResponse =  {
+            id: group.id,
+            name: group.name,
+            months: group.months,
+            direction: null,
+            teacher: null,
+            status: group.status
+        }
+
         res.json({
             message: "Group deleted.",
-            group
+            group: response
         })
     }
     catch(err) {

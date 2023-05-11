@@ -207,6 +207,7 @@ export const createGroup = async (organizationId: number, data: GroupDto) => {
             name: true,
             direction: true,
             months: true,
+            status: true,
         }
     })
 }
@@ -223,6 +224,23 @@ export const updateGroup = async (id: number, data: GroupDto) => {
             name: name.trim().toLowerCase(),
             months,
             directionId
+        },
+        include: {
+            direction: {
+                select: {
+                    id: true,
+                    name: true,
+                    status: true
+                }
+            },
+            teacher: {
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true,
+                    status: true
+                }
+            }
         }
     })
 }

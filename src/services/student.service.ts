@@ -34,6 +34,29 @@ export const findStudentById = async (organizationId: number, id: number) => {
             id,
             user: {
                 organizationId
+            },
+        },
+    })
+}
+
+export const findStudentWithDetails = async (organizationId: number, id: number) => {
+
+    return prisma.student.findFirst({
+        where: {
+            id,
+            user: {
+                organizationId
+            }
+        },
+        include: {
+            user: true,
+            groups: {
+                select: {
+                    id: true,
+                    name: true,
+                    status: true,
+                    direction: true
+                }
             }
         }
     })
@@ -64,7 +87,7 @@ export const createStudent = async (data: StudentDto) => {
             userId: data.userId!,
             name,
             surname,
-            birthday,
+            birthday: new Date(), // TODO: delete after
             phone
         }
     })

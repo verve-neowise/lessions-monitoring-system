@@ -21,10 +21,6 @@ export const createStudentSchema = schema(object({
             required: true,
             min: 3
         }),
-        birthday: string({
-            required: true,
-            min: 3
-        }),
         phone: string({
             required: true,
             min: 3

@@ -14,7 +14,6 @@ export interface StudentResponse {
     username: string,
     name: string,
     surname: string,
-    birthday: Date,
     phone: string,
     groups: {
         id: number,
