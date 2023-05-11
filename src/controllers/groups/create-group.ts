@@ -1,4 +1,5 @@
 import { GroupDto, GroupResponse } from '@models/group.dto';
+import { findDirectionById } from '@services/direction.service';
 import { createGroup, isGroupWithNameExists } from '@services/group.service';
 import { Request, Response, NextFunction } from 'express';
 
@@ -13,6 +14,20 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         if (find) {
             return res.status(400).json({
                 message: 'Group with name ' + find + ' already exists'
+            })
+        }
+
+        const direction = await findDirectionById(organizationId, dto.directionId)
+
+        if (!direction) {
+            return res.status(400).json({
+                message: `Direction with id ${dto.directionId} not found.`
+            })
+        }
+
+        if (direction?.status != 'active') {
+            return res.status(400).json({
+                message: `Cant create group with deleted or deactivated direction`
             })
         }
 
