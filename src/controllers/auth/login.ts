@@ -32,7 +32,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             }
     
             const token = await sign(payload)
-    
+
             res.json({
                 userId: user.id,
                 username: user.username,

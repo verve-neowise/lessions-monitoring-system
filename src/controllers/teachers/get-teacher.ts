@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+
         const id = +req.params.id
         const organizationId = +req.params.orgId
 

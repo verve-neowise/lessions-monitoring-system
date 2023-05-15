@@ -5,6 +5,9 @@ import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
+
+        console.log('All teachers');
+
         const status: EntityStatus = req.query.status as EntityStatus ?? EntityStatus.active
 
         const organizationId = +req.params.orgId 

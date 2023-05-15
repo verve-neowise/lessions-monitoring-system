@@ -10,6 +10,7 @@ import getTeacher from '@controllers/teachers/get-teacher';
 const router = Router({ mergeParams: true })
 
 router.get('/', permissions('admin'), allTeachers)
+
 router.get('/:id', permissions('admin'), getTeacher)
 router.post('/', permissions('admin'), body(createTeacherSchema), createTeacher)
 router.put('/:id', permissions('admin'), body(updateTeacherSchema), updateTeacher)

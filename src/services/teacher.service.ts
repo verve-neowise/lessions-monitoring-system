@@ -50,6 +50,7 @@ export const findTeacherById = async (organizationId: number, id: number) => {
 }
 
 
+
 export const findTeacherWithDetailsById = async (organizationId: number, id: number) => {
     return prisma.teacher.findFirst({
         where: {
