@@ -17,9 +17,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /apps/lms-dev
+            cd /apps/lms
             git pull
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
             yarn install
             yarn deploy
