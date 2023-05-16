@@ -1,5 +1,6 @@
 import { CriteriaDto } from '@models/criteria.dto';
 import { createCriteria } from '@services/criteria.service';
+import { findTeacherById, findTeacherByUserId } from '@services/teacher.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -16,7 +17,31 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        const criteria = await createCriteria(organizationId, criteriaDto)
+        let teacherId = -1
+
+        if (criteriaDto.teacher) {
+            teacherId = criteriaDto.teacher
+
+            const teacher = await findTeacherById(organizationId, teacherId)
+
+            if (!teacher) {
+                return res.status(404).json({
+                    message: 'Teacher not found'
+                })
+            }
+        }
+        else {
+            const teacher = await findTeacherByUserId(organizationId, res.locals.payload.userId)
+            if (!teacher) {
+                return res.status(404).json({
+                    message: 'Teacher id not provided or access not permitted'
+                })
+            }
+
+            teacherId = teacher.id
+        }
+
+        const criteria = await createCriteria(organizationId, teacherId, criteriaDto)
 
         res.json({
             message: 'Criteria created',

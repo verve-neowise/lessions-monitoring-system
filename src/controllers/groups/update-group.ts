@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { GroupDto, GroupResponse } from '@models/index';
-import { isGroupExists, isGroupWithNameExists, updateGroup } from '@services/group.service';
+import { GroupDto, GroupResponse, UpdateGroupDto } from '@models/index';
+import { findGroupWithName, isGroupExists, isGroupWithNameExists, updateGroup } from '@services/group.service';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -17,19 +17,17 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
-        const dto: GroupDto = req.body
+        const dto: UpdateGroupDto = req.body
 
+        const findName = await findGroupWithName(organizationId, dto.name)
 
-        const findName = await isGroupWithNameExists(organizationId, dto.name)
-
-        if (findName) {
+        if (findName && findName.id != id) {
             return res.status(400).json({
                 message: 'Group with name ' + find + ' already exists'
             })
         }
 
         const group = await updateGroup(id, dto)
-
 
         const response: GroupResponse = {
             id: group.id,
@@ -48,7 +46,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             },
             status: group.status
         }
-
 
         res.json({
             message: "Group updated.",

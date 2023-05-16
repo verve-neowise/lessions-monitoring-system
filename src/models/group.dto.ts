@@ -4,6 +4,12 @@ export interface GroupDto {
     directionId: number
 }
 
+export interface UpdateGroupDto {
+    name: string,
+    months: number,
+    directionId: number
+}
+
 export interface GroupResponse {
     id: number;
     name: string;

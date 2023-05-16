@@ -32,7 +32,7 @@ export const isCriteriaExists = async (organizationId: number, id: number) => {
     return criteria !== null
 }
 
-export const createCriteria = async (organizationId: number, data: CriteriaDto) => {
+export const createCriteria = async (organizationId: number, teacherId: number, data: CriteriaDto) => {
     return prisma.criteria.create({
         data: {
             maximum: data.maximum,
@@ -44,6 +44,7 @@ export const createCriteria = async (organizationId: number, data: CriteriaDto) 
                     }))
                 }
             },
+            teacherId: teacherId,
             organization: {
                 connect: {
                     id: organizationId

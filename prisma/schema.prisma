@@ -79,7 +79,7 @@ model Teacher {
 
   directions Direction[]
 
-  status EntityStatus @default(active)
+  status   EntityStatus @default(active)
 }
 
 model Group {
@@ -157,10 +157,12 @@ model Criteria {
   organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId Int
 
+  teacherId Int @default(-1)
+
   status EntityStatus @default(active)
 
-  scroings Scoring[]
-  Lesson   Lesson[]
+  scroings  Scoring[]
+  Lesson    Lesson[]
 }
 
 model Scoring {
@@ -184,9 +186,9 @@ model Assessment {
   lesson   Lesson @relation(fields: [lessonId], references: [id])
   lessonId Int    @map("lessonId")
 
-  comment    String
-  color      String @default("black")
-  score      Int
+  comment String
+  color   String @default("black")
+  score   Int
 }
 
 model Solution {

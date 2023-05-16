@@ -175,6 +175,15 @@ export const isGroupExists = async (organizationId: number, id: number) => {
     return group !== null
 }
 
+export const findGroupWithName = async (organizationId: number, name: string) => {
+    return await prisma.group.findFirst({
+        where: {
+            organizationId,
+            name: name.trim().toLowerCase()
+        }
+    })
+}
+
 export const isGroupWithNameExists = async (organizationId: number, name: string) => {
     const group = await prisma.group.findFirst({
         where: {

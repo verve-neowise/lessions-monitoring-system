@@ -17,3 +17,21 @@ export const createGroupSchema = schema(object({
         })
     }
 }))
+
+export const updateGroupSchema = schema(object({
+    required: true,
+    entries: {
+        name: string({
+            required: false,
+            min: 3
+        }),
+        directionId: number({
+            required: false,
+            min: 0
+        }),
+        months: number({
+            required: false,
+            min: 1
+        })
+    }
+}))
