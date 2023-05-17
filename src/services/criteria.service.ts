@@ -10,7 +10,15 @@ export const allCriterias = async (organizationId: number, status: EntityStatus)
             status: status
         },
         include: {
-            scroings: true
+            scroings: true,
+            teacher: {
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true,
+                    status: true
+                }
+            }
         },
         orderBy: {
             id: 'asc'
@@ -23,6 +31,38 @@ export const findCriteriaById = async (organizationId: number, id: number) => {
         where: {
             id,
             organizationId
+        }
+    })
+}
+
+
+export const findTeacherCriterias = async (organizationId: number, teacherId: number) => {
+    return prisma.criteria.findMany({
+        where: {
+            OR: [
+                {
+                    teacherId,
+                    organizationId
+                },
+                {
+                    teacherId: -1,
+                    organizationId
+                }
+            ]            
+        },
+        include: {
+            scroings: true,
+            teacher: {
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true,
+                    status: true
+                }
+            }
+        },
+        orderBy: {
+            id: 'asc'
         }
     })
 }
@@ -44,7 +84,11 @@ export const createCriteria = async (organizationId: number, teacherId: number, 
                     }))
                 }
             },
-            teacherId: teacherId,
+            teacher: {
+                connect: {
+                    id: teacherId
+                }
+            },
             organization: {
                 connect: {
                     id: organizationId
@@ -52,7 +96,15 @@ export const createCriteria = async (organizationId: number, teacherId: number, 
             }
         },
         include: {
-            scroings: true
+            scroings: true,
+            teacher: {
+                select: {
+                    id: true,
+                    name: true,
+                    surname: true,
+                    status: true
+                }
+            }
         }
     })
 }

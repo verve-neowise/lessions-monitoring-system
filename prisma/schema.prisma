@@ -79,6 +79,8 @@ model Teacher {
 
   directions Direction[]
 
+  criterias Criteria[]
+
   status   EntityStatus @default(active)
 }
 
@@ -157,12 +159,13 @@ model Criteria {
   organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId Int
 
-  teacherId Int @default(-1)
+  teacher   Teacher? @relation(fields: [teacherId], references: [id])
+  teacherId Int?     @default(-1)
 
   status EntityStatus @default(active)
 
-  scroings  Scoring[]
-  Lesson    Lesson[]
+  scroings Scoring[]
+  Lesson   Lesson[]
 }
 
 model Scoring {

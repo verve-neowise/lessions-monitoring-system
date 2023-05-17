@@ -6,6 +6,8 @@ import { allTeachers, createTeacher, deleteTeacher, recoverTeacher, teacherDetai
 import { createTeacherSchema, updateTeacherSchema } from '@schemas/teachers';
 import { allTeacherDirection, addTeacherDirection, deleteTeacherDirection } from '@controllers/teachers/directions';
 import getTeacher from '@controllers/teachers/get-teacher';
+import teacherCriterias from '@controllers/teachers/teacher-criterias';
+import createTeacherCriteria from '@controllers/teachers/create-teacher-criteria';
 
 const router = Router({ mergeParams: true })
 
@@ -25,5 +27,8 @@ router.post('/:id/directions', permissions('admin'), addTeacherDirection)
 router.delete('/:id/directions/:dir_id', permissions('admin'), deleteTeacherDirection)
 
 router.patch('/:id/recover', permissions('admin'), recoverTeacher)
+
+router.get('/:id/criterias', permissions("teacher"), teacherCriterias)
+router.post('/:id/criterias', permissions("teacher"), createTeacherCriteria)
 
 export default router
