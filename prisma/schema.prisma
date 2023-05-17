@@ -81,7 +81,7 @@ model Teacher {
 
   criterias Criteria[]
 
-  status   EntityStatus @default(active)
+  status EntityStatus @default(active)
 }
 
 model Group {
@@ -153,7 +153,11 @@ model Material {
 }
 
 model Criteria {
-  id      Int @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
+  name        String @default("")
+  description String @default("")
+
   maximum Int
 
   organization   Organization @relation(fields: [organizationId], references: [id])

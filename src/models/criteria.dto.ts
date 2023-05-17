@@ -4,6 +4,8 @@ export interface ScoringDto {
 }
 
 export interface CriteriaDto {
+    name: string
+    description?: string
     maximum: number
     scorings: ScoringDto[]
     teacher?: number

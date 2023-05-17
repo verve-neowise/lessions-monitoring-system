@@ -75,6 +75,8 @@ export const isCriteriaExists = async (organizationId: number, id: number) => {
 export const createCriteria = async (organizationId: number, teacherId: number, data: CriteriaDto) => {
     return prisma.criteria.create({
         data: {
+            name: data.name,
+            description: data.description,
             maximum: data.maximum,
             scroings: {
                 createMany: {
@@ -115,6 +117,8 @@ export const updateCriteria = async (id: number, data: CriteriaDto) => {
             id
         },
         data: {
+            name: data.name,
+            description: data.description,
             maximum: data.maximum,
             scroings: {
                 deleteMany: [],
