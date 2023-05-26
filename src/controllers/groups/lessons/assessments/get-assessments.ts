@@ -27,6 +27,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         const response = students.map(student => ({
             id: student.id,
             name: student.name,
+            surname: student.surname,
             assessment: assessments.find(assessment => assessment.studentId == student.id) ?? null
         }))
 

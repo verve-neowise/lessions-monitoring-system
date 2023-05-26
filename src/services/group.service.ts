@@ -209,6 +209,11 @@ export const createGroup = async (organizationId: number, data: GroupDto) => {
                 connect: {
                     id: organizationId
                 }
+            },
+            teacher: {
+                connect: {
+                    id: data.teacherId
+                }
             }
         },
         select: {
@@ -217,6 +222,15 @@ export const createGroup = async (organizationId: number, data: GroupDto) => {
             direction: true,
             months: true,
             status: true,
+            teacher: {
+                select: {
+                    id: true,
+                    userId: true,
+                    name: true,
+                    surname: true,
+                    status: true
+                }
+            }
         }
     })
 }

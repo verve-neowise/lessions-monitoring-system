@@ -32,6 +32,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             lessons: students.map(student => ({
                 studentId: student.id,
                 name: student.name,
+                surname: student.surname,
                 assessment: assessments.find(assessment =>
                     assessment.lessonId == lesson.id && assessment.studentId == student.id
                 ) ?? null

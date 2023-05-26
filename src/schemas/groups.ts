@@ -14,7 +14,11 @@ export const createGroupSchema = schema(object({
         months: number({
             required: true,
             min: 1
-        })
+        }),
+        // teacher: number({
+        //     required: false,
+        //     min: 1
+        // })
     }
 }))
 

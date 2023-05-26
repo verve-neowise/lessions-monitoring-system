@@ -1,7 +1,8 @@
 export interface GroupDto {
     name: string,
     months: number,
-    directionId: number
+    directionId: number,
+    teacherId?: number
 }
 
 export interface UpdateGroupDto {

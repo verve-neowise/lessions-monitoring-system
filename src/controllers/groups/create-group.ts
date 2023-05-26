@@ -1,6 +1,7 @@
 import { GroupDto, GroupResponse } from '@models/group.dto';
 import { findDirectionById } from '@services/direction.service';
 import { createGroup, isGroupWithNameExists } from '@services/group.service';
+import { findTeacherById } from '@services/teacher.service';
 import { Request, Response, NextFunction } from 'express';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -31,6 +32,22 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             })
         }
 
+        if (dto.teacherId) {
+            const teacher = await findTeacherById(organizationId, dto.teacherId!!)
+
+            if (!teacher) {
+                return res.status(404).json({
+                    message: `Teacher with id ${dto.teacherId} not found` 
+                })
+            }
+
+            if (teacher.status !== 'active') {
+                return res.status(404).json({
+                    message: `Cant set deleted or deactivated teacher to group` 
+                })
+            }
+        }
+
         const group = await createGroup(organizationId, dto)
 
         const response: GroupResponse =  {
@@ -42,7 +59,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 name: group.direction.name,
                 status: group.direction.status
             },
-            teacher: null,
+            teacher: group.teacher,
             status: group.status
         }
 
