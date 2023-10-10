@@ -7,7 +7,7 @@ import { verify } from '@services/jwt.service';
 export default (...permissions: Permission[]) => {
 
     return async (req: Request, res: Response, next: NextFunction) => {
-        
+        // accessToken
         let token = req.header('authorization')
 
         if (req.header('x-supervisor-key') == serverConfig.supervisorKey && (permissions.includes('surpervisor') || permissions.includes('admin'))) {
@@ -21,10 +21,17 @@ export default (...permissions: Permission[]) => {
         }
 
         try {
+
+            if (!redistExistsToken(token)) {
+                return res.status(401).send({
+                    message: 'Invalid token'
+                })
+            }
+
             let payload = await verify(token)
 
             res.locals.payload = payload
-
+                                    // ['user']
             let hasAccess = permissions.some(permission => payload.permissions.includes(permission))
 
             if (hasAccess || permissions.length == 0) {

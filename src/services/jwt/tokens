@@ -1,0 +1,66 @@
+access-token = 5min
+refresh-token = 48h
+
+login => access = { role, id, ... } | refresh = {}
+
+GET admin/
+Authorization: Bearer access-token
+
+GET refresh/
+Authorization: Bearer refresh-token
+
+access-token <- 200
+
+
+-------------------------------------------------
+
+access-token
+
+login -> newToken(24h, payload) -> saveRedis(newToken) -> response(token)
+
+GET admin -> auth-mdw -> findInRedis(token) -> exists =>
+
+200 OK
+{
+    message: "asdkasldsad",
+    response: {
+      id: admin.id,
+      userId: user.id,
+      name: admin.name,
+      username: user.username,
+      permissions: user.permissions,
+   }
+}
+
+class AuthResponse(
+    id: Int,
+    userId: Int,
+    name: String,
+    username: String,
+    permissions: String[],
+)
+
+class ApiResponse(
+    message: String? = null,
+    response: AuthResponse? = null
+)
+
+500
+
+{
+    message: "Internal Server error"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

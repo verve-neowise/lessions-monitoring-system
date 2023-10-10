@@ -31,14 +31,18 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 orgId: user.organizationId
             }
     
-            const token = await sign(payload)
+            // const refreshToken = await sign({}) // 48h
+            const accessToken = await sign(payload) // 48h
+
+            // saveToRedis(user.id, refreshToken)
 
             res.json({
                 userId: user.id,
                 username: user.username,
                 permissions: user.permissions,
                 organizationId: user.organizationId,
-                token
+                // refreshToken,
+                accessToken
             })
         }
         else {

@@ -37,6 +37,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         // update username and password
         if (username && password && username.length > 0 && password.length > 0) {
             await updateUser(userId, username, password)
+            redisRemoveToken(userId)
         }
         // update only username
         else if (username && username.length > 0) {
@@ -45,10 +46,12 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         // update only password
         else if (password && password.length > 0) {
             await updateUserPassword(userId, password)
+            redisRemoveToken(userId)
         }
         
         if (permissions && permissions.length > 0) {
             await updatePermissions(userId, permissions)
+            redisRemoveToken(userId)
         }
         
         const adminDto: AdminDto = {
