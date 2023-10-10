@@ -4,7 +4,7 @@ import JWTR from 'jwt-redis'
 import { Payload } from "@models/index"
 import jwtConfig from '@configs/jwt.config'
 
-const { secret, expiresIn } = jwtConfig
+const { secret, refreshExpiresIn, accessExpiresIn } = jwtConfig
 
 const client: redis.RedisClientType = redis.createClient();
 
@@ -12,9 +12,15 @@ const jwtr = new JWTR(client);
 
 client.connect()
 
-export const sign = async (payload: any) => {
+export const signRefreshToken = async (payload: any) => {
     return jwtr.sign(payload, secret, {
-        expiresIn: expiresIn
+        expiresIn: refreshExpiresIn
+    })
+}
+
+export const signAccessToken = async (payload: any) => {
+    return jwtr.sign(payload, secret, {
+        expiresIn: accessExpiresIn
     })
 }
 

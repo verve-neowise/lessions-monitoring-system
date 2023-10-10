@@ -22,12 +22,6 @@ export default (...permissions: Permission[]) => {
 
         try {
 
-            if (!redistExistsToken(token)) {
-                return res.status(401).send({
-                    message: 'Invalid token'
-                })
-            }
-
             let payload = await verify(token)
 
             res.locals.payload = payload

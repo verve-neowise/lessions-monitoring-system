@@ -4,7 +4,8 @@ import bcrypt from "bcrypt";
 import { Payload } from '@models/index';
 
 import { findUser } from '@services/user.service';
-import { sign } from '@services/jwt.service';
+import { sign as signRefreshToken } from '@services/jwt.service';
+import { signAccessToken } from '@services/jwt/redis-jwt.service';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
 
@@ -31,17 +32,15 @@ export default async (req: Request, res: Response, next: NextFunction) => {
                 orgId: user.organizationId
             }
     
-            // const refreshToken = await sign({}) // 48h
-            const accessToken = await sign(payload) // 48h
-
-            // saveToRedis(user.id, refreshToken)
+            const refreshToken = await signRefreshToken(payload) // 48h
+            const accessToken = await signAccessToken(payload) // 4h
 
             res.json({
                 userId: user.id,
                 username: user.username,
                 permissions: user.permissions,
                 organizationId: user.organizationId,
-                // refreshToken,
+                refreshToken,
                 accessToken
             })
         }
