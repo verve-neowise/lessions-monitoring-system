@@ -36,3 +36,6 @@ Run app
 ```bash
 npm start
 ```
+
+
+<!-- Security scan triggered at 2026-09-05 07:26:38 -->
